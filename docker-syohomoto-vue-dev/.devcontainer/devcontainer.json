@@ -1,0 +1,25 @@
+{
+	"name": "docker-test",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+	],
+	"service": "vue-build",
+	"workspaceFolder": "/workspace",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				//Vue環境
+				"dbaeumer.vscode-eslint",
+				"mubaidr.vuejs-extension-pack",
+				"Vue.volar",
+				"ZixuanChen.vitest-explorer",
+				"antfu.vite",
+				"Vue.vscode-typescript-vue-plugin",
+				"esbenp.prettier-vscode",
+				"christian-kohler.npm-intellisense",
+				"MS-CEINTL.vscode-language-pack-ja",
+				"tombonnike.vscode-status-bar-format-toggle"
+			]
+		}
+	}
+}

@@ -1,0 +1,1 @@
+docker-compose.exe -f build-vue.yml up -d

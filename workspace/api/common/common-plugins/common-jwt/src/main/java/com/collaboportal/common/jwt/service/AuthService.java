@@ -1,0 +1,53 @@
+package com.collaboportal.common.jwt.service;
+
+
+
+import com.collaboportal.common.jwt.model.OauthTokenResult;
+
+
+import jakarta.servlet.http.HttpServletResponse;
+
+public interface AuthService {
+
+ 
+
+    /**
+     * アクセストークン情報取得
+     *
+     * @param grant_type    種類
+     * @param code          コード
+     * @param redirect_uri  リダイレクトURL
+     * @param audience      オーディエンス
+     * @param client_id     クライアントID
+     * @param client_secret クライアントシークレット
+     * @param response      HTTPレスポンス
+     * 
+     * @return OauthTokenResult アクセストークン情報
+     */
+    OauthTokenResult getOauthTokenFromColaboportalApi(String grant_type, String code, String redirect_uri,
+                String audience, String client_id, String client_secret, HttpServletResponse response); 
+    
+    /**
+     * トークンリフレッシュ
+     * 
+     * @param client_id     クライアントID
+     * @param client_secret クライアントシークレット
+     * @param refreshToken  リフレッシュトークン
+     * @param response      HTTPレスポンス
+     * 
+     * @return アクセストークン情報
+     */
+    public OauthTokenResult getOauthTokenByRefreshToken(String client_id, String client_secret, String refreshToken, HttpServletResponse response);
+
+    /**
+     * クライアントIDを取得
+     */
+    public String getClientId();
+
+    /**
+     * クライアント秘密を取得
+     */
+    public String getClientSecret();
+
+} 
+

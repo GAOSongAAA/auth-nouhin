@@ -1,0 +1,110 @@
+FROM azul/zulu-openjdk-debian:17
+
+# java17に対応したmavenのインストール
+WORKDIR /opt
+RUN rm -f /etc/apt/sources.list.d/zulu.list || true
+RUN apt-get update
+RUN apt-get install -y wget git
+RUN wget https://archive.apache.org/dist/maven/maven-3/3.9.3/binaries/apache-maven-3.9.3-bin.tar.gz
+RUN tar -xzvf apache-maven-3.9.3-bin.tar.gz 
+RUN ls
+RUN echo "export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")\nexport PATH=$PATH:/opt/apache-maven-3.9.3/bin" >> ~/.bash_profile
+
+ENV JAVA_HOME=/usr/local/openjdk-17
+
+# workspaceをコピー
+COPY /workspace/api/ /usr/workspace/api/
+
+# vueのイメージから静的ファイルのコピー
+# vueプロジェクト
+# js,css
+COPY --from=syohomoto-dev-vue /usr/workspace/ui/dist/assets/ui/* /usr/workspace/api/shoho/src/main/resources/static/assets/ui/
+# html
+COPY --from=syohomoto-dev-vue /usr/workspace/ui/dist/index.html /usr/workspace/api/shoho/src/main/resources/templates/index.html
+
+ENV SECRET_KEY=fe41b467fa94ac3db1445c637175bcd59b678156a12f60d725f315f4fee748b9
+# APIで認証を行うかの設定
+# 0:認証を行わない
+# 1:認証を行う
+ENV NO_AUTHORIZATION=0
+ENV SPRING_DATASOURCE_URL=jdbc:sqlserver://172.25.33.125:11433;databaseName=nouki_dev_sqldb;socketTimeout=3000;encrypt=false;trustServerCertificate=true
+ENV SPRING_DATASOURCE_USERNAME=sa
+ENV SPRING_DATASOURCE_PASSWORD=Password1111
+# 開発環境か判断する設定
+# 0:開発環境
+# 1:本番またはステージング環境
+ENV IS_COOKIE_SECURE=1
+# 仮ログイン画面を封鎖するか判断する設定
+# 0:封鎖しない（開発環境）
+# 1:封鎖する（本番またはステージング環境）
+ENV IS_TMP_LOGIN_CLOSED=0
+ENV LOG_LEVEL=debug
+
+# クッキーの有効期限（半時間）
+ENV COOKIE_EXPIRATION_TIME=1800
+
+# クッキーの有効期限（1年間）
+ENV COOKIE_EXPIRATION_YEAR=31536000
+# アラートルールの各キーワードの境界値
+ENV SLOWREQUEST_ADVICE_BORDER_MILLISEC=1000
+ENV SLOWREQUEST_WARNING_BORDER_MILLISEC=5000
+ENV SLOWREQUEST_FATAL_BORDER_MILLISEC=20000
+
+# パスワード変更URL
+ENV URL_PASS_CHANGE=https://stg-dxsales.collaboportal.com/update_password
+# ログアウトURL
+ENV URL_LOGOUT=https://prestg-id.dx-utility.com/logout
+
+# コラボポータルのWebページのトップのリンクのURL
+ENV URL_COLLABOPORTAL=https://www.google.co.jp/
+# 納品予定サービスのURL
+ENV URL_NOUHIN=https://szgp-app1.collaboportal.com/#/
+# 操作マニュアルのURL
+ENV URL_MANUAL=https://noukidevsterrpgsuzuken.blob.core.windows.net/\$web/iconDescription.pdf
+# 利用規約のURL
+ENV URL_USEOFTERMS=https://noukidevsterrpgsuzuken.blob.core.windows.net/\$web/terms.pdf
+# コラボポータルのプロファイル変更ページのリンクのURL
+ENV URL_PROFILE_CHANGE=https://www.yahoo.co.jp/
+# コラボポータルのパスワード変更ページのリンクのURL
+#ENV URL_PASS_CHANGE=https://www.bing.com/
+# コラボポータルのパスワード再設定ページのリンクのURL
+ENV URL_PASS_RECONFIGURATION=https://www.google.co.jp/
+# コラボポータルの発注提案新規登録ページのリンクのURL
+ENV URL_REGISTRATION=https://www.bing.com/
+# コラボポータルの認証メール再発行ページのリンクのURL
+ENV URL_REISSUE_AUTHMAIL=https://www.yahoo.co.jp/
+# コネクションプールの設定値
+ENV CONNECTIONPOOL_MINIMUM_IDLE=10
+ENV CONNECTIONPOOL_MAXIMUM_POOL_SIZE=100
+ENV CONNECTIONPOOL_NAME=syohomoto-app-api-local
+# PUSH通知用AzureFunctionのURL
+ENV PUSH_NOTIFICATION_URL=https://shoho-dev-func-email.azurewebsites.net/api/
+ENV collaboid_baseurl=http://prestg-id.dx-utility.com
+ENV collaboportal_issuer=prestg-id.dx-utility.com
+ENV collaboportal_client_id_web=uaOOnmkT2yEq1Z4UZmlSmaPR0kv9dq26
+ENV collaboportal_client_secret_web=ki6p8tK3ET2wZ8ZHvVyEYfxSVpYy1YqRQXr2x2VNX3pYGSSKCtpvVtNwlbMsLuMu
+ENV collaboportal_audience=https://id.dx-utility.com/api/v1
+ENV collaboportal_baseurl=https://dev-szgp-app4.collaboportal.com
+
+ENV ENV_FLAG=0
+
+ENV INDEX_PAGE=http://localhost:8080
+
+# 発注のトップ画面
+# ENV SSO_REDIRECT_TOP=https://dev-szgp-app2.collaboportal.com/#/order
+# 発注のログイン画面
+# ENV SSO_REDIRECT_LOGIN=https://dev-szgp-app2.collaboportal.com/auth/callback
+# 発注のエラー画面
+ENV REDIRECT_ERROR=https://localhost:8000/#/error
+# 発注のアップデート画面
+ENV URL_UPDATE=https://dev-szgp-app2.collaboportal.com/#/app-update
+# SSOのコールバックURL
+ENV CALLBACK_URL=http://localhost:8000/api/auth/callback
+# アプリ起動ディープリンク
+# ENV URL_DEEPLINK=suzukenhattyuapp://main?mode=1
+# workspaceをコピーしてjarファイルのビルド
+# ADD /workspace/nouki/ /usr/workspace/nouki/
+# COPY workspace/nouki/ /usr/workspace/nouki/
+WORKDIR /workspace
+# RUN . ~/.bash_profile && mvn clean package -DskipTests
+RUN . ~/.bash_profile

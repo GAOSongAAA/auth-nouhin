@@ -1,0 +1,23 @@
+{
+	"name": "shoho-dev",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+	],
+	"service": "shoho-spring",
+	"workspaceFolder": "/home/workspace",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"Pivotal.vscode-spring-boot",
+				"donjayamanne.githistory",
+				"vscjava.vscode-maven",
+				"mhutchie.git-graph",
+				"vscjava.vscode-spring-boot-dashboard",
+				"vscjava.vscode-spring-initializr",
+				"vscjava.vscode-java-dependency",
+				"vscjava.vscode-java-pack",
+				"vscjava.vscode-java-debug"
+			]
+		}
+	}
+}

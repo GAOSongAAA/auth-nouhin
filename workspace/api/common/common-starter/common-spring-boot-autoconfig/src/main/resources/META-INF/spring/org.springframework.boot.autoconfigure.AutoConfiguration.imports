@@ -1,0 +1,7 @@
+com.collaboportal.common.spring.CommonConfigAutoConfiguration
+com.collaboportal.common.spring.CommonErrorAutoConfiguration
+com.collaboportal.common.spring.jwt.FilterAutoConfiguration
+com.collaboportal.common.spring.MyBatisConfig
+com.collaboportal.common.spring.WebSecurityConfig
+com.collaboportal.common.spring.jwt.JwtBeanInject
+com.collaboportal.common.spring.jwt.JwtBeanRegister

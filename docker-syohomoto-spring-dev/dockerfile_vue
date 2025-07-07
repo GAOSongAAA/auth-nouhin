@@ -1,0 +1,11 @@
+FROM node:16.16
+
+WORKDIR /app
+RUN apt-get update -qq && yarn global add @vue/cli 
+
+# workspaceをコピーしてvueのビルド
+COPY workspace/ui/ /usr/workspace/ui/
+
+# vueのビルド
+WORKDIR /usr/workspace/ui
+RUN yarn install && yarn build
