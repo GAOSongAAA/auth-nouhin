@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.collaboportal.common"},{"l":"com.collaboportal.common.spring"},{"l":"com.collaboportal.common.spring.jwt"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.collaboportal.common"},{"l":"com.collaboportal.common.spring"},{"l":"com.collaboportal.common.spring.jwt"},{"l":"com.collaboportal.common.spring.oauth2"}];updateSearchResults();

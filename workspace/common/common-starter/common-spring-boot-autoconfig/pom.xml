@@ -28,6 +28,11 @@
             <version>SNAPSHOT-1.0.0</version>
         </dependency>
         <dependency>
+            <groupId>com.collaboportal</groupId>
+            <artifactId>common-oauth2</artifactId>
+            <version>SNAPSHOT-1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>12.6.1.jre11</version> <!-- ← 根据你用的 JDK 版本修改 -->

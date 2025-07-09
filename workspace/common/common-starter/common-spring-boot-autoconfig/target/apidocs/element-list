@@ -1,3 +1,4 @@
 com.collaboportal.common
 com.collaboportal.common.spring
 com.collaboportal.common.spring.jwt
+com.collaboportal.common.spring.oauth2

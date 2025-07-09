@@ -1,12 +1,8 @@
-com.collaboportal.common.jwt
 com.collaboportal.common.jwt.context
 com.collaboportal.common.jwt.controller
 com.collaboportal.common.jwt.entity
-com.collaboportal.common.jwt.logic
-com.collaboportal.common.jwt.logic.callbacklogin
 com.collaboportal.common.jwt.model
 com.collaboportal.common.jwt.repository
 com.collaboportal.common.jwt.service
 com.collaboportal.common.jwt.service.Impl
 com.collaboportal.common.jwt.utils
-com.collaboportal.common.strategy

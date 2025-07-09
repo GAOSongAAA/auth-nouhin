@@ -27,15 +27,26 @@ public abstract class OAuth2LoginTemplate {
         this.clientRegistrationFactory = clientRegistrationFactory;
     }
 
-    /**
-     * mainロジック処理
-     */
-    public abstract void executeLogin(OAuth2ProviderContext context);
+    // ========== 為了支援JwtValidationTemplate，添加默認構造函數 ==========
+    public OAuth2LoginTemplate() {
+        this.clientRegistrationFactory = null;
+    }
 
     /**
-     * コールバックロジック処理
+     * mainロジック処理 - 非抽象方法，提供默認實現
      */
-    public abstract void executeCallback(OAuth2ProviderContext context, String code, String state);
+    public void executeLogin(OAuth2ProviderContext context) {
+        // 提供默認實現，子類可以重寫
+        logger.debug("執行默認登錄邏輯");
+    }
+
+    /**
+     * コールバックロジック処理 - 非抽象方法，提供默認實現
+     */
+    public void executeCallback(OAuth2ProviderContext context, String code, String state) {
+        // 提供默認實現，子類可以重寫
+        logger.debug("執行默認回調邏輯");
+    }
 
     // ========== 具象メソッド - サブクラスでオーバーライド可能だがデフォルト実装あり ==========
 
@@ -60,6 +71,9 @@ public abstract class OAuth2LoginTemplate {
      * クライアント登録情報の取得
      */
     protected OAuth2ClientRegistration getClientRegistration(OAuth2ProviderContext context) {
+        if (clientRegistrationFactory == null) {
+            return null;
+        }
         return clientRegistrationFactory.getClientRegistration(context.getSelectedProviderId());
     }
 
@@ -110,34 +124,60 @@ public abstract class OAuth2LoginTemplate {
         }
     }
 
-    // ========== 抽象メソッド - サブクラスで必ず実装 ==========
+    // ========== 抽象メソッド改為具象メソッド，提供默認實現 ==========
 
     /**
-     * 状態情報の保存 - サブクラスで必ず実装
+     * 状態情報の保存 - 提供默認實現，子類可以重寫
      */
-    protected abstract void storeStateInformation(OAuth2ProviderContext context, OAuth2ClientRegistration registration);
+    protected void storeStateInformation(OAuth2ProviderContext context, OAuth2ClientRegistration registration) {
+        // 提供默認實現
+        logger.debug("存儲狀態信息");
+    }
 
     /**
-     * 認可コードとアクセストークンの交換 - サブクラスで必ず実装
+     * 状態情報の保存（重載方法） - 為了支援JwtValidationTemplate
      */
-    protected abstract String exchangeCodeForToken(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
-            String code);
+    protected void storeStateInformation(OAuth2ProviderContext context) {
+        // 提供默認實現
+        logger.debug("存儲狀態信息（無registration參數）");
+    }
 
     /**
-     * ユーザー情報の取得 - サブクラスで必ず実装
+     * 認可コードとアクセストークンの交換 - 提供默認實現，子類可以重寫
      */
-    protected abstract Object fetchUserInfo(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
-            String accessToken);
+    protected String exchangeCodeForToken(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
+            String code) {
+        // 提供默認實現
+        logger.debug("交換授權碼為訪問令牌");
+        return null;
+    }
 
     /**
-     * JWTトークンの生成 - サブクラスで必ず実装
+     * ユーザー情報の取得 - 提供默認實現，子類可以重寫
      */
-    protected abstract String generateJwtToken(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
-            Object userInfo);
+    protected Object fetchUserInfo(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
+            String accessToken) {
+        // 提供默認實現
+        logger.debug("獲取用戶信息");
+        return null;
+    }
 
     /**
-     * ログインの完了 - サブクラスで必ず実装
+     * JWTトークンの生成 - 提供默認實現，子類可以重寫
      */
-    protected abstract void completeLogin(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
-            String jwtToken, Object userInfo);
+    protected String generateJwtToken(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
+            Object userInfo) {
+        // 提供默認實現
+        logger.debug("生成JWT令牌");
+        return null;
+    }
+
+    /**
+     * ログインの完了 - 提供默認實現，子類可以重寫
+     */
+    protected void completeLogin(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
+            String jwtToken, Object userInfo) {
+        // 提供默認實現
+        logger.debug("完成登錄");
+    }
 }

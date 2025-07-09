@@ -10,12 +10,13 @@ import com.collaboportal.common.oauth2.entity.DTO.IUserInfoDto;
 import com.collaboportal.common.oauth2.factory.UserInfoServiceFactory;
 import com.collaboportal.common.oauth2.processor.AuthProcessor;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
+import com.collaboportal.common.oauth2.template.OAuth2LoginTemplate;
 import com.collaboportal.common.oauth2.utils.CookieUtil;
 import com.collaboportal.common.utils.Message;
 
 import jakarta.servlet.http.HttpServletResponse;
 
-public class CallbackLoginTemplate {
+public class CallbackLoginTemplate extends OAuth2LoginTemplate {
 
     private static final Logger logger = LoggerFactory.getLogger(CallbackLoginTemplate.class);
     private final LoginStrategyRegistry strategyRegistry;
