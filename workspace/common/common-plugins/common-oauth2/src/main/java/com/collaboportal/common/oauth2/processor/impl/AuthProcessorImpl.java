@@ -1,4 +1,4 @@
-package com.collaboportal.common.jwt.service.Impl;
+package com.collaboportal.common.oauth2.processor.impl;
 
 import java.io.IOException;
 import java.util.Map;
@@ -6,29 +6,25 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.jwt.model.OauthTokenResponseBody;
 import com.collaboportal.common.jwt.model.OauthTokenResult;
-import com.collaboportal.common.jwt.repository.AuthMapper;
-import com.collaboportal.common.jwt.service.APIClientService;
-import com.collaboportal.common.jwt.service.AuthService;
-import com.collaboportal.common.jwt.utils.APIClient;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
+import com.collaboportal.common.oauth2.processor.APIClientProcessor;
+import com.collaboportal.common.oauth2.processor.AuthProcessor;
+import com.collaboportal.common.oauth2.utils.APIClient;
 import com.collaboportal.common.utils.Message;
 
 import jakarta.servlet.http.HttpServletResponse;
 import retrofit2.Response;
 
-/**
- * 認証サービスの実装クラス
- */
-@Service
-public class AuthServicempl implements AuthService {
+@Component
+public class AuthProcessorImpl implements AuthProcessor {
 
     // ロガー
-    Logger logger = LoggerFactory.getLogger(AuthServicempl.class);
+    Logger logger = LoggerFactory.getLogger(AuthProcessorImpl.class);
 
     // ベースURL
     private String baseUrl = ConfigManager.getConfig().getCollaboidBaseurl();
@@ -41,18 +37,12 @@ public class AuthServicempl implements AuthService {
     // Cookieの有効期限
     private int COOKIE_EXPIRATION = ConfigManager.getConfig().getCookieExpiration();
 
-    // JWTトークンUtil
-    private final JwtTokenUtil jwtTokenUtil;
-
     /**
      * コンストラクタ
      * 
      * @param jwtTokenUtil JWTトークンUtil
-     * @param authMapper   認証マッパー
      */
-    public AuthServicempl(JwtTokenUtil jwtTokenUtil,
-            AuthMapper authMapper) {
-        this.jwtTokenUtil = jwtTokenUtil;
+    public AuthProcessorImpl() {
         logger.debug(clientIdWeb);
         logger.debug(clientSecretWeb);
     }
@@ -70,11 +60,11 @@ public class AuthServicempl implements AuthService {
      * @return OAuthトークン結果
      */
     @Override
-    public OauthTokenResult getOauthTokenFromColaboportalApi(String grant_type, String code, String redirect_uri,
+    public OauthTokenResult getOauthTokenFromEndpoint(String grant_type, String code, String redirect_uri,
             String audience, String client_id, String client_secret, HttpServletResponse response) {
 
         // Serviceのインスタンスを取得
-        APIClientService client = new APIClient(baseUrl).getClient();
+        APIClientProcessor client = new APIClient(baseUrl).getClient();
 
         try {
             // 外部API呼出をログに出力
@@ -109,7 +99,7 @@ public class AuthServicempl implements AuthService {
                         + ";path=/;MAX-AGE=" + COOKIE_EXPIRATION + ";SameSite=strict; ");
 
                 // Idトークンから項目の取り出し
-                Map<String, String> items = jwtTokenUtil.getItemsFromIdToken(idToken);
+                Map<String, String> items = JwtTokenUtil.getItemsJwtToken(idToken);
                 OauthTokenResult result = new OauthTokenResult(accessToken, true, items.get("name"),
                         items.get("sub"), items.get("email"), items.get("given_name"), items.get("family_name"));
                 return result;
@@ -155,7 +145,7 @@ public class AuthServicempl implements AuthService {
             HttpServletResponse response) {
 
         // サービスのインスタンスを取得
-        APIClientService client = new APIClient(baseUrl).getClient();
+        APIClientProcessor client = new APIClient(baseUrl).getClient();
 
         try {
             // 外部API呼出をログに出力
@@ -187,7 +177,7 @@ public class AuthServicempl implements AuthService {
                                 + COOKIE_EXPIRATION + ";SameSite=strict; ");
 
                 // Idトークンから項目の取り出し
-                Map<String, String> items = jwtTokenUtil.getItemsFromIdToken(responseBody.getId_token());
+                Map<String, String> items = JwtTokenUtil.getItemsJwtToken(responseBody.getId_token());
                 OauthTokenResult result = new OauthTokenResult(responseBody.getAccess_token(), true, items.get("name"),
                         items.get("sub"), items.get("email"), items.get("given_name"), items.get("family_name"));
                 return result;

@@ -107,4 +107,45 @@ public class Message {
 		public static final String PROPOSAL_START_DATE = "proposal_start_date";
 
 	}
+
+	public static class ContextInfo {
+		/** 認證狀態 */
+		public static final String AUTH_STATE = "auth_state";
+
+		/** 移動URL */
+		public static final String MOVE_URL = "MoveURL";
+
+		/** 選擇的提供者ID */
+		public static final String SELECTED_PROVIDER_ID = "selected_provider_id";
+
+		/** 請求路徑 */
+		public static final String REQUEST_PATH = "request_path";
+
+		/** 請求主機 */
+		public static final String REQUEST_HOST = "request_host";
+
+		/** 重定向URI */
+		public static final String REDIRECT_URI = "redirect_uri";
+
+		/** 認證提供者URL */
+		public static final String AUTH_PROVIDER_URL = "auth_provider_url";
+
+		/** 發行者 */
+		public static final String ISSUER = "issuer";
+
+		/** 主頁 */
+		public static final String HOME_PAGE = "home_page";
+
+		/** 受眾 */
+		public static final String AUDIENCE = "audience";
+
+		/** 範圍 */
+		public static final String SCOPE = "scope";
+
+		/** 策略鍵 */
+		public static final String STRATEGY_KEY = "strategy_key";
+
+		/** 令牌 */
+		public static final String TOKEN = "token";
+	}
 }

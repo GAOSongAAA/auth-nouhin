@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.stereotype.Component;
 import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.jwt.entity.JwtObject;
 import io.jsonwebtoken.Claims;
@@ -25,7 +24,6 @@ import jakarta.servlet.http.HttpServletRequest;
 /**
  * JWTトークン関連のユーティリティクラス
  */
-@Component
 public class JwtTokenUtil implements Serializable {
 
     // JWTトークンの有効期間
@@ -35,14 +33,14 @@ public class JwtTokenUtil implements Serializable {
     private final static String delimiter = "\\.";
 
     // シークレットキー
-    private String secretKey = ConfigManager.getConfig().getSecretKey();
+    private static String secretKey = ConfigManager.getConfig().getSecretKey();
 
     /**
      * シークレットキーを取得
      * 
      * @return シークレットキー
      */
-    private static Key getKey() {
+    private static Key getKey(String secretKey) {
         byte[] secretKeyBytes = Base64.decodeBase64(secretKey);
         SecretKeySpec SecretKeySpec = new SecretKeySpec(secretKeyBytes, "HmacSHA256");
         return SecretKeySpec;
@@ -90,7 +88,7 @@ public class JwtTokenUtil implements Serializable {
      * @return 全てのクレーム
      */
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(getKey(secretKey)).build().parseClaimsJws(token).getBody();
     }
 
     /**
@@ -111,7 +109,7 @@ public class JwtTokenUtil implements Serializable {
      * @param token Accessトークン
      * @return 取得した項目のマップ
      */
-    public static Map<String, String> getItemsFromAccessToken(String token) {
+    public static Map<String, String> getItemsJwtToken(String token) {
         Map<String, String> items = new HashMap<>();
         try {
             JSONObject playload = new JSONObject(
@@ -136,7 +134,7 @@ public class JwtTokenUtil implements Serializable {
 
     public static JwtObject getItemsFromRequest(HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(7);
-        Map<String, String> claims = getItemsFromAccessToken(token);
+        Map<String, String> claims = getItemsJwtToken(token);
         JwtObject jwtObject = new JwtObject();
         jwtObject.setEmail(claims.get("sub"));
         jwtObject.setHonbuFlg(claims.get("honbuFlg"));
@@ -151,11 +149,12 @@ public class JwtTokenUtil implements Serializable {
      */
     public String updateExpiresAuthToken(String token) {
         Claims claims = getAllClaimsFromToken(token);
-        return Jwts.builder().setClaims(claims).signWith(getKey())
+        return Jwts.builder().setClaims(claims).signWith(getKey(secretKey))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDATION * 1000)).compact();
     }
 
     // ===============================
+
     // ===============================
 
     /**
@@ -189,7 +188,7 @@ public class JwtTokenUtil implements Serializable {
                     .setClaims(claims)
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDATION))
-                    .signWith(getKey())
+                    .signWith(getKey(secretKey))
                     .compact();
 
         } catch (IllegalAccessException e) {
