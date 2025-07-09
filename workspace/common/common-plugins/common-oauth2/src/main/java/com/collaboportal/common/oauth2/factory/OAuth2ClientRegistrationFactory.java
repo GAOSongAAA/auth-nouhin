@@ -1,4 +1,3 @@
-// ========== 工厂模式 - OAuth2客户端注册工厂 ==========
 package com.collaboportal.common.oauth2.factory;
 
 import com.collaboportal.common.oauth2.model.OAuth2ClientRegistration;
@@ -6,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 
 import jakarta.annotation.PostConstruct;
 import java.util.*;
@@ -45,7 +45,7 @@ public class OAuth2ClientRegistrationFactory {
 
                 // 建立路径模式映射
                 List<String> pathPatterns = (List<String>) config.get("path-patterns");
-                if (pathPatterns != null) {
+                if (pathPatterns != null && !pathPatterns.isEmpty()) {
                     for (String pattern : pathPatterns) {
                         pathToProviderMap.put(pattern, providerId);
                     }
@@ -64,17 +64,15 @@ public class OAuth2ClientRegistrationFactory {
      * 创建OAuth2客户端注册
      */
     private OAuth2ClientRegistration createClientRegistration(String providerId, Map<String, Object> config) {
-        return new OAuth2ClientRegistration.Builder()
+        return OAuth2ClientRegistration.builder()
                 .providerId(providerId)
                 .clientId((String) config.get("client-id"))
                 .clientSecret((String) config.get("client-secret"))
-                .authorizationUri((String) config.get("authorization-uri"))
-                .tokenUri((String) config.get("token-uri"))
-                .userInfoUri((String) config.get("user-info-uri"))
-                .redirectUri((String) config.get("redirect-uri"))
+                .issuer((String) config.get("issuer"))
+                .audience((String) config.get("audience"))
                 .scope((String) config.get("scope"))
-                .responseType((String) config.getOrDefault("response-type", "code"))
-                .grantType((String) config.getOrDefault("grant-type", "authorization_code"))
+                .grantType((String) config.get("grant-type"))
+                .redirectUri((String) config.get("redirect-uri"))
                 .pathPatterns((List<String>) config.get("path-patterns"))
                 .userNameAttribute((String) config.getOrDefault("user-name-attribute", "email"))
                 .displayName((String) config.get("display-name"))
@@ -115,19 +113,12 @@ public class OAuth2ClientRegistrationFactory {
     }
 
     /**
-     * 简单的路径匹配逻辑
+     * 路径匹配逻辑
      */
     private boolean isPathMatch(String requestPath, String pattern) {
-        if (pattern.endsWith("/**")) {
-            String prefix = pattern.substring(0, pattern.length() - 3);
-            return requestPath.startsWith(prefix);
-        } else if (pattern.endsWith("/*")) {
-            String prefix = pattern.substring(0, pattern.length() - 2);
-            return requestPath.startsWith(prefix) &&
-                    requestPath.indexOf('/', prefix.length()) == -1;
-        } else {
-            return requestPath.equals(pattern);
-        }
+        AntPathMatcher matcher = new AntPathMatcher();
+
+        return matcher.match(pattern, requestPath);
     }
 
     // Spring Boot配置属性注入

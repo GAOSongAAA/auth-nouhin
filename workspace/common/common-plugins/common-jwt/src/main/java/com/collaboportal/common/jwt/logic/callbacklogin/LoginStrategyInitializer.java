@@ -13,7 +13,7 @@ import com.collaboportal.common.jwt.model.OauthTokenResult;
 import com.collaboportal.common.jwt.service.AuthService;
 import com.collaboportal.common.jwt.service.JwtUserMasterDetailsService;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
-import com.collaboportal.common.strategy.LoginStrategy;
+import com.collaboportal.common.oauth2.strategy.auth.LoginStrategy;
 import com.collaboportal.common.utils.Message;
 
 import jakarta.servlet.http.HttpServletResponse;

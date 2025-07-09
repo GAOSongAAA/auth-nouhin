@@ -3,7 +3,7 @@ package com.collaboportal.common.jwt.logic.callbacklogin;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.collaboportal.common.strategy.LoginStrategy;
+import com.collaboportal.common.oauth2.strategy.login.LoginStrategy;
 
 /**
  * ログインストラテジーを管理するレジストリクラス

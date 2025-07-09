@@ -1,7 +1,7 @@
 package com.collaboportal.common.utils;
 
 public class Message {
-	
+
 	public static final String W400 = "パラメータエラー";
 	public static final String W403 = "アクセスが拒否されました";
 	public static final String W404 = "業務エラー";
@@ -44,8 +44,7 @@ public class Message {
 	 */
 	public static class Cookie {
 
-
-		public static final String HONBU_FLAG = "honbu_flag";
+		public static final String AUTH_STATE = "auth_state";
 
 		/** 認証トークン */
 		public static final String AUTH = "AuthToken";
@@ -106,7 +105,6 @@ public class Message {
 
 		/** 初回提案日時 */
 		public static final String PROPOSAL_START_DATE = "proposal_start_date";
-
 
 	}
 }

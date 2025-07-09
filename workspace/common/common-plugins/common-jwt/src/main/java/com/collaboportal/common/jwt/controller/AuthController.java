@@ -4,9 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.context.AuthContext;
-import com.collaboportal.common.strategy.AuthenticationStrategyRegistry;
-import com.collaboportal.common.strategy.LoginStrategy;
+import com.collaboportal.common.jwt.logic.callbacklogin.LoginStrategyRegistry;
+import com.collaboportal.common.jwt.context.AuthContext;
 import com.collaboportal.common.utils.Message;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationStrategyRegistry globalStrategyRegistry;
+    private final LoginStrategyRegistry loginStrategyRegistry;
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    public AuthController(AuthenticationStrategyRegistry globalStrategyRegistry) {
-        this.globalStrategyRegistry = globalStrategyRegistry;
-        logger.debug("[認證控制器] 初始化完成，開始監聽請求");
+    public AuthController(LoginStrategyRegistry loginStrategyRegistry) {
+        this.loginStrategyRegistry = loginStrategyRegistry;
+        logger.debug("AuthControllerの初期化が完了し、リクエストの監視を開始しました");
     }
 
     @GetMapping("/callback")
@@ -57,16 +56,11 @@ public class AuthController {
         logger.debug("[認証ステージング] 使用するステージング: {}", strategyKey);
 
         try {
-            logger.info("[認證流程] 開始執行登錄策略");
-            LoginStrategy strategy = globalStrategyRegistry.getStrategy(strategyKey);
-            if (strategy == null) {
-                logger.error("[認證錯誤] 未找到策略: {}", strategyKey);
-                throw new IllegalStateException("未找到認證策略: " + strategyKey);
-            }
-            strategy.login(context);
-            logger.info("[認證流程] 登錄流程完成");
+            logger.info("[認証プロセス] ログイン戦略の実行を開始します");
+            loginStrategyRegistry.getStrategy(strategyKey).login(context);
+            logger.info("[認証プロセス] ログインプロセスが完了しました");
         } catch (Exception e) {
-            logger.error("[認證錯誤] 登錄流程中發生異常: {}", e.getMessage(), e);
+            logger.error("[認証エラー] ログインプロセス中に例外が発生しました: {}", e.getMessage(), e);
             throw e;
         }
     }

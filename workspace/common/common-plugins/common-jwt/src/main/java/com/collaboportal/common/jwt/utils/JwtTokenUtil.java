@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.jwt.entity.JwtObject;
-import com.collaboportal.common.jwt.entity.UserMaster;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -30,20 +29,10 @@ import jakarta.servlet.http.HttpServletRequest;
 public class JwtTokenUtil implements Serializable {
 
     // JWTトークンの有効期間
-    private long JWT_TOKEN_VALIDATION = ConfigManager.getConfig().getCookieExpiration() * 1000;
+    private static long JWT_TOKEN_VALIDATION = ConfigManager.getConfig().getCookieExpiration() * 1000;
 
     // JWTトークンのデリミタ
     private final static String delimiter = "\\.";
-
-    // JWTクレームのキー名
-    private final String nameKey = "name";
-    private final String subKey = "sub";
-    private final String emailKey = "email";
-    private final String givenNameKey = "given_name";
-    private final String familyNameKey = "family_name";
-
-    // 本部フラグ
-    private final String honbuFlg = "0";
 
     // シークレットキー
     private String secretKey = ConfigManager.getConfig().getSecretKey();
@@ -53,7 +42,7 @@ public class JwtTokenUtil implements Serializable {
      * 
      * @return シークレットキー
      */
-    private Key getKey() {
+    private static Key getKey() {
         byte[] secretKeyBytes = Base64.decodeBase64(secretKey);
         SecretKeySpec SecretKeySpec = new SecretKeySpec(secretKeyBytes, "HmacSHA256");
         return SecretKeySpec;
@@ -70,16 +59,6 @@ public class JwtTokenUtil implements Serializable {
      */
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
-    }
-
-    /**
-     * トークンから本部フラグを取得
-     * 
-     * @param token JWTトークン
-     * @return 本部フラグ
-     */
-    public String getHonbuFlg(String token) {
-        return getAllClaimsFromToken(token).get("honbuFlg", String.class);
     }
 
     /**
@@ -127,33 +106,24 @@ public class JwtTokenUtil implements Serializable {
     }
 
     /**
-     * IDトークンから項目を取得
+     * Accessトークンから項目を取得
      * 
-     * @param token IDトークン
+     * @param token Accessトークン
      * @return 取得した項目のマップ
      */
-    public Map<String, String> getItemsFromIdToken(String token) {
+    public static Map<String, String> getItemsFromAccessToken(String token) {
         Map<String, String> items = new HashMap<>();
         try {
             JSONObject playload = new JSONObject(
                     new String(Base64.decodeBase64URLSafe(token.split(delimiter)[1]), "UTF-8"));
-            String name = (String) playload.get(nameKey);
-            String sub = (String) playload.get(subKey);
-            String email = (String) playload.get(emailKey);
-            String given_name = (String) playload.get(givenNameKey);
-            String family_name = (String) playload.get(familyNameKey);
-            logger.debug(
-                    "getItemsFromIdTokenで取得項目が取れているか：name:{}、sub:{}、email:{}、given_name:{}、family_name:{}、",
-                    name, sub, email, given_name, family_name);
-            items.put(nameKey, name);
-            items.put(subKey, sub);
-            items.put(emailKey, email);
-            items.put(givenNameKey, given_name);
-            items.put(familyNameKey, family_name);
-            logger.debug(
-                    "getItemsFromIdTokenで返却値に値が入っているか：name:{}、sub:{}、email:{}、given_name:{}、family_name:{}、",
-                    items.get(nameKey), items.get(subKey), items.get(emailKey), items.get(givenNameKey),
-                    items.get(familyNameKey));
+            // イテレータを使用してペイロードのすべてのフィールドを取得
+            for (String key : playload.keySet()) {
+                Object value = playload.get(key);
+                if (value != null) {
+                    items.put(key, value.toString());
+                }
+            }
+            logger.debug("getItemsFromIdTokenで取得した全項目：{}", items);
             return items;
         } catch (JSONException ex) {
             logger.error("JWT変換エラー");
@@ -162,6 +132,15 @@ public class JwtTokenUtil implements Serializable {
             logger.error("JWTエンコードエラー");
             return items;
         }
+    }
+
+    public static JwtObject getItemsFromRequest(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        Map<String, String> claims = getItemsFromAccessToken(token);
+        JwtObject jwtObject = new JwtObject();
+        jwtObject.setEmail(claims.get("sub"));
+        jwtObject.setHonbuFlg(claims.get("honbuFlg"));
+        return jwtObject;
     }
 
     /**
@@ -176,84 +155,50 @@ public class JwtTokenUtil implements Serializable {
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDATION * 1000)).compact();
     }
 
-    /**
-     * セッショントークンから項目を取得
-     * 
-     * @param token セッショントークン
-     * @return 取得した項目のマップ
-     */
-    public Map<String, String> getItemsFromSessionToken(String token) {
-        Map<String, String> items = new HashMap<>();
-        try {
-            JSONObject playload = new JSONObject(
-                    new String(Base64.decodeBase64URLSafe(token.split(delimiter)[1]), "UTF-8"));
-            String employeeType = (String) playload.get("employeeType");
-            String adminFlg = (String) playload.get("adminFlg");
-            items.put("employeeType", employeeType);
-            items.put("adminFlg", adminFlg);
-            if (playload.has("tokSstCod")) {
-                String tokSstCod = (String) playload.get("tokSetCod");
-                items.put("tolSstCod", tokSstCod);
-            }
-            return items;
-        } catch (JSONException ex) {
-            logger.error("JWT変換エラー", ex);
-            return items;
-        } catch (UnsupportedEncodingException ex) {
-            logger.error("JWTエンコードエラー", ex);
-            return items;
-        }
-    }
+    // ===============================
+    // ===============================
 
-    public String generateTokenForMr(UserMaster userMaster) {
-        Map<String, String> claims = new HashMap<>();
-        logger.debug("メールアドレスは：{}, それに対して本部フラグは:{}", userMaster.getUserMail(), userMaster.getUserType());
-        if (userMaster.getUserMail() != null && !userMaster.getUserType().isEmpty()
-                && !userMaster.getUserMail().isBlank()) {
-            return Jwts.builder().setClaims(claims)
-                    .setSubject(userMaster.getUserMail())
-                    .claim("email", userMaster.getUserMail())
-                    .claim("honbuFlg", userMaster.getUserType())
+    /**
+     * オブジェクトからJWTトークンを生成する（反射を使用）
+     * 
+     * @param object トークンに含めるオブジェクト
+     * @return 生成されたJWTトークン
+     */
+    public static String generateTokenFromObject(Object object) {
+        if (object == null) {
+            return null;
+        }
+
+        Map<String, Object> claims = new HashMap<>();
+
+        try {
+            // 反射を使用してオブジェクトのフィールドを取得
+            Class<?> clazz = object.getClass();
+            java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
+
+            for (java.lang.reflect.Field field : fields) {
+                field.setAccessible(true);
+                Object value = field.get(object);
+                if (value != null) {
+                    claims.put(field.getName(), value);
+                }
+            }
+
+            // JWTトークンを生成
+            return Jwts.builder()
+                    .setClaims(claims)
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDATION))
                     .signWith(getKey())
                     .compact();
-        } else {
-            logger.debug("メールアドレスが見つかりません、本部フラグは｛｝に設定されます", userMaster.getUserType());
-            return Jwts.builder().setClaims(claims)
-                    .claim("honbuFlg", userMaster.getUserType())
-                    .setIssuedAt(new Date(System.currentTimeMillis()))
-                    .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDATION))
-                    .signWith(getKey()).compact();
+
+        } catch (IllegalAccessException e) {
+            logger.error("オブジェクトのフィールドアクセスに失敗しました", e);
+            return null;
+        } catch (Exception e) {
+            logger.error("JWTトークンの生成に失敗しました", e);
+            return null;
         }
     }
 
-    public static JwtObject getItemsFromRequest(HttpServletRequest request) {
-        String token = request.getHeader("Authorization").substring(7);
-        Map<String, String> claims = getItemsFromToken(token);
-        JwtObject jwtObject = new JwtObject();
-        jwtObject.setEmail(claims.get("sub"));
-        jwtObject.setHonbuFlg(claims.get("honbuFlg"));
-        return jwtObject;
-    }
-
-    public static Map<String, String> getItemsFromToken(String token) {
-        Map<String, String> items = new HashMap<>();
-        try {
-            JSONObject playload = new JSONObject(
-                    new String(Base64.decodeBase64URLSafe(token.split(delimiter)[1]), "UTF-8"));
-            String honbuFlg = (String) playload.get("honbuFlg");
-            String email = (String) playload.get("sub");
-            items.put("sub", email);
-            items.put("honbuFlg", honbuFlg);
-            return items;
-
-        } catch (JSONException ex) {
-            logger.error("JWT変換エラー");
-            return items;
-        } catch (UnsupportedEncodingException ex) {
-            logger.error("JWTエンコードエラー");
-            return items;
-        }
-    }
 }

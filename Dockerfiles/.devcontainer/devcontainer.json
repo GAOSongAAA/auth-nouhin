@@ -54,8 +54,5 @@
     }
   },
   "postCreateCommand": "echo '開發環境準備完了'",
-  "remoteUser": "root",
-  "mounts": [
-    "source=${localWorkspaceFolder}/workspace,target=/workspace,type=bind,consistency=cached"
-  ]
+  "remoteUser": "root"
 }

@@ -34,7 +34,13 @@ WORKDIR /workspace
 # Mavenローカルリポジトリディレクトリを作成
 RUN mkdir -p /root/.m2
 
-
+RUN cat << EOF > /root/.m2/settings.xml
+                <server>
+                <id>NoukiZaiko2023</id>
+                <username>NoukiZaiko2023</username>
+                <password>ghp_1234567890</password>
+                </server>
+                EOF
 
 
 

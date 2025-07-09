@@ -1,9 +1,11 @@
-// ========== 模板方法抽象基类 - OAuth2登录模板 ==========
+// ========== テンプレートメソッド抽象基底クラス - OAuth2ログインテンプレート ==========
 package com.collaboportal.common.oauth2.template;
 
+import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
 import com.collaboportal.common.oauth2.model.OAuth2ClientRegistration;
 import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,9 +14,9 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * 模板方法模式 - OAuth2登录流程抽象模板
- * 职责：定义OAuth2登录的标准流程，抽象变化点供子类实现
- * 优势：统一流程控制、减少代码重复、易于维护和扩展
+ * テンプレートメソッドパターン - OAuth2ログインフロー抽象テンプレート
+ * 責務：OAuth2ログインの標準フローを定義し、変化点を抽象化してサブクラスで実装
+ * 利点：統一されたフロー制御、コード重複の削減、保守・拡張の容易性
  */
 public abstract class OAuth2LoginTemplate {
 
@@ -26,105 +28,19 @@ public abstract class OAuth2LoginTemplate {
     }
 
     /**
-     * 模板方法 - 定义OAuth2登录的完整流程
-     * 这是不可变的骨架算法
+     * mainロジック処理
      */
-    public final void executeLogin(OAuth2ProviderContext context) {
-        try {
-            logger.info("[OAuth2登录模板] 开始执行登录流程，提供商: {}", context.getSelectedProviderId());
-
-            // 1. 验证和准备阶段
-            if (!validateLoginRequest(context)) {
-                logger.error("[OAuth2登录模板] 登录请求验证失败");
-                handleLoginError(context, "登录请求验证失败");
-                return;
-            }
-
-            // 2. 获取客户端注册信息
-            OAuth2ClientRegistration registration = getClientRegistration(context);
-            if (registration == null) {
-                logger.error("[OAuth2登录模板] 未找到提供商配置: {}", context.getSelectedProviderId());
-                handleLoginError(context, "提供商配置不存在");
-                return;
-            }
-
-            // 3. 准备授权请求参数
-            String state = generateState(context);
-            context.setState(state);
-
-            // 4. 构建授权URL（子类实现）
-            String authorizationUrl = buildAuthorizationUrl(context, registration);
-
-            // 5. 存储状态信息（子类实现）
-            storeStateInformation(context, registration);
-
-            // 6. 执行重定向
-            performRedirect(context, authorizationUrl);
-
-            logger.info("[OAuth2登录模板] 登录流程执行完成，重定向到: {}", authorizationUrl);
-
-        } catch (Exception e) {
-            logger.error("[OAuth2登录模板] 登录流程执行异常", e);
-            handleLoginError(context, "登录流程执行异常: " + e.getMessage());
-        }
-    }
+    public abstract void executeLogin(OAuth2ProviderContext context);
 
     /**
-     * 模板方法 - 定义OAuth2回调处理的完整流程
+     * コールバックロジック処理
      */
-    public final void executeCallback(OAuth2ProviderContext context, String code, String state) {
-        try {
-            logger.info("[OAuth2回调模板] 开始处理OAuth2回调，提供商: {}", context.getSelectedProviderId());
+    public abstract void executeCallback(OAuth2ProviderContext context, String code, String state);
 
-            // 1. 验证回调请求
-            if (!validateCallbackRequest(context, code, state)) {
-                logger.error("[OAuth2回调模板] 回调请求验证失败");
-                handleCallbackError(context, "回调请求验证失败");
-                return;
-            }
-
-            // 2. 获取客户端注册信息
-            OAuth2ClientRegistration registration = getClientRegistration(context);
-            if (registration == null) {
-                logger.error("[OAuth2回调模板] 未找到提供商配置: {}", context.getSelectedProviderId());
-                handleCallbackError(context, "提供商配置不存在");
-                return;
-            }
-
-            // 3. 交换授权码获取访问令牌（子类实现）
-            String accessToken = exchangeCodeForToken(context, registration, code);
-            if (accessToken == null) {
-                logger.error("[OAuth2回调模板] 令牌交换失败");
-                handleCallbackError(context, "令牌交换失败");
-                return;
-            }
-
-            // 4. 获取用户信息（子类实现）
-            Object userInfo = fetchUserInfo(context, registration, accessToken);
-            if (userInfo == null) {
-                logger.error("[OAuth2回调模板] 用户信息获取失败");
-                handleCallbackError(context, "用户信息获取失败");
-                return;
-            }
-
-            // 5. 生成JWT令牌（子类实现）
-            String jwtToken = generateJwtToken(context, registration, userInfo);
-
-            // 6. 设置认证Cookie和完成登录（子类实现）
-            completeLogin(context, registration, jwtToken, userInfo);
-
-            logger.info("[OAuth2回调模板] 回调处理完成");
-
-        } catch (Exception e) {
-            logger.error("[OAuth2回调模板] 回调处理异常", e);
-            handleCallbackError(context, "回调处理异常: " + e.getMessage());
-        }
-    }
-
-    // ========== 具体方法 - 子类可以重写但有默认实现 ==========
+    // ========== 具象メソッド - サブクラスでオーバーライド可能だがデフォルト実装あり ==========
 
     /**
-     * 验证登录请求 - 子类可重写
+     * ログインリクエストの検証 - サブクラスでオーバーライド可能
      */
     protected boolean validateLoginRequest(OAuth2ProviderContext context) {
         return context.getSelectedProviderId() != null &&
@@ -133,7 +49,7 @@ public abstract class OAuth2LoginTemplate {
     }
 
     /**
-     * 验证回调请求 - 子类可重写
+     * コールバックリクエストの検証 - サブクラスでオーバーライド可能
      */
     protected boolean validateCallbackRequest(OAuth2ProviderContext context, String code, String state) {
         return code != null && !code.isEmpty() &&
@@ -141,21 +57,21 @@ public abstract class OAuth2LoginTemplate {
     }
 
     /**
-     * 获取客户端注册信息
+     * クライアント登録情報の取得
      */
     protected OAuth2ClientRegistration getClientRegistration(OAuth2ProviderContext context) {
         return clientRegistrationFactory.getClientRegistration(context.getSelectedProviderId());
     }
 
     /**
-     * 生成状态参数 - 子类可重写
+     * 状態パラメータの生成 - サブクラスでオーバーライド可能
      */
     protected String generateState(OAuth2ProviderContext context) {
         return UUID.randomUUID().toString();
     }
 
     /**
-     * 执行重定向
+     * リダイレクトの実行
      */
     protected void performRedirect(OAuth2ProviderContext context, String authorizationUrl) throws IOException {
         HttpServletResponse response = context.getResponse();
@@ -164,64 +80,63 @@ public abstract class OAuth2LoginTemplate {
     }
 
     /**
-     * 处理登录错误 - 子类可重写
+     * ログインエラーの処理 - サブクラスでオーバーライド可能
      */
     protected void handleLoginError(OAuth2ProviderContext context, String errorMessage) {
         try {
             HttpServletResponse response = context.getResponse();
-            response.setStatus(HttpServletResponse.SC_FOUND);
-            response.setHeader("Location", "/error?message=" + errorMessage);
+            setCookie(response, "MoveURL", "/#/error");
         } catch (Exception e) {
-            logger.error("处理登录错误时发生异常", e);
+            logger.error("ログインエラーの処理中に例外が発生しました", e);
         }
     }
 
+    protected void setCookie(HttpServletResponse response, String name, String value) {
+        logger.debug("Cookieを設定します。{}={}", name, value);
+        String secureFlag = (ConfigManager.getConfig().isCookieSecure()) ? "; Secure" : "";
+        response.addHeader("Set-Cookie", name + "=" + value + "; Path=/; Max-Age="
+                + ConfigManager.getConfig().getCookieExpiration() + "; SameSite=None" + secureFlag);
+    }
+
     /**
-     * 处理回调错误 - 子类可重写
+     * コールバックエラーの処理 - サブクラスでオーバーライド可能
      */
     protected void handleCallbackError(OAuth2ProviderContext context, String errorMessage) {
         try {
             HttpServletResponse response = context.getResponse();
-            response.setStatus(HttpServletResponse.SC_FOUND);
-            response.setHeader("Location", "/error?message=" + errorMessage);
+            setCookie(response, "MoveURL", "/#/error");
         } catch (Exception e) {
-            logger.error("处理回调错误时发生异常", e);
+            logger.error("コールバックエラーの処理中に例外が発生しました", e);
         }
     }
 
-    // ========== 抽象方法 - 子类必须实现 ==========
+    // ========== 抽象メソッド - サブクラスで必ず実装 ==========
 
     /**
-     * 构建授权URL - 子类必须实现
-     */
-    protected abstract String buildAuthorizationUrl(OAuth2ProviderContext context,
-            OAuth2ClientRegistration registration);
-
-    /**
-     * 存储状态信息 - 子类必须实现
+     * 状態情報の保存 - サブクラスで必ず実装
      */
     protected abstract void storeStateInformation(OAuth2ProviderContext context, OAuth2ClientRegistration registration);
 
     /**
-     * 交换授权码获取访问令牌 - 子类必须实现
+     * 認可コードとアクセストークンの交換 - サブクラスで必ず実装
      */
     protected abstract String exchangeCodeForToken(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
             String code);
 
     /**
-     * 获取用户信息 - 子类必须实现
+     * ユーザー情報の取得 - サブクラスで必ず実装
      */
     protected abstract Object fetchUserInfo(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
             String accessToken);
 
     /**
-     * 生成JWT令牌 - 子类必须实现
+     * JWTトークンの生成 - サブクラスで必ず実装
      */
     protected abstract String generateJwtToken(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
             Object userInfo);
 
     /**
-     * 完成登录 - 子类必须实现
+     * ログインの完了 - サブクラスで必ず実装
      */
     protected abstract void completeLogin(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
             String jwtToken, Object userInfo);

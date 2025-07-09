@@ -22,7 +22,7 @@ public class JwtValidationPreHandler {
     private final JwtTokenUtil jwtTokenUtil;
     private final JwtTokenStrategyRegistry strategyRegistry;
 
-    private final String localAuthPage =  "testEnv";
+    private final String localAuthPage = "testEnv";
 
     public JwtValidationPreHandler(JwtTokenUtil jwtTokenUtil) {
         this.jwtTokenUtil = jwtTokenUtil;

@@ -20,7 +20,6 @@ com/collaboportal/common/jwt/entity/JwtObject.class
 com/collaboportal/common/jwt/utils/JwtTokenUtil.class
 com/collaboportal/common/jwt/service/HealthCheckService.class
 com/collaboportal/common/jwt/controller/HealthCheckController.class
-com/collaboportal/common/strategy/GlobalAuthenticationStrategyRegistry.class
 com/collaboportal/common/jwt/service/APIClientService.class
 com/collaboportal/common/jwt/controller/AuthController.class
 com/collaboportal/common/jwt/logic/callbacklogin/LoginStrategyRegistry.class
@@ -29,9 +28,7 @@ com/collaboportal/common/jwt/logic/callbacklogin/LoginStrategyInitializer.class
 com/collaboportal/common/jwt/utils/APIClient.class
 com/collaboportal/common/jwt/entity/UserMaster.class
 com/collaboportal/common/jwt/service/AuthService.class
-com/collaboportal/common/strategy/AuthenticationStrategyRegistry.class
 com/collaboportal/common/jwt/model/OauthTokenResponseBody.class
 com/collaboportal/common/jwt/logic/JwtSignatureValidationFilter.class
-com/collaboportal/common/jwt/controller/MrController.class
 com/collaboportal/common/jwt/logic/callbacklogin/JwtTokenStrategyRegistry.class
 com/collaboportal/common/jwt/service/Impl/AuthServicempl.class
