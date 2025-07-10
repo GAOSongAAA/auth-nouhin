@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
+import com.collaboportal.common.oauth2.annotation.IpRestricted;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
 import com.collaboportal.common.utils.Message;
@@ -34,6 +35,11 @@ public class AuthorizationController {
     }
 
     @GetMapping("/callback")
+    @IpRestricted(allowedIps = {
+            "127.0.0.1", // 本地IP
+            "192.168.1.0/24", // 內網CIDR範圍
+            "10.0.0.1-10.0.0.100" // IP範圍
+    }, message = "此API僅限於指定IP地址存取")
     public void login(
             @RequestParam(value = "email", required = false) String emailFromForm,
             HttpServletRequest request,
@@ -74,6 +80,42 @@ public class AuthorizationController {
             logger.error("[認証コールバック] ログイン戦略の実行中に例外が発生しました: {}", e.getMessage(), e);
             throw e;
         }
+    }
+
+    /**
+     * 管理員專用API - 僅限特定IP存取
+     * 展示IP限制功能的使用範例
+     */
+    @GetMapping("/admin/status")
+    @IpRestricted(allowedIps = {
+            "192.168.1.100", // 管理員工作站IP
+            "10.0.0.0/8" // 內部網路
+    }, message = "管理員API僅限內部網路存取", enabled = true)
+    public Map<String, Object> getAdminStatus(HttpServletRequest request) {
+        logger.info("管理員狀態API被存取，客戶端IP: {}",
+                request.getHeader("X-Forwarded-For") != null ? request.getHeader("X-Forwarded-For")
+                        : request.getRemoteAddr());
+
+        return Map.of(
+                "status", "success",
+                "message", "管理員API存取成功",
+                "timestamp", java.time.Instant.now().toString(),
+                "clientIp", request.getRemoteAddr());
+    }
+
+    /**
+     * 展示停用IP限制的範例
+     */
+    @GetMapping("/public/info")
+    @IpRestricted(allowedIps = { "192.168.1.1" }, // 設定了IP但被停用
+            enabled = false // 停用IP限制
+    )
+    public Map<String, Object> getPublicInfo() {
+        logger.info("公開API被存取");
+        return Map.of(
+                "status", "success",
+                "message", "這是公開API，IP限制已停用",
+                "timestamp", java.time.Instant.now().toString());
     }
 
 }

@@ -2,7 +2,6 @@ package com.collaboportal.common.spring.oauth2;
 
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
 import com.collaboportal.common.oauth2.registry.JwtTokenStrategyRegistry;
-import com.collaboportal.common.oauth2.template.OAuth2LoginTemplate;
 import com.collaboportal.common.oauth2.template.ext.CallbackLoginTemplate;
 import com.collaboportal.common.oauth2.processor.AuthProcessor;
 
