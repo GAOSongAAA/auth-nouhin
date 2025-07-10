@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+          http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <!-- 本地倉庫路徑 -->
+    <localRepository>${user.home}/.m2/repository</localRepository>
+
+    <!-- 服務器認證配置 -->
+    <servers>
+        <!-- Sonatype OSS 倉庫 -->
+        <server>
+            <id>ossrh</id>
+            <username>你的Sonatype用戶名</username>
+            <password>你的Sonatype密碼</password>
+        </server>
+        
+        <!-- 本地 Nexus 私服 -->
+        <server>
+            <id>nexus-releases</id>
+            <username>你的Nexus用戶名</username>
+            <password>你的Nexus密碼</password>
+        </server>
+        
+        <server>
+            <id>nexus-snapshots</id>
+            <username>你的Nexus用戶名</username>
+            <password>你的Nexus密碼</password>
+        </server>
+    </servers>
+
+    <!-- 鏡像配置 -->
+    <mirrors>
+        <!-- 阿里雲鏡像 -->
+        <mirror>
+            <id>aliyun-central</id>
+            <name>阿里雲中央倉庫</name>
+            <url>https://maven.aliyun.com/repository/central</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+        
+        <!-- 騰訊雲鏡像 -->
+        <mirror>
+            <id>tencent-central</id>
+            <name>騰訊雲中央倉庫</name>
+            <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+
+    <!-- 配置文件 -->
+    <profiles>
+        <!-- 發佈配置 -->
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- GPG 配置 -->
+                <gpg.executable>gpg</gpg.executable>
+                <gpg.passphrase>你的GPG密碼</gpg.passphrase>
+                <gpg.keyname>你的GPG密鑰ID</gpg.keyname>
+                
+                <!-- 跳過測試 -->
+                <maven.test.skip>true</maven.test.skip>
+                
+                <!-- 源碼和文檔 -->
+                <maven.source.skip>false</maven.source.skip>
+                <maven.javadoc.skip>false</maven.javadoc.skip>
+            </properties>
+        </profile>
+
+        <!-- 開發配置 -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 跳過 GPG 簽名 -->
+                <gpg.skip>true</gpg.skip>
+                
+                <!-- 跳過源碼和文檔生成 -->
+                <maven.source.skip>true</maven.source.skip>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+            </properties>
+        </profile>
+
+        <!-- 本地私服配置 -->
+        <profile>
+            <id>nexus</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>nexus-public</id>
+                    <name>Nexus Public Repository</name>
+                    <url>http://your-nexus-server:8081/repository/maven-public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>nexus-public</id>
+                    <name>Nexus Public Repository</name>
+                    <url>http://your-nexus-server:8081/repository/maven-public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+        <!-- JDK 配置 -->
+        <profile>
+            <id>jdk17</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>17</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>17</maven.compiler.source>
+                <maven.compiler.target>17</maven.compiler.target>
+                <maven.compiler.compilerVersion>17</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
+    </profiles>
+
+    <!-- 啟用的配置文件 -->
+    <activeProfiles>
+        <activeProfile>dev</activeProfile>
+        <activeProfile>jdk17</activeProfile>
+    </activeProfiles>
+
+</settings> 

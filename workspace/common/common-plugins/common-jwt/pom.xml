@@ -10,100 +10,122 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <packaging>jar</packaging>
 
-	<name>common-jwt</name>
     <artifactId>common-jwt</artifactId>
-	<description>common-jwt</description>
+    <packaging>jar</packaging>
+	<name>common-jwt</name>
+	<description>Common JWT Component for CollabPortal</description>
 
 	<dependencies>
-		<!-- Spring Data Commons for @Param annotation -->
+		<!-- Spring Data Commons -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
 		</dependency>
-		<!-- Common component dependency -->
+
+		<!-- Common Component -->
 		<dependency>
             <groupId>com.collaboportal</groupId>
             <artifactId>common-component</artifactId>
-            <version>${revision}</version>
         </dependency>
-		<!-- JWT library -->
+
+		<!-- Hutool JWT -->
         <dependency>
 		    <groupId>cn.hutool</groupId>
 		    <artifactId>hutool-jwt</artifactId>
 		</dependency>
-		<!-- Retrofit for API calls -->
+
+		<!-- Retrofit -->
 		<dependency>
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>retrofit</artifactId>
 		</dependency>
-		<!-- Gson converter for Retrofit -->
+
+		<!-- Gson Converter -->
 		<dependency>
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>converter-gson</artifactId>
 		</dependency>
+
 		<!-- Jakarta Servlet API -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
+
 		<!-- Jakarta Annotations API -->
 		<dependency>
 			<groupId>jakarta.annotation</groupId>
 			<artifactId>jakarta.annotation-api</artifactId>
 		</dependency>
-		<!-- Spring dependencies -->
+
+		<!-- Spring Boot Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- Logging -->
+
+		<!-- SLF4J -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		<!-- Lombok for annotations -->
+
+		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- MyBatis dependencies -->
+
+		<!-- MyBatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 		</dependency>
-		<!-- JJWT dependencies -->
+
+		<!-- JJWT -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	<!-- Apache Commons Codec for Base64 encoding/decoding -->
-	<dependency>
-		<groupId>commons-codec</groupId>
-		<artifactId>commons-codec</artifactId>
-	</dependency>
-	<!-- JSON processing -->
-	<dependency>
-		<groupId>org.json</groupId>
-		<artifactId>json</artifactId>
-	</dependency>
 
+		<!-- Apache Commons Codec -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<!-- JSON -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

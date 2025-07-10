@@ -1,0 +1,11 @@
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/CommonConfigAutoConfiguration.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/oauth2/OAuth2ConfigurationProperties.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/oauth2/OAuth2CoreAutoConfiguration.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/WebSecurityConfig.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/oauth2/OAuth2ControllerAutoConfiguration.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/package-info.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/oauth2/OAuth2FilterAutoConfiguration.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/CommonErrorAutoConfiguration.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/oauth2/OAuth2StrategyAutoConfiguration.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/jwt/JwtAutoConfiguration.java
+/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/MyBatisConfig.java

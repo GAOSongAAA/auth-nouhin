@@ -10,15 +10,66 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <packaging>pom</packaging>
-    
-	<name>common-starter</name>
+
     <artifactId>common-starter</artifactId>
-	<description>common starters</description>
+    <packaging>pom</packaging>
+	<name>common-starter</name>
+	<description>Common Starters for CollabPortal</description>
 
     <modules>
         <module>common-spring-boot-autoconfig</module>
         <module>common-spring-boot-starter</module>
     </modules>
 
+        <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.collaboportal</groupId>
+                <artifactId>common-dependencies</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            
+            <!-- 內部模組版本管理 -->
+            <dependency>
+                <groupId>com.collaboportal</groupId>
+                <artifactId>common-component</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.collaboportal</groupId>
+                <artifactId>common-jwt</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.collaboportal</groupId>
+                <artifactId>common-oauth2</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.collaboportal</groupId>
+                <artifactId>common-spring-boot-autoconfig</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.collaboportal</groupId>
+                <artifactId>common-spring-boot-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

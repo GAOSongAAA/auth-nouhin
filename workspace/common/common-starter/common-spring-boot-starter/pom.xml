@@ -10,71 +10,69 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <packaging>jar</packaging>
 
-	<name>common-spring-boot-starter</name>
     <artifactId>common-spring-boot-starter</artifactId>
-	<description>springboot3 integrate common</description>
-
-    <properties>
-		<springboot3.version>3.1.0</springboot3.version>
-    </properties>
+    <packaging>jar</packaging>
+	<name>common-spring-boot-starter</name>
+	<description>Spring Boot 3 Starter for CollabPortal Common Components</description>
     
 	<dependencies>
-		<!-- spring-boot-starter-web -->
+		<!-- Spring Boot Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
-		<!-- config (optional) -->
+		<!-- Spring Boot Configuration Processor -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
 		
-		<!-- common-spring-boot-autoconfig -->
+		<!-- Common Spring Boot AutoConfig -->
 		<dependency>
 			<groupId>com.collaboportal</groupId>
 			<artifactId>common-spring-boot-autoconfig</artifactId>
-			<version>${revision}</version>
 		</dependency>
 		
-		<!-- Add required dependencies from autoconfig -->
+		<!-- Common Component -->
 		<dependency>
 			<groupId>com.collaboportal</groupId>
 			<artifactId>common-component</artifactId>
 		</dependency>
+
+		<!-- Common JWT -->
 		<dependency>
 			<groupId>com.collaboportal</groupId>
 			<artifactId>common-jwt</artifactId>
-			<version>${revision}</version>
 		</dependency>
+
+		<!-- Spring Boot Starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- Spring Web MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
+
+		<!-- Jackson Databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 	</dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${springboot3.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-        </dependencies>
-    </dependencyManagement>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

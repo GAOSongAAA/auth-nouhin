@@ -181,5 +181,25 @@ public class SensitiveDataMaskingEncoder extends PatternLayoutEncoder {
         public ch.qos.logback.classic.spi.LoggerContextVO getLoggerContextVO() {
             return delegate.getLoggerContextVO();
         }
+
+        @Override
+        public java.util.List<org.slf4j.event.KeyValuePair> getKeyValuePairs() {
+            return delegate.getKeyValuePairs();
+        }
+
+        @Override
+        public long getSequenceNumber() {
+            return delegate.getSequenceNumber();
+        }
+
+        @Override
+        public int getNanoseconds() {
+            return delegate.getNanoseconds();
+        }
+
+        @Override
+        public java.util.List<org.slf4j.Marker> getMarkerList() {
+            return delegate.getMarkerList();
+        }
     }
 }

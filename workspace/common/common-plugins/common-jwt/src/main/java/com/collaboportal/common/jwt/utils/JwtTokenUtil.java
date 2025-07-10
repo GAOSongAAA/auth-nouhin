@@ -2,7 +2,6 @@ package com.collaboportal.common.jwt.utils;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,10 +39,9 @@ public class JwtTokenUtil implements Serializable {
      * 
      * @return シークレットキー
      */
-    private static Key getKey(String secretKey) {
+    private static SecretKeySpec getKey(String secretKey) {
         byte[] secretKeyBytes = Base64.decodeBase64(secretKey);
-        SecretKeySpec SecretKeySpec = new SecretKeySpec(secretKeyBytes, "HmacSHA256");
-        return SecretKeySpec;
+        return new SecretKeySpec(secretKeyBytes, "HmacSHA256");
     }
 
     // ロガー
@@ -88,7 +86,7 @@ public class JwtTokenUtil implements Serializable {
      * @return 全てのクレーム
      */
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(getKey(secretKey)).build().parseClaimsJws(token).getBody();
+        return Jwts.parser().verifyWith(getKey(secretKey)).build().parseSignedClaims(token).getPayload();
     }
 
     /**
