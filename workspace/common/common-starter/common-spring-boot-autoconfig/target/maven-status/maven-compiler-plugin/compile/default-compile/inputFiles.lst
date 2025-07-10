@@ -1,9 +1,0 @@
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/CommonConfigAutoConfiguration.java
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/WebSecurityConfig.java
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/jwt/package-info.java
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/package-info.java
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/jwt/JwtBeanRegister.java
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/CommonErrorAutoConfiguration.java
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/jwt/JwtBeanInject.java
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/jwt/FilterAutoConfiguration.java
-/workspace/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/MyBatisConfig.java

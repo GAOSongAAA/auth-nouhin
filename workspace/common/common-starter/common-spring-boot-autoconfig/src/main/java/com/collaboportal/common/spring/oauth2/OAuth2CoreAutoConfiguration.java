@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * OAuth2 核心自動配置類
- * 負責註冊 OAuth2 相關的核心組件
+ * OAuth2 コア自動設定クラス
+ * OAuth2 関連のコアコンポーネントの登録を担当する
  */
 @AutoConfiguration
 @ComponentScan(basePackages = {
@@ -29,72 +29,72 @@ public class OAuth2CoreAutoConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(OAuth2CoreAutoConfiguration.class);
 
     public OAuth2CoreAutoConfiguration() {
-        logger.debug("OAuth2 核心自動配置初始化完成");
+        logger.debug("OAuth2 コア自動設定の初期化が完了しました");
     }
 
     /**
-     * OAuth2 客戶端註冊工廠 Bean
-     * 管理 OAuth2 提供者的配置信息
+     * OAuth2 クライアント登録ファクトリ Bean
+     * OAuth2 プロバイダーの設定情報を管理する
      * 
-     * @return OAuth2ClientRegistrationFactory 實例
+     * @return OAuth2ClientRegistrationFactory インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(OAuth2ClientRegistrationFactory.class)
     public OAuth2ClientRegistrationFactory oAuth2ClientRegistrationFactory() {
-        logger.debug("註冊 OAuth2ClientRegistrationFactory Bean");
+        logger.debug("OAuth2ClientRegistrationFactory Bean を登録します");
         return new OAuth2ClientRegistrationFactory();
     }
 
     /**
-     * 認證處理器 Bean
-     * 處理 OAuth2 認證流程
+     * 認証プロセッサ Bean
+     * OAuth2 認証フローを処理する
      * 
-     * @return AuthProcessor 實例
+     * @return AuthProcessor インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(AuthProcessor.class)
     public AuthProcessor authProcessor() {
-        logger.debug("註冊 AuthProcessor Bean");
+        logger.debug("AuthProcessor Bean を登録します");
         return new AuthProcessorImpl();
     }
 
     /**
-     * API 客戶端 Bean
-     * 用於與 OAuth2 提供者的 API 通信
+     * API クライアント Bean
+     * OAuth2 プロバイダーの API との通信に使用する
      * 
-     * @return APIClient 實例
+     * @return APIClient インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(APIClient.class)
     public APIClient apiClient() {
         String baseUrl = ConfigManager.getConfig().getCollaboidBaseurl();
-        logger.debug("註冊 APIClient Bean，baseUrl: {}", baseUrl);
+        logger.debug("APIClient Bean を登録します、baseUrl: {}", baseUrl);
         return new APIClient(baseUrl);
     }
 
     /**
-     * 用戶信息服務工廠 Bean
-     * 註意：UserInfoServiceFactory 是靜態工廠類，這裡主要是為了確保它被初始化
+     * ユーザー情報サービスファクトリ Bean
+     * 注意：UserInfoServiceFactory は静的ファクトリクラスです。ここでは主に初期化を確実にするためです
      * 
-     * @return UserInfoServiceFactory 實例
+     * @return UserInfoServiceFactory インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(UserInfoServiceFactory.class)
     public UserInfoServiceFactory userInfoServiceFactory() {
-        logger.debug("初始化 UserInfoServiceFactory");
+        logger.debug("UserInfoServiceFactory を初期化します");
         return new UserInfoServiceFactory();
     }
 
     /**
-     * OAuth2 配置屬性 Bean
-     * 綁定外部配置文件中的 OAuth2 相關屬性
+     * OAuth2 設定プロパティ Bean
+     * 外部設定ファイルの OAuth2 関連プロパティをバインドする
      * 
-     * @return OAuth2ConfigurationProperties 實例
+     * @return OAuth2ConfigurationProperties インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(OAuth2ConfigurationProperties.class)
     public OAuth2ConfigurationProperties oAuth2ConfigurationProperties() {
-        logger.debug("註冊 OAuth2ConfigurationProperties Bean");
+        logger.debug("OAuth2ConfigurationProperties Bean を登録します");
         return new OAuth2ConfigurationProperties();
     }
 }

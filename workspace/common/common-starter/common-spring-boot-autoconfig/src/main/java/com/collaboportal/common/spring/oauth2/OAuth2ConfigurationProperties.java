@@ -7,36 +7,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * OAuth2 配置屬性類
- * 綁定 application-oauth2.properties 中的 OAuth2 相關配置
+ * OAuth2 設定プロパティクラス
+ * application-oauth2.properties の OAuth2 関連設定をバインドする
  */
 @Component
 @ConfigurationProperties(prefix = "oauth2")
 public class OAuth2ConfigurationProperties {
 
     /**
-     * OAuth2 提供者配置
-     * 格式：oauth2.providers.{providerId}.{property}
+     * OAuth2 プロバイダー設定
+     * 形式：oauth2.providers.{providerId}.{property}
      */
     private Map<String, OAuth2ProviderProperties> providers = new HashMap<>();
 
     /**
-     * OAuth2 安全配置
+     * OAuth2 セキュリティ設定
      */
     private SecurityProperties security = new SecurityProperties();
 
     /**
-     * OAuth2 過濾器配置
+     * OAuth2 フィルター設定
      */
     private FilterProperties filter = new FilterProperties();
 
     /**
-     * OAuth2 回調配置
+     * OAuth2 コールバック設定
      */
     private CallbackProperties callback = new CallbackProperties();
 
     /**
-     * OAuth2 狀態管理配置
+     * OAuth2 状態管理設定
      */
     private StateProperties state = new StateProperties();
 
@@ -82,7 +82,7 @@ public class OAuth2ConfigurationProperties {
     }
 
     /**
-     * OAuth2 提供者屬性
+     * OAuth2 プロバイダープロパティ
      */
     public static class OAuth2ProviderProperties {
         private String clientId;
@@ -179,7 +179,7 @@ public class OAuth2ConfigurationProperties {
     }
 
     /**
-     * 安全屬性
+     * セキュリティプロパティ
      */
     public static class SecurityProperties {
         private boolean enabled = true;
@@ -213,7 +213,7 @@ public class OAuth2ConfigurationProperties {
     }
 
     /**
-     * 過濾器屬性
+     * フィルタープロパティ
      */
     public static class FilterProperties {
         private boolean enabled = true;
@@ -247,7 +247,7 @@ public class OAuth2ConfigurationProperties {
     }
 
     /**
-     * 回調屬性
+     * コールバックプロパティ
      */
     public static class CallbackProperties {
         private String successRedirect = "/";
@@ -281,7 +281,7 @@ public class OAuth2ConfigurationProperties {
     }
 
     /**
-     * 狀態屬性
+     * 状態プロパティ
      */
     public static class StateProperties {
         private String storeType = "cookie";

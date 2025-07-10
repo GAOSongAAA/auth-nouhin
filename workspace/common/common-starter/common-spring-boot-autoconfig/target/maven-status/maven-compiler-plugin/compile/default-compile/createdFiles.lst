@@ -1,6 +1,0 @@
-META-INF/spring-configuration-metadata.json
-com/collaboportal/common/spring/CommonErrorAutoConfiguration.class
-com/collaboportal/common/package-info.class
-com/collaboportal/common/spring/CommonConfigAutoConfiguration.class
-com/collaboportal/common/spring/WebSecurityConfig.class
-com/collaboportal/common/spring/MyBatisConfig.class

@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * OAuth2 控制器自動配置類
- * 負責註冊 OAuth2 相關的控制器組件
+ * OAuth2 コントローラー自動設定クラス
+ * OAuth2 関連のコントローラーコンポーネントの登録を担当する
  */
 @AutoConfiguration
 @ComponentScan(basePackages = {
@@ -25,22 +25,22 @@ public class OAuth2ControllerAutoConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(OAuth2ControllerAutoConfiguration.class);
 
     public OAuth2ControllerAutoConfiguration() {
-        logger.debug("OAuth2 控制器自動配置初始化完成");
+        logger.debug("OAuth2 コントローラー自動設定の初期化が完了しました");
     }
 
     /**
-     * 授權控制器 Bean
-     * 處理 OAuth2 授權請求和回調
+     * 認可コントローラー Bean
+     * OAuth2 認可リクエストとコールバックを処理する
      * 
-     * @param loginStrategyRegistry 登錄策略註冊表
-     * @return AuthorizationController 實例
+     * @param loginStrategyRegistry ログイン戦略レジストリ
+     * @return AuthorizationController インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(AuthorizationController.class)
     @ConditionalOnBean(LoginStrategyRegistry.class)
     public AuthorizationController authorizationController(
             @Autowired LoginStrategyRegistry loginStrategyRegistry) {
-        logger.debug("註冊 AuthorizationController Bean");
+        logger.debug("AuthorizationController Bean を登録します");
         return new AuthorizationController(loginStrategyRegistry);
     }
 }

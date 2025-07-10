@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"com.collaboportal.common.spring","c":"AutoContextConfig","l":"AutoContextConfig()","u":"%3Cinit%3E()"}];updateSearchResults();

@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 
 /**
- * OAuth2 過濾器自動配置類
- * 負責註冊 JWT 驗證過濾器和相關組件
+ * OAuth2 フィルター自動設定クラス
+ * JWT 認証フィルターと関連コンポーネントの登録を担当する
  */
 @AutoConfiguration
 public class OAuth2FilterAutoConfiguration {
@@ -25,16 +25,16 @@ public class OAuth2FilterAutoConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(OAuth2FilterAutoConfiguration.class);
 
     public OAuth2FilterAutoConfiguration() {
-        logger.debug("OAuth2 過濾器自動配置初始化完成");
+        logger.debug("OAuth2 フィルター自動設定の初期化が完了しました");
     }
 
     /**
-     * JWT 驗證模板 Bean
-     * 提供 JWT 驗證的核心邏輯
+     * JWT 検証テンプレート Bean
+     * JWT 検証のコアロジックを提供する
      * 
-     * @param jwtTokenUtil              JWT 工具類
-     * @param clientRegistrationFactory OAuth2 客戶端註冊工廠
-     * @return JwtValidationTemplate 實例
+     * @param jwtTokenUtil              JWT ユーティリティクラス
+     * @param clientRegistrationFactory OAuth2 クライアント登録ファクトリ
+     * @return JwtValidationTemplate インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(JwtValidationTemplate.class)
@@ -42,16 +42,16 @@ public class OAuth2FilterAutoConfiguration {
     public JwtValidationTemplate jwtValidationTemplate(
             @Autowired JwtTokenUtil jwtTokenUtil,
             @Autowired OAuth2ClientRegistrationFactory clientRegistrationFactory) {
-        logger.debug("註冊 JwtValidationTemplate Bean");
+        logger.debug("JwtValidationTemplate Bean を登録します");
         return new JwtValidationTemplate(jwtTokenUtil, clientRegistrationFactory);
     }
 
     /**
-     * JWT 驗證鏈 Bean
-     * 構建 JWT 驗證處理鏈
+     * JWT 検証チェーン Bean
+     * JWT 検証処理チェーンを構築する
      * 
-     * @param jwtValidationTemplate JWT 驗證模板
-     * @return JwtValidationChain 實例
+     * @param jwtValidationTemplate JWT 検証テンプレート
+     * @return JwtValidationChain インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(JwtValidationChain.class)
@@ -59,17 +59,17 @@ public class OAuth2FilterAutoConfiguration {
     @DependsOn("jwtValidationTemplate")
     public JwtValidationChain jwtValidationChain(
             @Autowired JwtValidationTemplate jwtValidationTemplate) {
-        logger.debug("註冊 JwtValidationChain Bean");
+        logger.debug("JwtValidationChain Bean を登録します");
         return jwtValidationTemplate.buildValidationChain();
     }
 
     /**
-     * JWT 認證過濾器 Bean
-     * 主要的 JWT 認證過濾器
+     * JWT 認証フィルター Bean
+     * メインの JWT 認証フィルター
      * 
-     * @param jwtTokenUtil              JWT 工具類
-     * @param clientRegistrationFactory OAuth2 客戶端註冊工廠
-     * @return JwtAuthFilter 實例
+     * @param jwtTokenUtil              JWT ユーティリティクラス
+     * @param clientRegistrationFactory OAuth2 クライアント登録ファクトリ
+     * @return JwtAuthFilter インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(JwtAuthFilter.class)
@@ -77,7 +77,7 @@ public class OAuth2FilterAutoConfiguration {
     public JwtAuthFilter jwtAuthFilter(
             @Autowired JwtTokenUtil jwtTokenUtil,
             @Autowired OAuth2ClientRegistrationFactory clientRegistrationFactory) {
-        logger.debug("註冊 JwtAuthFilter Bean");
+        logger.debug("JwtAuthFilter Bean を登録します");
         return new JwtAuthFilter(jwtTokenUtil, clientRegistrationFactory);
     }
 }
