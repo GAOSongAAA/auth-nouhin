@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+
+  vue-build:
+    build:
+      context: ../
+      dockerfile: ./docker-syohomoto-vue-dev/dockerfile_vue
+    image: dev-vue-syohomoto-mr
+    container_name: syohomoto-mr-dev-vue
+    volumes:
+       - ../workspace:/workspace
+    tty: true
+    ports:
+      - 3000:3000
+

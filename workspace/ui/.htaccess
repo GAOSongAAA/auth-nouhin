@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^apple-touch-icon-.*?\.png$ /apple-touch-icon.png [L]
