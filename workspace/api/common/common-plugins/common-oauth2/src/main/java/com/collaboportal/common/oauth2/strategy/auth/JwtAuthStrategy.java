@@ -1,8 +1,8 @@
 package com.collaboportal.common.oauth2.strategy.auth;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.collaboportal.common.context.model.BaseRequest;
 
 @FunctionalInterface
 public interface JwtAuthStrategy {
-    String execute(HttpServletRequest request);
+    String execute(BaseRequest request);
 }

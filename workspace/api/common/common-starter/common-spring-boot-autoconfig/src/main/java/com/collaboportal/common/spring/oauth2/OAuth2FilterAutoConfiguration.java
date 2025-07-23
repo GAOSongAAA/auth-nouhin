@@ -2,12 +2,9 @@ package com.collaboportal.common.spring.oauth2;
 
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
-import com.collaboportal.common.oauth2.filter.JwtAuthFilter;
 import com.collaboportal.common.oauth2.chain.JwtValidationChain;
-import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
 import com.collaboportal.common.oauth2.template.ext.JwtValidationTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
@@ -81,18 +77,18 @@ public class OAuth2FilterAutoConfiguration {
      * @param clientRegistrationFactory OAuth2 クライアント登録ファクトリ
      * @return JwtAuthFilter インスタンス
      */
-    @Bean
-    @ConditionalOnMissingBean(JwtAuthFilter.class)
-    @ConditionalOnBean({ JwtTokenUtil.class, OAuth2ClientRegistrationFactory.class })
-    public JwtAuthFilter jwtAuthFilter(
-            @Autowired JwtTokenUtil jwtTokenUtil,
-            @Autowired OAuth2ClientRegistrationFactory clientRegistrationFactory) {
-        logger.debug("JwtAuthFilter Bean を登録します");
-        JwtAuthFilter filter = new JwtAuthFilter(jwtTokenUtil, clientRegistrationFactory);
-        filter.setIncludeList(includeList);
-        filter.addExclude("/health", "/error", "/static/**", "/favicon.ico", "/testEnv", "/testEnv.html", "/auth/callback");
-        return filter;
-    }
+    // @Bean
+    // @ConditionalOnMissingBean(JwtAuthFilter.class)
+    // @ConditionalOnBean({ JwtTokenUtil.class, OAuth2ClientRegistrationFactory.class })
+    // public JwtAuthFilter jwtAuthFilter(
+    //         @Autowired JwtTokenUtil jwtTokenUtil,
+    //         @Autowired OAuth2ClientRegistrationFactory clientRegistrationFactory) {
+    //     logger.debug("JwtAuthFilter Bean を登録します");
+    //     JwtAuthFilter filter = new JwtAuthFilter(jwtTokenUtil, clientRegistrationFactory);
+    //     filter.setIncludeList(includeList);
+    //     filter.addExclude("/health", "/error", "/static/**", "/favicon.ico", "/testEnv", "/testEnv.html", "/auth/callback");
+    //     return filter;
+    // }
 
     /**
      * JWT 認證フィルター登録 Bean
@@ -101,13 +97,13 @@ public class OAuth2FilterAutoConfiguration {
      * @param jwtAuthFilter JWT 認証フィルター
      * @return FilterRegistrationBean インスタンス
      */
-    @Bean
-    @ConditionalOnBean(JwtAuthFilter.class)
-    public FilterRegistrationBean<JwtAuthFilter> jwtAuthFilterRegistration(
-            @Autowired JwtAuthFilter jwtAuthFilter) {
-        logger.debug("JwtAuthFilter FilterRegistrationBean を登録します");
-        FilterRegistrationBean<JwtAuthFilter> bean = new FilterRegistrationBean<>(jwtAuthFilter);
-        bean.setOrder(1);
-        return bean;
-    }
+    // @Bean
+    // @ConditionalOnBean(JwtValidationTemplate.class)
+    // public FilterRegistrationBean<JwtValidationTemplate> jwtAuthFilterRegistration(
+    //         @Autowired JwtValidationTemplate jwtAuthFilter) {
+    //     logger.debug("JwtAuthFilter FilterRegistrationBean を登録します");
+    //     FilterRegistrationBean<JwtAuthFilter> bean = new FilterRegistrationBean<>(jwtAuthFilter);
+    //     bean.setOrder(1);
+    //     return bean;
+    // }
 }

@@ -26,8 +26,6 @@ public abstract class OAuth2LoginTemplate {
     public OAuth2LoginTemplate(OAuth2ClientRegistrationFactory clientRegistrationFactory) {
         this.clientRegistrationFactory = clientRegistrationFactory;
     }
-
-    // ========== 為了支援JwtValidationTemplate，添加默認構造函數 ==========
     public OAuth2LoginTemplate() {
         this.clientRegistrationFactory = null;
     }
@@ -88,7 +86,7 @@ public abstract class OAuth2LoginTemplate {
      * リダイレクトの実行
      */
     protected void performRedirect(OAuth2ProviderContext context, String authorizationUrl) throws IOException {
-        HttpServletResponse response = context.getResponse();
+        HttpServletResponse response = (HttpServletResponse) context.getResponse().getSource();
         response.setStatus(HttpServletResponse.SC_FOUND);
         response.setHeader("Location", authorizationUrl);
     }
@@ -98,7 +96,7 @@ public abstract class OAuth2LoginTemplate {
      */
     protected void handleLoginError(OAuth2ProviderContext context, String errorMessage) {
         try {
-            HttpServletResponse response = context.getResponse();
+            HttpServletResponse response = (HttpServletResponse) context.getResponse().getSource();
             setCookie(response, "MoveURL", "/#/error");
         } catch (Exception e) {
             logger.error("ログインエラーの処理中に例外が発生しました", e);
@@ -117,7 +115,7 @@ public abstract class OAuth2LoginTemplate {
      */
     protected void handleCallbackError(OAuth2ProviderContext context, String errorMessage) {
         try {
-            HttpServletResponse response = context.getResponse();
+            HttpServletResponse response = (HttpServletResponse) context.getResponse().getSource();
             setCookie(response, "MoveURL", "/#/error");
         } catch (Exception e) {
             logger.error("コールバックエラーの処理中に例外が発生しました", e);

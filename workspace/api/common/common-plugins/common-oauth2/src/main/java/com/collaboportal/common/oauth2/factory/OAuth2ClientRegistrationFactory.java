@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 
 import jakarta.annotation.PostConstruct;
 import java.util.*;
@@ -23,13 +22,11 @@ public class OAuth2ClientRegistrationFactory {
     private static final Logger logger = LoggerFactory.getLogger(OAuth2ClientRegistrationFactory.class);
 
     // 全プロバイダー設定を格納
-    private Map<String, Map<String, Object>> providers = new HashMap<>();
+    private Map<String, Map<String, Object>> providers = new ConcurrentHashMap<>();
 
     // 作成済みクライアント登録をキャッシュ
     private final Map<String, OAuth2ClientRegistration> clientRegistrations = new ConcurrentHashMap<>();
 
-    // パスパターンからプロバイダーIDへのマッピング
-    private final Map<String, String> pathToProviderMap = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
@@ -42,10 +39,6 @@ public class OAuth2ClientRegistrationFactory {
             try {
                 OAuth2ClientRegistration registration = createClientRegistration(providerId, config);
                 clientRegistrations.put(providerId, registration);
-
-                for (String pattern : toList(config.get("path-patterns"), "path-patterns")) {
-                    pathToProviderMap.put(pattern, providerId);
-                }
 
                 logger.info("OAuth2クライアント登録の作成に成功: {} - {}", providerId, registration.getDisplayName());
             } catch (Exception e) {
@@ -68,12 +61,19 @@ public class OAuth2ClientRegistrationFactory {
         .audience((String) config.get("audience"))
         .scope(toList(config.get("scope"), "scope")) // 複数フォーマット対応
         .grantType((String) config.getOrDefault("grant-type", "authorization_code"))
-        .redirectUri((String) config.getOrDefault("redirect-uri", "{baseUrl}/login/oauth2/code/" + providerId))
-        .pathPatterns(toList(config.get("path-patterns"), "path-patterns"))
+        .redirectUri((String) config.getOrDefault("redirect-uri", "{baseUrl}/auth/callback"))
         .userNameAttribute((String) config.getOrDefault("user-name-attribute", "email"))
         .displayName((String) config.getOrDefault("display-name", providerId))
         .build();
 
+    }
+
+    public String getProviderId(String headerName) {
+        return providers.entrySet().stream()
+        .filter(entry -> entry.getValue().containsKey(headerName))
+        .map(Map.Entry::getKey)
+        .findFirst()
+        .orElse("");
     }
 
     /**
@@ -90,33 +90,6 @@ public class OAuth2ClientRegistrationFactory {
         return Collections.unmodifiableMap(clientRegistrations);
     }
 
-    /**
-     * リクエストパスに基づいてプロバイダーをマッチング
-     */
-    public String findProviderByPath(String requestPath) {
-        for (Map.Entry<String, String> entry : pathToProviderMap.entrySet()) {
-            String pattern = entry.getKey();
-            String providerId = entry.getValue();
-
-            // シンプルなワイルドカードマッチング
-            if (isPathMatch(requestPath, pattern)) {
-                logger.debug("パス {} がプロバイダーにマッチしました: {}", requestPath, providerId);
-                return providerId;
-            }
-        }
-
-        logger.debug("パス {} がどのプロバイダーにもマッチしませんでした", requestPath);
-        return null;
-    }
-
-    /**
-     * パスマッチングロジック
-     */
-    private boolean isPathMatch(String requestPath, String pattern) {
-        AntPathMatcher matcher = new AntPathMatcher();
-
-        return matcher.match(pattern, requestPath);
-    }
 
     // Spring Boot設定プロパティ注入
     public void setProviders(Map<String, Map<String, Object>> providers) {

@@ -6,9 +6,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.collaboportal.common.context.model.BaseRequest;
 import com.collaboportal.common.oauth2.strategy.auth.JwtAuthStrategy;
 
-import jakarta.servlet.http.HttpServletRequest;
+
 
 public class JwtTokenStrategyRegistry {
 
@@ -52,7 +53,7 @@ public class JwtTokenStrategyRegistry {
      * @param strategyKey 使用するストラテジーのキー
      * @return 解決されたトークン。ストラテジーが存在しない場合はnull
      */
-    public String resolveToken(HttpServletRequest request, String strategyKey) {
+    public String resolveToken(BaseRequest request, String strategyKey) {
         logger.debug("[トークン解決] トークン解決処理を開始します。ストラテジーキー: {}", strategyKey);
         JwtAuthStrategy strategy = strategyMap.get(strategyKey);
         if (strategy == null) {

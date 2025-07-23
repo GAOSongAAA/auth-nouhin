@@ -45,7 +45,7 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
      * @param context 認証コンテキスト
      */
     private void handleTestLogin(CallbackContext context) {
-        HttpServletResponse response = context.getResponse();
+        HttpServletResponse response = (HttpServletResponse) context.getResponse().getSource();
         try {
             String email = context.getEmailFromForm();
             if (email == null || email.isEmpty()) {
@@ -90,7 +90,7 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
      * @param context 認証コンテキスト
      */
     private void handleProdLogin(CallbackContext context) {
-        HttpServletResponse response = context.getResponse();
+        HttpServletResponse response = (HttpServletResponse) context.getResponse().getSource();
         try {
 
             OauthTokenResult tokenResult = authProcessor.getOauthTokenFromEndpoint(

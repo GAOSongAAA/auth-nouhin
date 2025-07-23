@@ -83,6 +83,11 @@
       "sourceType": "com.collaboportal.common.config.CommonConfig"
     },
     {
+      "name": "common.util.curr-domain",
+      "type": "java.lang.String",
+      "sourceType": "com.collaboportal.common.config.CommonConfig"
+    },
+    {
       "name": "common.util.env-flag",
       "type": "java.lang.String",
       "sourceType": "com.collaboportal.common.config.CommonConfig"

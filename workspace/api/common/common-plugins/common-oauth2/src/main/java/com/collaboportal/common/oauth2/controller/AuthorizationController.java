@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.context.CallbackContext;
+import com.collaboportal.common.context.model.BaseRequest;
+import com.collaboportal.common.context.model.BaseResponse;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
 import com.collaboportal.common.utils.Message;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +37,8 @@ public class AuthorizationController {
     @GetMapping("/callback")
     public void login(
             @RequestParam(value = "email", required = false) String emailFromForm,
-            HttpServletRequest request,
-            HttpServletResponse response,
+            BaseRequest request,
+            BaseResponse response,
             @RequestParam String code,
             @RequestParam String state,
             @CookieValue(name = Message.Cookie.AUTH_STATE, required = false) String authStateToken,

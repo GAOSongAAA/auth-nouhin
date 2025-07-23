@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.collaboportal.common.ConfigManager;
+import com.collaboportal.common.context.model.BaseRequest;
+import com.collaboportal.common.context.model.BaseResponse;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.chain.JwtValidationChain;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
@@ -65,11 +67,11 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
      * 
      * @param context
      * @return
-     *         解决请求路径与提供商的映射关系，并设置到context中
+     *         解决请求Header与提供商的映射关系，并设置到context中
      */
     private boolean providerIdHandler(OAuth2ProviderContext context) {
-        String path = context.getRequest().getServletPath();
-        String providerId = clientRegistrationFactory.findProviderByPath(path);
+        String headerName = context.getRequest().getHeader("Authorization-Provider");
+        String providerId = clientRegistrationFactory.getProviderId(headerName);
         if (!providerId.isEmpty()) {
             context.setSelectedProviderId(providerId);
             return true;
@@ -81,7 +83,7 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
         try {
             OAuth2ClientRegistration clientRegistration = getClientRegistration(context);
             if (clientRegistration == null) {
-                String errorMessage = String.format("OAuth2 客戶端配置未找到: %s", context.getSelectedProviderId());
+                String errorMessage = String.format("OAuth2 クライアント設定が見つかりません: %s", context.getSelectedProviderId());
                 logger.warn("clientRegistrationが見つかりませんでした: {}", context.getSelectedProviderId());
                 throw new OAuth2ConfigurationException(errorMessage, context.getSelectedProviderId());
             }
@@ -92,15 +94,15 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
         } catch (OAuth2ConfigurationException e) {
             throw e;
         } catch (Exception e) {
-            String errorMessage = String.format("OAuth2 配置處理過程中發生錯誤: %s", e.getMessage());
-            logger.error("OAuth2 配置處理過程中發生異常", e);
+            String errorMessage = String.format("OAuth2 設定処理中にエラーが発生しました: %s", e.getMessage());
+            logger.error("OAuth2 設定処理中に例外が発生しました", e);
             throw new OAuth2ConfigurationException(errorMessage, e);
         }
     }
 
     private boolean stateResolveHandler(OAuth2ProviderContext context) {
-        HttpServletRequest req = context.getRequest();
-        HttpServletResponse resp = context.getResponse();
+        HttpServletRequest req = (HttpServletRequest) context.getRequest().getSource();
+        HttpServletResponse resp = (HttpServletResponse) context.getResponse().getSource();
         Cookie[] cookies = req.getCookies();
         ContextSerializableDto contextSerializableDto = new ContextSerializableDto();
         contextSerializableDto.setIssuer(context.getIssuer());
@@ -122,7 +124,7 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
     }
 
     private boolean cookieCheckHandler(OAuth2ProviderContext context) {
-        HttpServletRequest req = context.getRequest();
+        HttpServletRequest req = (HttpServletRequest) context.getRequest().getSource();
         Cookie[] cookies = req.getCookies();
         if (context.getIssuer().isEmpty() || context.getClientId().isEmpty() || context.getAudience().isEmpty()) {
             logger.warn("issuer, clientId, audienceが設定されていません");
@@ -146,8 +148,8 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
     }
 
     private boolean tokenValidationHandler(OAuth2ProviderContext context) {
-        HttpServletRequest req = context.getRequest();
-        HttpServletResponse resp = context.getResponse();
+        BaseRequest req = context.getRequest();
+        BaseResponse resp = context.getResponse();
         String strategyKey = JwtValidationUtils.decideStrategyByPath(req);
         context.setStrategyKey(strategyKey);
         String token = jwtTokenStrategyRegistry.resolveToken(req, strategyKey);
@@ -171,7 +173,7 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
             String updatedToken = jwtTokenUtil.updateExpiresAuthToken(token);
             logger.debug("トークンの検証に成功しました。新しいトークン: {}", updatedToken);
 
-            JwtValidationUtils.setCookie(resp, Message.Cookie.AUTH, updatedToken);
+            JwtValidationUtils.setCookie(context.getResponse(), Message.Cookie.AUTH, updatedToken);
             return true;
 
         } catch (OAuth2TokenException e) {

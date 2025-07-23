@@ -2,10 +2,12 @@ package com.collaboportal.common.funcs.hooks;
 
 import java.io.IOException;
 
+import com.collaboportal.common.context.model.BaseRequest;
+import com.collaboportal.common.context.model.BaseResponse;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 
 /**
  * 認証フィルター戦略関数インターフェース
@@ -21,6 +23,6 @@ public interface AuthFilterStrategyFunction {
      * @throws IOException 入出力エラーが発生した場合
      * @throws ServletException サーブレット処理中にエラーが発生した場合
      */
-    void handle(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException;
+    void handle(BaseRequest request, BaseResponse response, FilterChain chain) throws IOException, ServletException;
 
 }

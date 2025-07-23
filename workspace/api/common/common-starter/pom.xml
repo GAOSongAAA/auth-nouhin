@@ -19,6 +19,7 @@
     <modules>
         <module>common-spring-boot-autoconfig</module>
         <module>common-spring-boot-starter</module>
+        <module>common-jakarta-servlet</module>
     </modules>
 
         <dependencyManagement>

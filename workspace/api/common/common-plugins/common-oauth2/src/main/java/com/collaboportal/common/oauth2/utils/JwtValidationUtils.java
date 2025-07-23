@@ -1,11 +1,9 @@
 package com.collaboportal.common.oauth2.utils;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 import java.util.List;
 
@@ -13,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.collaboportal.common.ConfigManager;
+import com.collaboportal.common.context.model.BaseCookie;
+import com.collaboportal.common.context.model.BaseRequest;
+import com.collaboportal.common.context.model.BaseResponse;
 import com.collaboportal.common.jwt.utils.JwtMaintenanceUtil;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
 
@@ -50,13 +51,8 @@ public class JwtValidationUtils {
      * @param name     Cookie名
      * @param value    Cookie値
      */
-    public static void setCookie(HttpServletResponse response, String name, String value) {
-        String cookie = name + "=" + value + "; Path=/; Max-Age=" + ConfigManager.getConfig().getCookieExpiration()
-                + "; SameSite=Strict";
-        if (ConfigManager.getConfig().getCookieExpiration() != 0) {
-            cookie += "; Secure";
-        }
-        response.addHeader("Set-Cookie", cookie);
+    public static void setCookie(BaseResponse response, String name, String value) {
+        response.addCookie(new BaseCookie(name, value).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()));
     }
 
     /**
@@ -65,7 +61,7 @@ public class JwtValidationUtils {
      * @param request HTTPリクエスト
      * @return トークン
      */
-    public static String extractTokenFromHeader(HttpServletRequest request) {
+    public static String extractTokenFromHeader(BaseRequest request) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
@@ -79,15 +75,9 @@ public class JwtValidationUtils {
      * @param request HTTPリクエスト
      * @return トークン
      */
-    public static String extractTokenFromCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            return Arrays.stream(cookies)
-                    .filter(c -> "AuthToken".equals(c.getName()))
-                    .map(Cookie::getValue)
-                    .findFirst().orElse(null);
-        }
-        return null;
+    public static String extractTokenFromCookie(BaseRequest request) {
+        String cookie = request.getCookieValue("AuthToken");
+        return cookie;
     }
 
     /**
@@ -111,8 +101,8 @@ public class JwtValidationUtils {
      * @param request HTTPリクエスト
      * @return 認証戦略 ("cookie" または "header")
      */
-    public static String decideStrategyByPath(HttpServletRequest request) {
-        String path = request.getServletPath();
+    public static String decideStrategyByPath(BaseRequest request) {
+        String path = request.getRequestPath();
         if ("/mr".equals(path) || "/".equals(path) || "/index.html".equals(path)) {
             return "cookie";
         } else {

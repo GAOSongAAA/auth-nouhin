@@ -17,7 +17,7 @@ public class CommonConfig implements BaseConfig {
     private boolean isCookieSecure = true;
     private String callback;
     private int cookieExpiration;
-
+    private String currDomain;
 
     @Override
     public String getConfigPrefix() {
@@ -150,6 +150,15 @@ public class CommonConfig implements BaseConfig {
         return this;
     }
 
+    public String getCurrDomain() {
+        return currDomain;
+    }
+
+    public CommonConfig setCurrDomain(String currDomain) {
+        this.currDomain = currDomain;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "CommonConfig{" +
@@ -167,6 +176,7 @@ public class CommonConfig implements BaseConfig {
                 ", isCookieSecure=" + isCookieSecure +
                 ", callback='" + callback + '\'' +
                 ", cookieExpiration=" + cookieExpiration +
+                ", currDomain='" + currDomain + '\'' +
                 '}';
     }
 }
