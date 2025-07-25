@@ -1,6 +1,6 @@
 package com.collaboportal.common.oauth2.processor;
 
-import com.collaboportal.common.jwt.model.OauthTokenResponseBody;
+import com.collaboportal.common.oauth2.model.OauthTokenResponseBody;
 
 import retrofit2.Call;
 

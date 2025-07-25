@@ -2,9 +2,9 @@
 package com.collaboportal.common.context;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.context.model.BaseRequest;
-import com.collaboportal.common.context.model.BaseResponse;
-import com.collaboportal.common.context.model.BaseStorage;
+import com.collaboportal.common.context.web.BaseRequest;
+import com.collaboportal.common.context.web.BaseResponse;
+import com.collaboportal.common.context.web.BaseStorage;
 
 /**
  * Sa-Token 上下文持有类，你可以通过此类快速获取当前环境下的 SaRequest、SaResponse、SaStorage、SaApplication 对象。

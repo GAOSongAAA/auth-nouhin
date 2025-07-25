@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.context.CallbackContext;
-import com.collaboportal.common.context.model.BaseRequest;
-import com.collaboportal.common.context.model.BaseResponse;
+import com.collaboportal.common.context.CommonHolder;
+import com.collaboportal.common.context.web.BaseRequest;
+import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
 import com.collaboportal.common.utils.Message;
@@ -37,8 +38,6 @@ public class AuthorizationController {
     @GetMapping("/callback")
     public void login(
             @RequestParam(value = "email", required = false) String emailFromForm,
-            BaseRequest request,
-            BaseResponse response,
             @RequestParam String code,
             @RequestParam String state,
             @CookieValue(name = Message.Cookie.AUTH_STATE, required = false) String authStateToken,
@@ -47,7 +46,8 @@ public class AuthorizationController {
         logger.info("[認証コールバック] リクエストの処理を開始します。環境フラグ: {}", ConfigManager.getConfig().getEnvFlag());
         logger.debug("[認証コールバック] 受信パラメータ - メール: {}, 認証コード: {}, 状態: {}, 認証状態: {}, リダイレクトURL: {}",
                 emailFromForm, code, state, authStateToken, moveUrl);
-
+        BaseRequest request = CommonHolder.getRequest();
+        BaseResponse response = CommonHolder.getResponse();
         CallbackContext context = CallbackContext.builder()
                 .emailFromForm(emailFromForm)
                 .code(code)
@@ -67,7 +67,7 @@ public class AuthorizationController {
 
         try {
             logger.info("[認証コールバック] ログイン戦略の実行を開始します");
-            loginStrategyRegistry.getStrategy(strategyKey).login(context);
+            loginStrategyRegistry.getStrategy(strategyKey).run(context);
             logger.info("[認証コールバック] ログイン戦略の実行が完了しました");
         } catch (Exception e) {
             logger.error("[認証コールバック] ログイン戦略の実行中に例外が発生しました: {}", e.getMessage(), e);

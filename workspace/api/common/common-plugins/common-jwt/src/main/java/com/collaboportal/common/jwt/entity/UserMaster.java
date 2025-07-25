@@ -14,4 +14,5 @@ public class UserMaster {
     private String userType;
 
     private String userMail;
+    private String password;
 }

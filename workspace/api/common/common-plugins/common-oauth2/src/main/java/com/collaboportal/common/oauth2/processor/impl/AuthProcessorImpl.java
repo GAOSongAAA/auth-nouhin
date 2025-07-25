@@ -9,11 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.jwt.model.OauthTokenResponseBody;
-import com.collaboportal.common.jwt.model.OauthTokenResult;
+import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.exception.OAuth2AuthorizationException;
 import com.collaboportal.common.oauth2.exception.OAuth2TokenException;
+import com.collaboportal.common.oauth2.model.OauthTokenResponseBody;
+import com.collaboportal.common.oauth2.model.OauthTokenResult;
 import com.collaboportal.common.oauth2.processor.APIClientProcessor;
 import com.collaboportal.common.oauth2.processor.AuthProcessor;
 import com.collaboportal.common.oauth2.utils.APIClient;
@@ -63,7 +64,7 @@ public class AuthProcessorImpl implements AuthProcessor {
      */
     @Override
     public OauthTokenResult getOauthTokenFromEndpoint(String grant_type, String code, String redirect_uri,
-            String audience, String client_id, String client_secret, HttpServletResponse response) {
+            String audience, String client_id, String client_secret, BaseResponse response) {
 
         // Serviceのインスタンスを取得
         APIClientProcessor client = new APIClient(baseUrl).getClient();
@@ -110,16 +111,19 @@ public class AuthProcessorImpl implements AuthProcessor {
             // それ以外の場合
             else {
                 String errorMessage = String.format("OAuth トークン取得失敗: HTTP %d", statusCode);
-                logger.error("コラボトークン取得APIステータスエラー。statusCode：{}、responseBody：{}、grant_type：{}、code：{}、redirect_uri：{}、audience：{}、client_id：{}、client_secret：{}",
-                        statusCode, apiResponse.body(), grant_type, code, redirect_uri, audience, client_id, client_secret);
-                throw new OAuth2AuthorizationException(errorMessage, 
-                    Map.of("statusCode", statusCode, "responseBody", apiResponse.body()));
+                logger.error(
+                        "コラボトークン取得APIステータスエラー。statusCode：{}、responseBody：{}、grant_type：{}、code：{}、redirect_uri：{}、audience：{}、client_id：{}、client_secret：{}",
+                        statusCode, apiResponse.body(), grant_type, code, redirect_uri, audience, client_id,
+                        client_secret);
+                throw new OAuth2AuthorizationException(errorMessage,
+                        Map.of("statusCode", statusCode, "responseBody", apiResponse.body()));
             }
         }
         // timeoutの場合ここで処理がされる
         catch (IOException ex) {
             String errorMessage = "OAuth API 通信エラー: " + ex.getMessage();
-            logger.error("コラボAPI呼び出しエラー: grant_type:{}, code:{}, redirect_uri:{}, audience:{}, client_id:{}, client_secret:{}",
+            logger.error(
+                    "コラボAPI呼び出しエラー: grant_type:{}, code:{}, redirect_uri:{}, audience:{}, client_id:{}, client_secret:{}",
                     grant_type, code, redirect_uri, audience, client_id, client_secret, ex);
             throw new OAuth2AuthorizationException(errorMessage, ex);
         } catch (OAuth2AuthorizationException ex) {
@@ -127,7 +131,8 @@ public class AuthProcessorImpl implements AuthProcessor {
             throw ex;
         } catch (Exception ex) {
             String errorMessage = "OAuth API 未预期錯誤: " + ex.getMessage();
-            logger.error("コラボAPI呼び出しで予期せぬエラー: grant_type:{}, code:{}, redirect_uri:{}, audience:{}, client_id:{}, client_secret:{}",
+            logger.error(
+                    "コラボAPI呼び出しで予期せぬエラー: grant_type:{}, code:{}, redirect_uri:{}, audience:{}, client_id:{}, client_secret:{}",
                     grant_type, code, redirect_uri, audience, client_id, client_secret, ex);
             throw new OAuth2AuthorizationException(errorMessage, ex);
         }
@@ -144,7 +149,7 @@ public class AuthProcessorImpl implements AuthProcessor {
      */
     @Override
     public OauthTokenResult getOauthTokenByRefreshToken(String client_id, String client_secret, String refreshToken,
-            HttpServletResponse response) {
+            BaseResponse response) {
 
         // サービスのインスタンスを取得
         APIClientProcessor client = new APIClient(baseUrl).getClient();
@@ -188,10 +193,11 @@ public class AuthProcessorImpl implements AuthProcessor {
             // それ以外の場合
             else {
                 String errorMessage = String.format("トークンリフレッシュ失敗: HTTP %d", statusCode);
-                logger.error("トークンリフレッシュAPI呼び出しでステータスエラー。statusCode：{}、responseBody：{}、grant_type：{}、client_id：{}、client_secret：{}、refreshToken：{}",
+                logger.error(
+                        "トークンリフレッシュAPI呼び出しでステータスエラー。statusCode：{}、responseBody：{}、grant_type：{}、client_id：{}、client_secret：{}、refreshToken：{}",
                         statusCode, apiResponse.body(), "refresh_token", client_id, client_secret, refreshToken);
-                throw new OAuth2TokenException(errorMessage, 
-                    Map.of("statusCode", statusCode, "responseBody", apiResponse.body()));
+                throw new OAuth2TokenException(errorMessage,
+                        Map.of("statusCode", statusCode, "responseBody", apiResponse.body()));
             }
         }
         // timeoutの場合ここで処理がされる
@@ -210,6 +216,5 @@ public class AuthProcessorImpl implements AuthProcessor {
             throw new OAuth2TokenException(errorMessage, ex);
         }
     }
-
 
 }

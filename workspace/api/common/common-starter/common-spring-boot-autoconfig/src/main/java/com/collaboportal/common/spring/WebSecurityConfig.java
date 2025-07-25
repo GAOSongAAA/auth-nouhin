@@ -1,7 +1,7 @@
 package com.collaboportal.common.spring;
 import com.collaboportal.common.strategy.SecurityConfigStrategy;
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.strategy.AuthorizationStrategy;
+import com.collaboportal.common.strategy.FirewallStrategy;
 import com.collaboportal.common.strategy.CsrfStrategy;
 import com.collaboportal.common.strategy.ExceptionHandlingStrategy;
 import com.collaboportal.common.strategy.StatelessSessionStrategy;
@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                 new CsrfStrategy(), // CSRF対策
                 new ExceptionHandlingStrategy(), // 例外処理
                 new StatelessSessionStrategy(), // ステートレスセッション
-                new AuthorizationStrategy(noAuthMode, envFlag, noAuthUrl.split(",")) // 認可設定
+                new FirewallStrategy(noAuthMode, envFlag, noAuthUrl.split(",")) // 認可設定
         );
 
         // 各ストラテジーを適用
@@ -81,4 +81,5 @@ public class WebSecurityConfig {
         logger.debug("認証マネージャーを取得します");
         return config.getAuthenticationManager();
     }
+
 }

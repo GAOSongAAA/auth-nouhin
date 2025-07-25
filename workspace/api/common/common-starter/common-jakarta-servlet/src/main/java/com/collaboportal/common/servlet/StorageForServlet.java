@@ -1,7 +1,8 @@
 
 package com.collaboportal.common.servlet;
 
-import com.collaboportal.common.context.model.BaseStorage;
+import com.collaboportal.common.context.web.BaseStorage;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 /**

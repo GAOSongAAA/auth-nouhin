@@ -2,8 +2,8 @@ package com.collaboportal.common.funcs.hooks;
 
 import java.io.IOException;
 
-import com.collaboportal.common.context.model.BaseRequest;
-import com.collaboportal.common.context.model.BaseResponse;
+import com.collaboportal.common.context.web.BaseRequest;
+import com.collaboportal.common.context.web.BaseResponse;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

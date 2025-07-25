@@ -2,6 +2,8 @@
 package com.collaboportal.common.oauth2.template;
 
 import com.collaboportal.common.ConfigManager;
+import com.collaboportal.common.context.web.BaseCookie;
+import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
 import com.collaboportal.common.oauth2.model.OAuth2ClientRegistration;
 import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
@@ -9,9 +11,8 @@ import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
+
 
 /**
  * テンプレートメソッドパターン - OAuth2ログインフロー抽象テンプレート
@@ -76,19 +77,11 @@ public abstract class OAuth2LoginTemplate {
     }
 
     /**
-     * 状態パラメータの生成 - サブクラスでオーバーライド可能
-     */
-    protected String generateState(OAuth2ProviderContext context) {
-        return UUID.randomUUID().toString();
-    }
-
-    /**
      * リダイレクトの実行
      */
     protected void performRedirect(OAuth2ProviderContext context, String authorizationUrl) throws IOException {
-        HttpServletResponse response = (HttpServletResponse) context.getResponse().getSource();
-        response.setStatus(HttpServletResponse.SC_FOUND);
-        response.setHeader("Location", authorizationUrl);
+        BaseResponse response = context.getResponse();
+        response.redirect(authorizationUrl);
     }
 
     /**
@@ -96,27 +89,22 @@ public abstract class OAuth2LoginTemplate {
      */
     protected void handleLoginError(OAuth2ProviderContext context, String errorMessage) {
         try {
-            HttpServletResponse response = (HttpServletResponse) context.getResponse().getSource();
-            setCookie(response, "MoveURL", "/#/error");
+            BaseResponse response = context.getResponse();
+            response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
         } catch (Exception e) {
             logger.error("ログインエラーの処理中に例外が発生しました", e);
         }
     }
 
-    protected void setCookie(HttpServletResponse response, String name, String value) {
-        logger.debug("Cookieを設定します。{}={}", name, value);
-        String secureFlag = (ConfigManager.getConfig().isCookieSecure()) ? "; Secure" : "";
-        response.addHeader("Set-Cookie", name + "=" + value + "; Path=/; Max-Age="
-                + ConfigManager.getConfig().getCookieExpiration() + "; SameSite=None" + secureFlag);
-    }
+   
 
     /**
      * コールバックエラーの処理 - サブクラスでオーバーライド可能
      */
     protected void handleCallbackError(OAuth2ProviderContext context, String errorMessage) {
         try {
-            HttpServletResponse response = (HttpServletResponse) context.getResponse().getSource();
-            setCookie(response, "MoveURL", "/#/error");
+            BaseResponse response = context.getResponse();
+            response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
         } catch (Exception e) {
             logger.error("コールバックエラーの処理中に例外が発生しました", e);
         }

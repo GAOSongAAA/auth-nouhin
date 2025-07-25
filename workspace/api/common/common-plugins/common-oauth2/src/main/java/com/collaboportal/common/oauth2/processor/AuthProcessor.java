@@ -1,6 +1,7 @@
 package com.collaboportal.common.oauth2.processor;
 
-import com.collaboportal.common.jwt.model.OauthTokenResult;
+import com.collaboportal.common.context.web.BaseResponse;
+import com.collaboportal.common.oauth2.model.OauthTokenResult;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -20,7 +21,7 @@ public interface AuthProcessor {
          * @return OauthTokenResult アクセストークン情報
          */
         OauthTokenResult getOauthTokenFromEndpoint(String grant_type, String code, String redirect_uri,
-                        String audience, String client_id, String client_secret, HttpServletResponse response);
+                        String audience, String client_id, String client_secret, BaseResponse response);
 
         /**
          * トークンリフレッシュ
@@ -33,6 +34,6 @@ public interface AuthProcessor {
          * @return アクセストークン情報
          */
         public OauthTokenResult getOauthTokenByRefreshToken(String client_id, String client_secret, String refreshToken,
-                        HttpServletResponse response);
+                        BaseResponse response);
 
 }

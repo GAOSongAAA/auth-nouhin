@@ -96,22 +96,6 @@ oauth2:
       path-patterns: 
         - /test/**
         - /auth/test/**
-    provider2:
-      client-id: ${PROD_CLIENT_ID:}
-      client-secret: ${PROD_CLIENT_SECRET:}
-      issuer: ${PROD_ISSUER:}
-      redirect-uri: ${PROD_REDIRECT_URI:}
-      scope:
-        - profile
-        - email
-        - openid
-      audience: ${PROD_AUDIENCE:}
-      grant-type: ${PROD_GRANT_TYPE:authorization_code}
-      user-name-attribute: ${PROD_USER_NAME_ATTRIBUTE:email}
-      display-name: ${PROD_DISPLAY_NAME:生產環境}
-      path-patterns: 
-        - /prod/**
-        - /auth/prod/**
   security:
     enabled: ${OAUTH2_SECURITY_ENABLED:true}
     allow-credentials: ${OAUTH2_ALLOW_CREDENTIALS:true}

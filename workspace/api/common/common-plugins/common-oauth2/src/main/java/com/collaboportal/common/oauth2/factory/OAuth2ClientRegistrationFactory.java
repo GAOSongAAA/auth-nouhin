@@ -27,7 +27,6 @@ public class OAuth2ClientRegistrationFactory {
     // 作成済みクライアント登録をキャッシュ
     private final Map<String, OAuth2ClientRegistration> clientRegistrations = new ConcurrentHashMap<>();
 
-
     @PostConstruct
     public void init() {
         logger.info("OAuth2クライアント登録ファクトリー初期化開始、プロバイダー数: {}", providers.size());
@@ -54,26 +53,22 @@ public class OAuth2ClientRegistrationFactory {
      */
     private OAuth2ClientRegistration createClientRegistration(String providerId, Map<String, Object> config) {
         return OAuth2ClientRegistration.builder()
-        .providerId(providerId)
-        .clientId((String) config.get("client-id"))
-        .clientSecret((String) config.get("client-secret"))
-        .issuer((String) config.get("issuer"))
-        .audience((String) config.get("audience"))
-        .scope(toList(config.get("scope"), "scope")) // 複数フォーマット対応
-        .grantType((String) config.getOrDefault("grant-type", "authorization_code"))
-        .redirectUri((String) config.getOrDefault("redirect-uri", "{baseUrl}/auth/callback"))
-        .userNameAttribute((String) config.getOrDefault("user-name-attribute", "email"))
-        .displayName((String) config.getOrDefault("display-name", providerId))
-        .build();
+                .providerId(providerId)
+                .clientId((String) config.get("client-id"))
+                .clientSecret((String) config.get("client-secret"))
+                .issuer((String) config.get("issuer"))
+                .audience((String) config.get("audience"))
+                .scope(toList(config.get("scope"), "scope")) // 複数フォーマット対応
+                .grantType((String) config.getOrDefault("grant-type", "authorization_code"))
+                .redirectUri((String) config.getOrDefault("redirect-uri", "{baseUrl}/auth/callback"))
+                .userNameAttribute((String) config.getOrDefault("user-name-attribute", "email"))
+                .displayName((String) config.getOrDefault("display-name", providerId))
+                .build();
 
     }
 
-    public String getProviderId(String headerName) {
-        return providers.entrySet().stream()
-        .filter(entry -> entry.getValue().containsKey(headerName))
-        .map(Map.Entry::getKey)
-        .findFirst()
-        .orElse("");
+    public String getProviderId() {
+        return clientRegistrations.keySet().stream().findFirst().orElse("");
     }
 
     /**
@@ -90,7 +85,6 @@ public class OAuth2ClientRegistrationFactory {
         return Collections.unmodifiableMap(clientRegistrations);
     }
 
-
     // Spring Boot設定プロパティ注入
     public void setProviders(Map<String, Map<String, Object>> providers) {
         this.providers = providers;
@@ -105,13 +99,13 @@ public class OAuth2ClientRegistrationFactory {
         if (raw == null) {
             return List.of();
         }
-        if (raw instanceof String str) {                 // "a b c" | "a,b,c"
+        if (raw instanceof String str) { // "a b c" | "a,b,c"
             return Arrays.asList(str.split("[,\\s]+"));
         }
-        if (raw instanceof List<?> list) {               // YAML リスト
+        if (raw instanceof List<?> list) { // YAML リスト
             return list.stream().map(Object::toString).toList();
         }
-        if (raw instanceof Map<?, ?> map) {              // YAML マップ → 値を取得
+        if (raw instanceof Map<?, ?> map) { // YAML マップ → 値を取得
             return map.values().stream().map(Object::toString).toList();
         }
         throw new IllegalArgumentException(

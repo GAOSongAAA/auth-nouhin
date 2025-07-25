@@ -1,6 +1,5 @@
 package com.collaboportal.common;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,11 +12,8 @@ import com.collaboportal.common.config.CommonConfig;
 import com.collaboportal.common.config.CommonConfigFactory;
 import com.collaboportal.common.config.LogMaskConfig;
 import com.collaboportal.common.context.CommonContext;
-import com.collaboportal.common.error.InternalErrorCode;
-import com.collaboportal.common.exception.CommonException;
 import com.collaboportal.common.filter.LogTraceIdFilter;
-import com.collaboportal.common.login.LoginTemplate;
-import com.collaboportal.common.utils.LoginUtil;
+
 
 /**
  * 設定管理クラス
@@ -144,62 +140,19 @@ public class ConfigManager {
 
     private volatile static CommonContext commonContext;
 
+    public static void setCommonContext(CommonContext commonContext) {
+        ConfigManager.commonContext = commonContext;
+    }
+
     public static CommonContext getCommonContext() {
-        if(commonContext != null && commonContext.isValid()) {
+        if (commonContext != null && commonContext.isValid()) {
             return commonContext;
-        }else{
+        } else {
             throw new RuntimeException("コンテキスト無効です。");
         }
     }
 
-    public static Map<String, LoginTemplate> loginTemplateMap = new LinkedHashMap<>();
-
-    public static void putLoginTemplate(LoginTemplate loginTemplate) {
-		loginTemplateMap.put(loginTemplate.getLoginType(), loginTemplate);
-	}
-    public static void removeLoginTemplate(String loginType) {
-		loginTemplateMap.remove(loginType);
-	}
-
-    public static LoginTemplate getLoginTemplate(String loginType) {
-		return loginTemplateMap.get(loginType);
-	}
-
-    public static LoginTemplate getLoginTemplate(String loginType, boolean isCreate) {
-		// 如果type为空则返回框架默认内置的 
-		if(loginType == null || loginType.isEmpty()) {
-			return LoginUtil.loginTemplate;
-		}
-		
-		// 从集合中获取 
-		LoginTemplate loginTemplate = loginTemplateMap.get(loginType);
-		if(loginTemplate == null) {
-			
-			// isCreate=true时，自创建模式：自动创建并返回 
-			if(isCreate) {
-				synchronized (ConfigManager.class) {
-					loginTemplate = loginTemplateMap.get(loginType);
-					if(loginTemplate == null) {
-						loginTemplate = new LoginTemplate(loginType);
-					}
-				}
-			} 
-			// isCreate=false时，严格校验模式：抛出异常 
-			else {
-				/*
-				 * 此时有两种情况会造成 StpLogic == null 
-				 * 1. loginType拼写错误，请改正 （建议使用常量） 
-				 * 2. 自定义StpUtil尚未初始化（静态类中的属性至少一次调用后才会初始化），解决方法两种
-				 * 		(1) 从main方法里调用一次
-				 * 		(2) 在自定义StpUtil类加上类似 @Component 的注解让容器启动时扫描到自动初始化 
-				 */
-				throw new CommonException(InternalErrorCode.UNDEINED_ERROR);
-			}
-		}
-		
-		// 返回 
-		return loginTemplate;
-	}
+    
 
 
 }

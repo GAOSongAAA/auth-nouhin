@@ -18,6 +18,11 @@ public class CommonConfig implements BaseConfig {
     private String callback;
     private int cookieExpiration;
     private String currDomain;
+    private String tokenName;
+    private int maxLoginCount;
+    private int maxTryTimes;
+    private boolean isLastingCookie;
+    private boolean isWriteHeader;
 
     @Override
     public String getConfigPrefix() {
@@ -159,6 +164,31 @@ public class CommonConfig implements BaseConfig {
         return this;
     }
 
+    public String getTokenName() {
+        return tokenName;
+    }
+
+    public CommonConfig setTokenName(String tokenName) {
+        this.tokenName = tokenName;
+        return this;
+    }
+
+    public int getMaxLoginCount() {
+		return maxLoginCount;
+	}
+
+    public int getMaxTryTimes() {
+        return maxTryTimes;
+    }
+
+    public boolean getIsLastingCookie() {
+        return isLastingCookie;
+    }
+
+    public boolean getIsWriteHeader() {
+        return isWriteHeader;
+    }
+
     @Override
     public String toString() {
         return "CommonConfig{" +
@@ -177,6 +207,7 @@ public class CommonConfig implements BaseConfig {
                 ", callback='" + callback + '\'' +
                 ", cookieExpiration=" + cookieExpiration +
                 ", currDomain='" + currDomain + '\'' +
+                ", tokenName='" + tokenName + '\'' +
                 '}';
     }
 }

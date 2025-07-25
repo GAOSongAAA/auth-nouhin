@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.collaboportal.common.ConfigManager;
+import com.collaboportal.common.context.web.BaseCookie;
+import com.collaboportal.common.context.web.BaseResponse;
 
-import jakarta.servlet.http.HttpServletResponse;
+
 
 public class CookieUtil {
 
@@ -18,18 +20,14 @@ public class CookieUtil {
      * @param name     Cookie名
      * @param value    Cookie値
      */
-    public static void setNoneSameSiteCookie(HttpServletResponse response, String name, String value) {
+    public static void setNoneSameSiteCookie(BaseResponse response, String name, String value) {
         logger.debug("Cookieを設定します。{}={}", name, value);
-        String secureFlag = (ConfigManager.getConfig().isCookieSecure()) ? "; Secure" : "";
-        response.addHeader("Set-Cookie", name + "=" + value + "; Path=/; Max-Age="
-                + ConfigManager.getConfig().getCookieExpiration() + "; SameSite=None" + secureFlag);
+        response.addCookie(new BaseCookie(name, value).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
     }
 
-    public static void setSameSiteCookie(HttpServletResponse response, String name, String value) {
+    public static void setSameSiteCookie(BaseResponse response, String name, String value) {
         logger.debug("Cookieを設定します。{}={}", name, value);
-        String secureFlag = (ConfigManager.getConfig().isCookieSecure()) ? "; Secure" : "";
-        response.addHeader("Set-Cookie", name + "=" + value + "; Path=/; Max-Age="
-                + ConfigManager.getConfig().getCookieExpiration() + "; SameSite=Strict" + secureFlag);
+        response.addCookie(new BaseCookie(name, value).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("Strict").setSecure(ConfigManager.getConfig().isCookieSecure()));
     }
 
 }

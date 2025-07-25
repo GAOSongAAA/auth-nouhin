@@ -2,10 +2,11 @@ package com.collaboportal.common.filter;
 
 import java.util.List;
 
+import com.collaboportal.common.strategy.AuthErrorStrategy;
 import com.collaboportal.common.strategy.AuthStrategy;
 
 @SuppressWarnings("rawtypes")
-public interface AuthFilter<T> {
+public interface AuthFilter {
 
     AuthFilter addInclude(String... patterns);
 
@@ -28,7 +29,7 @@ public interface AuthFilter<T> {
      * @param auth see note
      * @return 对象自身
      */
-    AuthFilter setAuth(AuthStrategy<T> auth);
+    AuthFilter setAuth(AuthStrategy auth);
 
     /**
      * 写入[ 前置函数 ]：在每次[ 认证函数 ]之前执行。
@@ -36,5 +37,12 @@ public interface AuthFilter<T> {
      * @param beforeAuth /
      * @return 对象自身
      */
-    AuthFilter setBeforeAuth(AuthStrategy<T> beforeAuth);
+    AuthFilter setBeforeAuth(AuthStrategy beforeAuth);
+
+    /**
+     * 写入[ 错误处理函数 ]：在每次[ 认证函数 ]之后执行。
+     * @param error /
+     * @return 对象自身
+     */
+    AuthFilter setError(AuthErrorStrategy error);
 }

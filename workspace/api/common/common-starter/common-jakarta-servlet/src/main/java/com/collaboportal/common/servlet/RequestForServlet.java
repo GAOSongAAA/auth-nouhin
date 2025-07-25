@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 
 import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.application.ApplicationInfo;
-import com.collaboportal.common.context.model.BaseRequest;
+import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.error.InternalErrorCode;
 import com.collaboportal.common.exception.CommonException;
 
@@ -120,7 +120,7 @@ public class RequestForServlet implements BaseRequest{
 	@Override
 	public Object forward(String path) {
 		try {
-			HttpServletResponse response = (HttpServletResponse)ConfigManager.getCommonContext().getResponse().getSource();
+			HttpServletResponse response = (HttpServletResponse)ConfigManager.getCommonContext().getResponse().Source();
 			request.getRequestDispatcher(path).forward(request, response);
 			return null;
 		} catch (ServletException | IOException e) {

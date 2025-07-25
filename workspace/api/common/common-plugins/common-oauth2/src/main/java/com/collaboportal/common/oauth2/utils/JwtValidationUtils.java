@@ -4,16 +4,15 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.ArrayList;
 
-
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.context.model.BaseCookie;
-import com.collaboportal.common.context.model.BaseRequest;
-import com.collaboportal.common.context.model.BaseResponse;
+import com.collaboportal.common.context.web.BaseCookie;
+import com.collaboportal.common.context.web.BaseRequest;
+import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.jwt.utils.JwtMaintenanceUtil;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
 
@@ -32,9 +31,9 @@ public class JwtValidationUtils {
 
     }
 
-    public static boolean isUseCookieAuthorization(HttpServletRequest request) {
+    public static boolean isUseCookieAuthorization(BaseRequest request) {
 
-        String path = request.getServletPath();
+        String path = request.getRequestPath();
         boolean result = COOKIE_AUTH_PATHS.contains(path);
         if (result) {
             logger.debug("パス [{}] はCookie認証を使用可能です", path);
@@ -52,7 +51,8 @@ public class JwtValidationUtils {
      * @param value    Cookie値
      */
     public static void setCookie(BaseResponse response, String name, String value) {
-        response.addCookie(new BaseCookie(name, value).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()));
+        response.addCookie(
+                new BaseCookie(name, value).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()));
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.collaboportal.common.oauth2.strategy.auth;
 
-import com.collaboportal.common.context.model.BaseRequest;
+import com.collaboportal.common.context.web.BaseRequest;
 
 @FunctionalInterface
 public interface JwtAuthStrategy {

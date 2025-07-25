@@ -2,8 +2,8 @@ package com.collaboportal.common.context;
 
 import java.io.Serializable;
 
-import com.collaboportal.common.context.model.BaseRequest;
-import com.collaboportal.common.context.model.BaseResponse;
+import com.collaboportal.common.context.web.BaseRequest;
+import com.collaboportal.common.context.web.BaseResponse;
 
 /**
  * OAuth2 コールバック処理コンテキストクラス
@@ -13,55 +13,55 @@ public class CallbackContext implements Serializable {
 
     // ユーザーメールアドレス（フォームパラメータから取得）
     private String emailFromForm;
-    
+
     // OAuth2 認証コード
     private String code;
-    
+
     // OAuth2 ステートパラメータ
     private String state;
-    
+
     // 認証ステートトークン（Cookieから取得）
     private String authStateToken;
-    
+
     // 移動URL（Cookieから取得）
     private String moveUrl;
-    
+
     // HTTPリクエストオブジェクト
     private BaseRequest request;
-    
+
     // HTTPレスポンスオブジェクト
     private BaseResponse response;
-    
+
     // クライアントID（認証ステートトークンから解析）
     private String clientId;
-    
+
     // クライアントシークレット（認証ステートトークンから解析）
     private String clientSecret;
-    
+
     // オーディエンス（認証ステートトークンから解析）
     private String audience;
-    
+
     // スコープ（認証ステートトークンから解析）
     private String scope;
-    
+
     // トークン（認証ステートトークンから解析）
     private String token;
-    
+
     // ストラテジーキー（test または prod）
     private String strategyKey;
-    
+
     // リダイレクトURI
     private String redirectUri;
-    
+
     // ホームページURL
     private String homePage;
-    
+
     // 選択されたプロバイダーID
     private String selectedProviderId;
-    
+
     // 認証プロバイダーURL
     private String authProviderUrl;
-    
+
     // 発行者
     private String issuer;
 
@@ -70,11 +70,11 @@ public class CallbackContext implements Serializable {
     }
 
     // 全參數建構子
-    public CallbackContext(String emailFromForm, String code, String state, String authStateToken, 
-                          String moveUrl, BaseRequest request, BaseResponse response, String clientId, 
-                          String clientSecret, String audience, String scope, String token, 
-                          String strategyKey, String redirectUri, String homePage, 
-                          String selectedProviderId, String authProviderUrl, String issuer) {
+    public CallbackContext(String emailFromForm, String code, String state, String authStateToken,
+            String moveUrl, BaseRequest request, BaseResponse response, String clientId,
+            String clientSecret, String audience, String scope, String token,
+            String strategyKey, String redirectUri, String homePage,
+            String selectedProviderId, String authProviderUrl, String issuer) {
         this.emailFromForm = emailFromForm;
         this.code = code;
         this.state = state;
@@ -376,10 +376,10 @@ public class CallbackContext implements Serializable {
         }
 
         public CallbackContext build() {
-            return new CallbackContext(emailFromForm, code, state, authStateToken, moveUrl, 
-                                     request, response, clientId, clientSecret, audience, 
-                                     scope, token, strategyKey, redirectUri, homePage, 
-                                     selectedProviderId, authProviderUrl, issuer);
+            return new CallbackContext(emailFromForm, code, state, authStateToken, moveUrl,
+                    request, response, clientId, clientSecret, audience,
+                    scope, token, strategyKey, redirectUri, homePage,
+                    selectedProviderId, authProviderUrl, issuer);
         }
     }
 
@@ -411,30 +411,45 @@ public class CallbackContext implements Serializable {
     // equals 方法 (Data 註解功能)
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         CallbackContext that = (CallbackContext) o;
 
         if (emailFromForm != null ? !emailFromForm.equals(that.emailFromForm) : that.emailFromForm != null)
             return false;
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (state != null ? !state.equals(that.state) : that.state != null) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null)
+            return false;
+        if (state != null ? !state.equals(that.state) : that.state != null)
+            return false;
         if (authStateToken != null ? !authStateToken.equals(that.authStateToken) : that.authStateToken != null)
             return false;
-        if (moveUrl != null ? !moveUrl.equals(that.moveUrl) : that.moveUrl != null) return false;
-        if (request != null ? !request.equals(that.request) : that.request != null) return false;
-        if (response != null ? !response.equals(that.response) : that.response != null) return false;
-        if (clientId != null ? !clientId.equals(that.clientId) : that.clientId != null) return false;
+        if (moveUrl != null ? !moveUrl.equals(that.moveUrl) : that.moveUrl != null)
+            return false;
+        if (request != null ? !request.equals(that.request) : that.request != null)
+            return false;
+        if (response != null ? !response.equals(that.response) : that.response != null)
+            return false;
+        if (clientId != null ? !clientId.equals(that.clientId) : that.clientId != null)
+            return false;
         if (clientSecret != null ? !clientSecret.equals(that.clientSecret) : that.clientSecret != null)
             return false;
-        if (audience != null ? !audience.equals(that.audience) : that.audience != null) return false;
-        if (scope != null ? !scope.equals(that.scope) : that.scope != null) return false;
-        if (token != null ? !token.equals(that.token) : that.token != null) return false;
-        if (strategyKey != null ? !strategyKey.equals(that.strategyKey) : that.strategyKey != null) return false;
-        if (redirectUri != null ? !redirectUri.equals(that.redirectUri) : that.redirectUri != null) return false;
-        if (homePage != null ? !homePage.equals(that.homePage) : that.homePage != null) return false;
-        if (selectedProviderId != null ? !selectedProviderId.equals(that.selectedProviderId) : that.selectedProviderId != null)
+        if (audience != null ? !audience.equals(that.audience) : that.audience != null)
+            return false;
+        if (scope != null ? !scope.equals(that.scope) : that.scope != null)
+            return false;
+        if (token != null ? !token.equals(that.token) : that.token != null)
+            return false;
+        if (strategyKey != null ? !strategyKey.equals(that.strategyKey) : that.strategyKey != null)
+            return false;
+        if (redirectUri != null ? !redirectUri.equals(that.redirectUri) : that.redirectUri != null)
+            return false;
+        if (homePage != null ? !homePage.equals(that.homePage) : that.homePage != null)
+            return false;
+        if (selectedProviderId != null ? !selectedProviderId.equals(that.selectedProviderId)
+                : that.selectedProviderId != null)
             return false;
         if (authProviderUrl != null ? !authProviderUrl.equals(that.authProviderUrl) : that.authProviderUrl != null)
             return false;
@@ -465,4 +480,4 @@ public class CallbackContext implements Serializable {
         return result;
     }
 
-} 
+}

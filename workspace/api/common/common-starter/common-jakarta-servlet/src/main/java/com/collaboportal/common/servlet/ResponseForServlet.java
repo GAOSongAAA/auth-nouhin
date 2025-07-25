@@ -1,6 +1,6 @@
 package com.collaboportal.common.servlet;
 
-import com.collaboportal.common.context.model.BaseResponse;
+import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.error.InternalErrorCode;
 import com.collaboportal.common.exception.CommonException;
 
@@ -15,7 +15,7 @@ public class ResponseForServlet implements BaseResponse{
     }
 
     @Override
-    public Object getSource() {
+    public Object Source() {
         return response;
     }
 

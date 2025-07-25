@@ -16,7 +16,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 @AutoConfiguration
 @MapperScan(basePackages = {
     "com.collaboportal.common.jwt.repository",  // JWT関連のリポジトリパッケージ
-    "com.collaboportal.shoho.repository"       // 商法関連のリポジトリパッケージ
+    "com.collaboportal.shoho.repository"       // 処方元情報関連のリポジトリパッケージ
 })
 public class MyBatisConfig {
 

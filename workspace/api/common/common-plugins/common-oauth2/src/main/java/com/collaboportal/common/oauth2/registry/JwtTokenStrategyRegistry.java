@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.collaboportal.common.context.model.BaseRequest;
+import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.oauth2.strategy.auth.JwtAuthStrategy;
 
 

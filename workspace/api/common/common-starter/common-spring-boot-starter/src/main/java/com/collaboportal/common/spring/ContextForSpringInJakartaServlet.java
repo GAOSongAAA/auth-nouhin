@@ -1,9 +1,9 @@
 package com.collaboportal.common.spring;
 
 import com.collaboportal.common.context.CommonContext;
-import com.collaboportal.common.context.model.BaseRequest;
-import com.collaboportal.common.context.model.BaseResponse;
-import com.collaboportal.common.context.model.BaseStorage;
+import com.collaboportal.common.context.web.BaseRequest;
+import com.collaboportal.common.context.web.BaseResponse;
+import com.collaboportal.common.context.web.BaseStorage;
 import com.collaboportal.common.servlet.RequestForServlet;
 import com.collaboportal.common.servlet.ResponseForServlet;
 import com.collaboportal.common.servlet.StorageForServlet;

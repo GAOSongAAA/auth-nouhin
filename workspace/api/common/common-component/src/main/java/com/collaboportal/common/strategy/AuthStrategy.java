@@ -1,7 +1,8 @@
 package com.collaboportal.common.strategy;
 
-@SuppressWarnings("rawtypes")
+
+
 @FunctionalInterface
-public interface AuthStrategy<T> {
-    void login(T context);
+public interface AuthStrategy {
+    void run(Object obj);
 }

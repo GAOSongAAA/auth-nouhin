@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.context.model.BaseRequest;
-import com.collaboportal.common.context.model.BaseResponse;
+import com.collaboportal.common.context.web.BaseRequest;
+import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.chain.JwtValidationChain;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
@@ -35,7 +35,7 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
 
     private final JwtTokenStrategyRegistry jwtTokenStrategyRegistry;
 
-    private final String localAuthPage = "testEnv";
+    private final String localAuthPage = "/testEnv";
 
     public JwtValidationTemplate(JwtTokenUtil jwtTokenUtil, OAuth2ClientRegistrationFactory clientRegistrationFactory) {
         this.jwtTokenUtil = jwtTokenUtil;
@@ -70,12 +70,12 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
      *         解决请求Header与提供商的映射关系，并设置到context中
      */
     private boolean providerIdHandler(OAuth2ProviderContext context) {
-        String headerName = context.getRequest().getHeader("Authorization-Provider");
-        String providerId = clientRegistrationFactory.getProviderId(headerName);
+        String providerId = clientRegistrationFactory.getProviderId();
         if (!providerId.isEmpty()) {
             context.setSelectedProviderId(providerId);
             return true;
         }
+        logger.warn("Authorization-Providerヘッダーが見つかりませんでした。リクエストヘッダー: {}");
         return false;
     }
 
@@ -101,36 +101,30 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
     }
 
     private boolean stateResolveHandler(OAuth2ProviderContext context) {
-        HttpServletRequest req = (HttpServletRequest) context.getRequest().getSource();
-        HttpServletResponse resp = (HttpServletResponse) context.getResponse().getSource();
-        Cookie[] cookies = req.getCookies();
+        BaseRequest req = context.getRequest();
+        BaseResponse resp = context.getResponse();
+        String cookieValue = req.getCookieValue(Message.Cookie.AUTH_STATE);
+
         ContextSerializableDto contextSerializableDto = new ContextSerializableDto();
         contextSerializableDto.setIssuer(context.getIssuer());
         contextSerializableDto.setClientId(context.getClientId());
         contextSerializableDto.setAudience(context.getAudience());
-        if (cookies != null) {
-            String state = Arrays.stream(cookies)
-                    .filter(c -> Message.Cookie.AUTH_STATE.equals(c.getName()))
-                    .map(Cookie::getValue)
-                    .findFirst().orElse(null);
-            if (state != null && !state.isEmpty()) {
-
-                storeStateInformation(contextSerializableDto, resp);
-                return true;
-            }
+        if (cookieValue == null || cookieValue.isEmpty()) {
+            logger.debug("StateパラメータがCookieに存在しません。新しいStateを生成します");
+            storeStateInformation(contextSerializableDto, resp);
+            return true;
         }
-        storeStateInformation(contextSerializableDto, resp);
+
         return true;
     }
 
     private boolean cookieCheckHandler(OAuth2ProviderContext context) {
-        HttpServletRequest req = (HttpServletRequest) context.getRequest().getSource();
-        Cookie[] cookies = req.getCookies();
+        BaseRequest req = context.getRequest();
         if (context.getIssuer().isEmpty() || context.getClientId().isEmpty() || context.getAudience().isEmpty()) {
             logger.warn("issuer, clientId, audienceが設定されていません");
             return false;
         }
-        if (cookies == null || cookies.length == 0) {
+        if (req.getCookieValue(Message.Cookie.AUTH) == null || req.getCookieValue(Message.Cookie.AUTH).isEmpty()) {
             logger.debug("Cookieが検出されませんでした");
 
             if (!JwtValidationUtils.isUseCookieAuthorization(req)) {
@@ -149,7 +143,6 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
 
     private boolean tokenValidationHandler(OAuth2ProviderContext context) {
         BaseRequest req = context.getRequest();
-        BaseResponse resp = context.getResponse();
         String strategyKey = JwtValidationUtils.decideStrategyByPath(req);
         context.setStrategyKey(strategyKey);
         String token = jwtTokenStrategyRegistry.resolveToken(req, strategyKey);
@@ -194,7 +187,7 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
         return clientRegistrationFactory.getClientRegistration(context.getSelectedProviderId());
     }
 
-    protected void storeStateInformation(ContextSerializableDto contextSerializableDto, HttpServletResponse response) {
+    protected void storeStateInformation(ContextSerializableDto contextSerializableDto, BaseResponse response) {
         String stateParameter = JwtTokenUtil.generateTokenFromObject(contextSerializableDto);
         CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.AUTH_STATE, stateParameter);
 
