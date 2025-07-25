@@ -188,7 +188,7 @@ public class JwtValidationTemplate extends OAuth2LoginTemplate {
     }
 
     protected void storeStateInformation(ContextSerializableDto contextSerializableDto, BaseResponse response) {
-        String stateParameter = JwtTokenUtil.generateTokenFromObject(contextSerializableDto);
+        String stateParameter = jwtTokenUtil.generateTokenFromObject(contextSerializableDto);
         CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.AUTH_STATE, stateParameter);
 
     }

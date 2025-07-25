@@ -72,8 +72,9 @@ public class OAuth2StrategyAutoConfiguration {
     @ConditionalOnBean(AuthProcessor.class)
     public CallbackLoginTemplate callbackLoginTemplate(
             @Autowired AuthProcessor authProcessor,
-            @Autowired LoginStrategyRegistry strategyRegistry) {
+            @Autowired LoginStrategyRegistry strategyRegistry,
+            @Autowired com.collaboportal.common.jwt.utils.JwtTokenUtil jwtTokenUtil) {
         logger.debug("註冊 CallbackLoginTemplate Bean");
-        return new CallbackLoginTemplate(authProcessor, strategyRegistry);
+        return new CallbackLoginTemplate(authProcessor, strategyRegistry, jwtTokenUtil);
     }
 }

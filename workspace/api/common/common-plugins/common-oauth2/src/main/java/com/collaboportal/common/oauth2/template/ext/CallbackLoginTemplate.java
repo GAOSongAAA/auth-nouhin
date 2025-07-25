@@ -31,9 +31,12 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
     private final AuthProcessor authProcessor;
     private final LoginStrategyRegistry strategyRegistry;
 
-    public CallbackLoginTemplate(AuthProcessor authProcessor, LoginStrategyRegistry strategyRegistry) {
+    private final JwtTokenUtil jwtTokenUtil;
+
+    public CallbackLoginTemplate(AuthProcessor authProcessor, LoginStrategyRegistry strategyRegistry, JwtTokenUtil jwtTokenUtil) {
         this.strategyRegistry = strategyRegistry;
         this.authProcessor = authProcessor;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @PostConstruct
@@ -69,7 +72,7 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
             }
 
             logger.debug("ユーザー情報の取得に成功しました。メールアドレス: {}", email);
-            String token = JwtTokenUtil.generateTokenFromObject(user);
+            String token = jwtTokenUtil.generateTokenFromObject(user);
             logger.debug("JWTトークンの生成に成功しました");
 
             // CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH, token);
@@ -132,7 +135,7 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
 
             logger.debug("ユーザー情報の取得に成功しました。メールアドレス: {}", email);
 
-            String token = JwtTokenUtil.generateTokenFromObject(user);
+            String token = jwtTokenUtil.generateTokenFromObject(user);
             logger.debug("JWTトークンの生成に成功しました");
 
             CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH, token);

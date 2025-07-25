@@ -17,6 +17,6 @@
 /home/workspace/api/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/filter/AuthServletFilter.java
 /home/workspace/api/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/strategy/auth/OAuth2AuthStrategy.java
 /home/workspace/api/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/oauth2/OAuth2StrategyAutoConfiguration.java
-/home/workspace/api/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/interceptor/impl/AuthInterceptorImpl.java
 /home/workspace/api/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/package-info.java
 /home/workspace/api/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/spring/CommonConfigAutoConfiguration.java
+/home/workspace/api/common/common-starter/common-spring-boot-autoconfig/src/main/java/com/collaboportal/common/interceptor/impl/AuthInterceptorImpl.java

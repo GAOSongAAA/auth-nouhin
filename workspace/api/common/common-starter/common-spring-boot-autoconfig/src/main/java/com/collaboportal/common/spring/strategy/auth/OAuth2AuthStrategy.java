@@ -58,7 +58,6 @@ public class OAuth2AuthStrategy implements AuthenticationStrategy {
         }
 
         logger.info("Auth_Token is missing or invalid. Redirecting to OAuth2 provider.");
-        String authorizationUrl = JwtValidationUtils.buildAuthRedirectUrl();
-        throw new RedirectException(authorizationUrl);
+        throw new RedirectException(JwtValidationUtils.buildAuthRedirectUrl());
     }
 }

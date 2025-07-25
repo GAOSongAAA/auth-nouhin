@@ -39,11 +39,6 @@
       </dependency>
       <dependency>
         <groupId>com.collaboportal</groupId>
-        <artifactId>common-login</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.collaboportal</groupId>
         <artifactId>common-spring-boot-autoconfig</artifactId>
         <version>${revision}</version>
       </dependency>

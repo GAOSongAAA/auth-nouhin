@@ -1,3 +1,21 @@
 {
-  "java.compile.nullAnalysis.mode": "automatic"
+  "java.compile.nullAnalysis.mode": "automatic",
+  "sqltools.connections": [
+    {
+      "connectionTimeout": 15,
+      "mssqlOptions": {
+        "appName": "SQLTools",
+        "useUTC": true,
+        "encrypt": true,
+        "trustServerCertificate": false
+      },
+      "previewLimit": 50,
+      "server": "mssql2019",
+      "port": 1433,
+      "askForPassword": true,
+      "driver": "MSSQL",
+      "name": "nouki_dev",
+      "username": "sa"
+    }
+  ]
 }

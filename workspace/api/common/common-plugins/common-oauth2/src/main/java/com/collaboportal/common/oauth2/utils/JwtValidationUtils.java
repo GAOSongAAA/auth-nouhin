@@ -23,12 +23,10 @@ public class JwtValidationUtils {
 
     static Logger logger = LoggerFactory.getLogger(JwtValidationUtils.class);
 
-    private static List<String> COOKIE_AUTH_PATHS = new ArrayList<>(List.of("/", "/index.html"));
+    private static final List<String> COOKIE_AUTH_PATHS = new ArrayList<>(List.of("/", "/index.html"));
 
-    public static List<String> pathResovler(OAuth2ProviderContext context) {
-        COOKIE_AUTH_PATHS.add(context.getRequestPath());
-        return COOKIE_AUTH_PATHS;
-
+    public static void addCookieAuthPath(String path) {
+        COOKIE_AUTH_PATHS.add(path);
     }
 
     public static boolean isUseCookieAuthorization(BaseRequest request) {

@@ -5,8 +5,8 @@ services:
   shoho-spring:
   # 指定したコンテキストより上のフォルダは見えないので、上のフォルダが見れるようにコンテキストを上にしている
     build:
-      context: ../
-      dockerfile: docker-api-dev/dockerfile_build_api
+      context: .
+      dockerfile: dockerfile_build_api
     image: shoho-spring
     container_name: shohoSpringBuild
     volumes:

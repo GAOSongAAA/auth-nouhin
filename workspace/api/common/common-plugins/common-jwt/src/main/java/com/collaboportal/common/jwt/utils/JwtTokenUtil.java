@@ -25,94 +25,51 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 public class JwtTokenUtil implements Serializable {
 
-    // JWTトークンの有効期間
-    private static long JWT_TOKEN_VALIDATION = ConfigManager.getConfig().getCookieExpiration() * 1000;
+    private long JWT_TOKEN_VALIDATION;
+    private String secretKey;
 
-    // JWTトークンのデリミタ
     private final static String delimiter = "\\.";
+    static Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
 
-    // シークレットキー
-    private static String secretKey = ConfigManager.getConfig().getSecretKey();
+    @jakarta.annotation.PostConstruct
+    public void init() {
+        com.collaboportal.common.config.CommonConfig config = ConfigManager.getConfig();
+        this.JWT_TOKEN_VALIDATION = config.getCookieExpiration() * 1000L;
+        this.secretKey = config.getSecretKey();
+    }
 
-    /**
-     * シークレットキーを取得
-     * 
-     * @return シークレットキー
-     */
-    private static SecretKeySpec getKey(String secretKey) {
-        byte[] secretKeyBytes = Base64.decodeBase64(secretKey);
+    private SecretKeySpec getKey() {
+        byte[] secretKeyBytes = Base64.decodeBase64(this.secretKey);
         return new SecretKeySpec(secretKeyBytes, "HmacSHA256");
     }
 
-    // ロガー
-    static Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
-
-    /**
-     * トークンからユーザ名を取得
-     * 
-     * @param token JWTトークン
-     * @return ユーザ名
-     */
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    /**
-     * トークンから有効期限を取得
-     * 
-     * @param token JWTトークン
-     * @return 有効期限
-     */
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
-    /**
-     * トークンからクレームを取得
-     * 
-     * @param token          JWTトークン
-     * @param claimsResolver クレーム解決関数
-     * @return クレームの値
-     */
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
 
-    /**
-     * トークンから全てのクレームを取得
-     * 
-     * @param token JWTトークン
-     * @return 全てのクレーム
-     */
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().verifyWith(getKey(secretKey)).build().parseSignedClaims(token).getPayload();
+        return Jwts.parser().verifyWith(getKey()).build().parseSignedClaims(token).getPayload();
     }
 
-    /**
-     * トークンが期限切れかどうかを判定
-     * 
-     * @param token JWTトークン
-     * @return 期限切れならtrue
-     * @throws ExpiredJwtException
-     */
     public Boolean isTokenExpired(String token) throws ExpiredJwtException {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
 
-    /**
-     * Accessトークンから項目を取得
-     * 
-     * @param token Accessトークン
-     * @return 取得した項目のマップ
-     */
     public static Map<String, String> getItemsJwtToken(String token) {
         Map<String, String> items = new HashMap<>();
         try {
             JSONObject playload = new JSONObject(
                     new String(Base64.decodeBase64URLSafe(token.split(delimiter)[1]), "UTF-8"));
-            // イテレータを使用してペイロードのすべてのフィールドを取得
             for (String key : playload.keySet()) {
                 Object value = playload.get(key);
                 if (value != null) {
@@ -139,29 +96,13 @@ public class JwtTokenUtil implements Serializable {
         return jwtObject;
     }
 
-    /**
-     * 認証トークンの有効期限を更新
-     * 
-     * @param token JWTトークン
-     * @return 更新されたトークン
-     */
     public String updateExpiresAuthToken(String token) {
         Claims claims = getAllClaimsFromToken(token);
-        return Jwts.builder().setClaims(claims).signWith(getKey(secretKey))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDATION * 1000)).compact();
+        return Jwts.builder().setClaims(claims).signWith(getKey())
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDATION)).compact();
     }
 
-    // ===============================
-
-    // ===============================
-
-    /**
-     * オブジェクトからJWTトークンを生成する（反射を使用）
-     * 
-     * @param object トークンに含めるオブジェクト
-     * @return 生成されたJWTトークン
-     */
-    public static String generateTokenFromObject(Object object) {
+    public String generateTokenFromObject(Object object) {
         if (object == null) {
             return null;
         }
@@ -169,7 +110,6 @@ public class JwtTokenUtil implements Serializable {
         Map<String, Object> claims = new HashMap<>();
 
         try {
-            // 反射を使用してオブジェクトのフィールドを取得
             Class<?> clazz = object.getClass();
             java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
 
@@ -181,12 +121,11 @@ public class JwtTokenUtil implements Serializable {
                 }
             }
 
-            // JWTトークンを生成
             return Jwts.builder()
                     .setClaims(claims)
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDATION))
-                    .signWith(getKey(secretKey))
+                    .signWith(getKey())
                     .compact();
 
         } catch (IllegalAccessException e) {
