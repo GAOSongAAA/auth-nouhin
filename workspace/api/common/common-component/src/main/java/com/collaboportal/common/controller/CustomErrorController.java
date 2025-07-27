@@ -15,63 +15,67 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * カスタムエラーコントローラークラス
- * アプリケーション全体のエラーハンドリングを管理する
+ * 自訂錯誤控制器類別
+ * 管理整個應用程式的錯誤處理
  */
 @RestController
 @Component
 public class CustomErrorController implements ErrorController {
 
-    // ロガー
+    // 記錄器
     Logger logger = LoggerFactory.getLogger(CustomErrorController.class);
 
     /**
-     * コンストラクタ
-     * 初期化時にログを出力
+     * 建構函式
+     * 初始化時輸出日誌
      */
     public CustomErrorController(){
-        logger.debug("=== CustomErrorController が正常に初期化されました ===");
-        logger.debug("=== ErrorController Bean が登録されました ===");
+        logger.debug("=== CustomErrorController 已正常初始化 ===");
+        logger.debug("=== ErrorController Bean 已註冊 ===");
     }
 
     /**
-     * エラーハンドリングメソッド
-     * @param request HTTPリクエストオブジェクト
-     * @return ErrorResponseBody エラーレスポンスボディ
+     * 錯誤處理方法
+     * @param request HTTP請求物件
+     * @return ErrorResponseBody 錯誤回應主體
      */
     @RequestMapping("/error")
     public ErrorResponseBody handleError(HttpServletRequest request) {
-        logger.info("=== CustomErrorController.handleError が呼び出されました ===");
-        // リクエストからステータスコードと例外を取得
+        logger.info("=== CustomErrorController.handleError 已被呼叫 ===");
+        // 從請求中取得狀態代碼和例外
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         Throwable exception = (Throwable) request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
     
-        // ステータスコードが存在する場合
+        // 若狀態代碼存在
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
     
-            // 404エラーの場合
+            // 404錯誤的情況
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                logger.info("リソースが見つかりません。ステータスコード: {}, 例外: {}", statusCode, exception);
+                String exceptionMessage = (exception != null) ? exception.getMessage() : "未知錯誤";
+                logger.info("找不到資源。狀態代碼: {}, 例外: {}", statusCode, exceptionMessage);
                 ErrorResponseBody errorResponseBody = new ErrorResponseBody("404", Message.W404, Message.ERROR_LEVEL_WARNING);
                 return errorResponseBody;
             } 
-            // 403エラーの場合
+            // 403錯誤的情況
             else if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                logger.warn("アクセスが拒否されました。例外: {}", exception);
+                String exceptionMessage = (exception != null) ? exception.getMessage() : "未知錯誤";
+                logger.warn("存取被拒絕。例外: {}", exceptionMessage);
                 ErrorResponseBody errorResponseBody = new ErrorResponseBody("403", Message.W403, Message.ERROR_LEVEL_WARNING);
                 return errorResponseBody;
             } 
-            // 500エラーの場合
+            // 500錯誤的情況
             else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                logger.error("システムエラーが発生しました。例外: {}", exception);
+                String exceptionMessage = (exception != null) ? exception.getMessage() : "未知錯誤";
+                logger.error("發生系統錯誤。例外: {}", exceptionMessage);
                 ErrorResponseBody errorResponseBody = new ErrorResponseBody("500", Message.W500, Message.ERROR_LEVEL_WARNING);
                 return errorResponseBody;
             }
         }
     
-        // その他のエラーの場合
-        logger.error("不明なエラーが発生しました。例外: {}", exception);
+        // 其他錯誤的情況
+        String exceptionMessage = (exception != null) ? exception.getMessage() : "未知錯誤";
+        logger.error("發生未知錯誤。例外: {}", exceptionMessage);
         ErrorResponseBody errorResponseBody = new ErrorResponseBody("500", Message.W500, Message.ERROR_LEVEL_WARNING);
         return errorResponseBody;
     }

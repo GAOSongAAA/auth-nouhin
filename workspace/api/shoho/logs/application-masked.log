@@ -1,5 +1,5 @@
-date:2025-07-25 18:34:57	thread:background-preinit	X-Track:	level:INFO 	logger:org.hibernate.validator.internal.util.Version   	message:HV000001: Hibernate Validator ******.******.******.Final
-date:2025-07-25 18:34:57	thread:main	X-Track:	level:WARN 	logger:o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer	message:
+date:2025-07-26 15:38:23	thread:background-preinit	X-Track:	level:INFO 	logger:org.hibernate.validator.internal.util.Version   	message:HV000001: Hibernate Validator ******.******.******.Final
+date:2025-07-26 15:38:23	thread:main	X-Track:	level:WARN 	logger:o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer	message:
   
   Found multiple occurrences of org.json......ONObject on the class path:
   
@@ -8,415 +8,64 @@ date:2025-07-25 18:34:57	thread:main	X-Track:	level:WARN 	logger:o.s.b.t.j.Dupli
   
   You may wish to exclude one of them to ensure predictable runtime behavior
   
-date:2025-07-25 18:34:58	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:Starting ShohoApplicationTests using Java ******.******.****** with PID 4054 (started by root in /home/workspace/api/shoho)
-date:2025-07-25 18:34:58	thread:main	X-Track:	level:DEBUG	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:Running with Spring Boot ******.******.******, Spring ******.******.******
-date:2025-07-25 18:34:58	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:No active profile set, falling back to 1 default profile: "default"
-date:2025-07-25 18:34:59	thread:main	X-Track:	level:WARN 	logger:o.s.w.c.support.GenericWebApplicationContext    	message:Exception encountered during context initialization - cancelling refresh attempt: org.spri......rk.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.coll......al.shoho.ShohoApplication]
-date:2025-07-25 18:35:00	thread:main	X-Track:	level:ERROR	logger:org.springframework.boot.SpringApplication      	message:Application run failed
-org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.collaboportal.shoho.ShohoApplication]
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:178)
-  	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:398)
-  	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:283)
-  	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:344)
-  	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:115)
-  	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:745)
-  	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:565)
-  	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
-  	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-  	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:59)
-  	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:47)
-  	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1386)
-  	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:543)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:184)
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:118)
-  	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
-  	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
-  	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
-  	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241)
-  	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377)
-  	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-  	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-  	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
-  	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-  	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-  	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
-  	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
-  	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
-  	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278)
-  	at java.base/java.util.Optional.orElseGet(Optional.java:364)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277)
-  	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
-  	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-  	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-  	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-  	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-  	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-  	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
-  	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
-  	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-  	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:150)
-  	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:124)
-  	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
-  	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
-  	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
-  	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-  Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'authenticationStrategyRegistry' for bean class [com.collaboportal.common.strategy.auth.AuthenticationStrategyRegistry] conflicts with existing, non-compatible bean definition of same name and class [com.collaboportal.common.spring.registry.AuthenticationStrategyRegistry]
-  	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:349)
-  	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:287)
-  	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
-  	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:289)
-  	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:243)
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:196)
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:164)
-  	... 85 common frames omitted
-date:2025-07-25 18:35:00	thread:main	X-Track:	level:ERROR	logger:o.s.test.context.TestContextManager             	message:Caught exception while allowing TestExecutionListener [org.spri......ork.test.context.......Listener] to prepare test instance [com.coll......al.shoho.ShohoApplicationTests@4714f447]
-java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@54ed249f testClass = com.collaboportal.shoho.ShohoApplicationTests, locations = [], classes = [com.collaboportal.shoho.ShohoApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@31500940, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@24f43aa3, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@213e3629, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@9da1, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@547e29a4, org.springframework.boot.test.context.SpringBootTestAnnotation@9921418], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:142)
-  	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
-  	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
-  	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
-  	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241)
-  	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377)
-  	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-  	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-  	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
-  	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-  	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-  	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
-  	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
-  	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
-  	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278)
-  	at java.base/java.util.Optional.orElseGet(Optional.java:364)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277)
-  	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
-  	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-  	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-  	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-  	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-  	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-  	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
-  	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
-  	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-  	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:150)
-  	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:124)
-  	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
-  	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
-  	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
-  	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-  Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.collaboportal.shoho.ShohoApplication]
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:178)
-  	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:398)
-  	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:283)
-  	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:344)
-  	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:115)
-  	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:745)
-  	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:565)
-  	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
-  	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-  	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:59)
-  	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:47)
-  	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1386)
-  	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:543)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:184)
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:118)
-  	... 67 common frames omitted
-  Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'authenticationStrategyRegistry' for bean class [com.collaboportal.common.strategy.auth.AuthenticationStrategyRegistry] conflicts with existing, non-compatible bean definition of same name and class [com.collaboportal.common.spring.registry.AuthenticationStrategyRegistry]
-  	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:349)
-  	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:287)
-  	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
-  	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:289)
-  	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:243)
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:196)
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:164)
-  	... 85 common frames omitted
-date:2025-07-25 18:37:47	thread:background-preinit	X-Track:	level:INFO 	logger:org.hibernate.validator.internal.util.Version   	message:HV000001: Hibernate Validator ******.******.******.Final
-date:2025-07-25 18:37:47	thread:main	X-Track:	level:WARN 	logger:o.s.b.t.j.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer	message:
-  
-  Found multiple occurrences of org.json......ONObject on the class path:
-  
-  	jar:file:/root/.m2/repository/com/vaadin/external/google/android-json/******.******.******.vaadin1/android-......20131108.vaadin1.jar!/org/json/JSONObject.class
-  	jar:file:/root/.m2/repository/org/json/json/20220924/json-20220924.jar!/org/json/JSONObject.class
-  
-  You may wish to exclude one of them to ensure predictable runtime behavior
-  
-date:2025-07-25 18:37:49	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:Starting ShohoApplicationTests using Java ******.******.****** with PID 11768 (started by root in /home/workspace/api/shoho)
-date:2025-07-25 18:37:49	thread:main	X-Track:	level:DEBUG	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:Running with Spring Boot ******.******.******, Spring ******.******.******
-date:2025-07-25 18:37:49	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:No active profile set, falling back to 1 default profile: "default"
-date:2025-07-25 18:37:50	thread:main	X-Track:	level:WARN 	logger:o.s.w.c.support.GenericWebApplicationContext    	message:Exception encountered during context initialization - cancelling refresh attempt: org.spri......rk.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.coll......al.shoho.ShohoApplication]
-date:2025-07-25 18:37:50	thread:main	X-Track:	level:ERROR	logger:org.springframework.boot.SpringApplication      	message:Application run failed
-org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.collaboportal.shoho.ShohoApplication]
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:178)
-  	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:398)
-  	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:283)
-  	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:344)
-  	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:115)
-  	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:745)
-  	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:565)
-  	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
-  	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-  	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:59)
-  	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:47)
-  	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1386)
-  	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:543)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:184)
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:118)
-  	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
-  	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
-  	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
-  	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241)
-  	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377)
-  	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-  	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-  	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
-  	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-  	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-  	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
-  	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
-  	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
-  	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278)
-  	at java.base/java.util.Optional.orElseGet(Optional.java:364)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277)
-  	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
-  	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-  	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-  	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-  	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-  	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-  	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
-  	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
-  	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-  	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:150)
-  	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:124)
-  	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
-  	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
-  	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
-  	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-  Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'authenticationStrategyRegistry' for bean class [com.collaboportal.common.strategy.auth.AuthenticationStrategyRegistry] conflicts with existing, non-compatible bean definition of same name and class [com.collaboportal.common.spring.registry.AuthenticationStrategyRegistry]
-  	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:349)
-  	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:287)
-  	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
-  	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:289)
-  	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:243)
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:196)
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:164)
-  	... 85 common frames omitted
-date:2025-07-25 18:37:50	thread:main	X-Track:	level:ERROR	logger:o.s.test.context.TestContextManager             	message:Caught exception while allowing TestExecutionListener [org.spri......ork.test.context.......Listener] to prepare test instance [com.coll......al.shoho.ShohoApplicationTests@562f6681]
-java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@1c05097c testClass = com.collaboportal.shoho.ShohoApplicationTests, locations = [], classes = [com.collaboportal.shoho.ShohoApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@1827a871, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@63fd4873, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@4e9658b5, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@9da1, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@1c807b1d, org.springframework.boot.test.context.SpringBootTestAnnotation@8fc6bcee], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:142)
-  	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:127)
-  	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
-  	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
-  	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:241)
-  	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:377)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:382)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:377)
-  	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-  	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-  	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
-  	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-  	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-  	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
-  	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
-  	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
-  	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:376)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:289)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:288)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:278)
-  	at java.base/java.util.Optional.orElseGet(Optional.java:364)
-  	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:277)
-  	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:105)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
-  	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
-  	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-  	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-  	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-  	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-  	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-  	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-  	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-  	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-  	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
-  	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
-  	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
-  	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-  	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:150)
-  	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:124)
-  	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
-  	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
-  	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
-  	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-  Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.collaboportal.shoho.ShohoApplication]
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:178)
-  	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:398)
-  	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:283)
-  	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:344)
-  	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:115)
-  	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:745)
-  	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:565)
-  	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730)
-  	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-  	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:59)
-  	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:47)
-  	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1386)
-  	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:543)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-  	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:184)
-  	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:118)
-  	... 67 common frames omitted
-  Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'authenticationStrategyRegistry' for bean class [com.collaboportal.common.strategy.auth.AuthenticationStrategyRegistry] conflicts with existing, non-compatible bean definition of same name and class [com.collaboportal.common.spring.registry.AuthenticationStrategyRegistry]
-  	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:349)
-  	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:287)
-  	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
-  	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:289)
-  	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:243)
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:196)
-  	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:164)
-  	... 85 common frames omitted
+date:2025-07-26 15:38:24	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:Starting ShohoApplicationTests using Java ******.******.****** with PID 38303 (started by root in /home/workspace/api/shoho)
+date:2025-07-26 15:38:24	thread:main	X-Track:	level:DEBUG	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:Running with Spring Boot ******.******.******, Spring ******.******.******
+date:2025-07-26 15:38:24	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:No active profile set, falling back to 1 default profile: "default"
+date:2025-07-26 15:38:25	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-26 15:38:25	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+date:2025-07-26 15:38:25	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 27 ms. Found 0 JPA repository interfaces.
+date:2025-07-26 15:38:25	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-26 15:38:25	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+date:2025-07-26 15:38:25	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+date:2025-07-26 15:38:26	thread:main	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Starting...
+date:2025-07-26 15:38:27	thread:main	X-Track:	level:INFO 	logger:com.zaxxer.hikari.pool.HikariPool               	message:syohomoto-app-api-local - Added connection ConnectionID:1 ClientConnectionId: 89c03ee6-24f0-4f58-a922-1087d8530fc1
+date:2025-07-26 15:38:27	thread:main	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Start completed.
+date:2025-07-26 15:38:27	thread:main	X-Track:	level:INFO 	logger:org.hibernate.jpa.internal.util.LogHelper       	message:HHH000204: Processing PersistenceUnitInfo [name: default]
+date:2025-07-26 15:38:27	thread:main	X-Track:	level:INFO 	logger:org.hibernate.Version                           	message:HHH000412: Hibernate ORM core version ******.******.******.Final
+date:2025-07-26 15:38:27	thread:main	X-Track:	level:WARN 	logger:org.hibernate.orm.deprecation                   	message:HHH90000021: Encountered deprecated setting [javax.pe......redCache.mode], use [jakarta.......redCache.mode] instead
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:INFO 	logger:SQL dialect                                     	message:HHH000400: Using dialect: org.hibe.......dialect.SQLServerDialect
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:INFO 	logger:o.h.e.t.j.platform.internal.JtaPlatformInitiator	message:HHH000490: Using JtaPlatform implementation: [org.hibe......e.engine.transact......platform.internal.NoJtaPlatform]
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:INFO 	logger:o.s.o.jpa.LocalContainerEntityManagerFactoryBean	message:Initialized JPA EntityManagerFactory for persistence unit 'default'
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:WARN 	logger:c.c.common.config.CommonConfigFactory           	message:環境変数INDEX_PAGEが見つかりません
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:Er28W5rtv9Uqqyld7kcC6BoONiPSA1Eh
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:ki6p8tK3ET2wZ8ZHvVyEYfxSVpYy1YqRQXr2x2VNX3pYGSSKCtpvVtNwlbMsLuMu
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:OAuth2 策略自動配置初始化完成
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 LoginStrategyRegistry Bean
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:LoginStrategyRegistryの初期化が完了しました
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.controller.AuthorizationController 	message:AuthorizationControllerの初期化が完了し、リクエストの監視を開始しました
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化開始、プロバイダー数: 1
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録の作成に成功: provider1 - 測試環境
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化完了、登録成功プロバイダー: [provider1]
+date:2025-07-26 15:38:28	thread:main	X-Track:	level:INFO 	logger:c.c.common.jwt.controller.HealthCheckController 	message:HealthCheckControllerの初期化が完了しました
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:WARN 	logger:o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration	message:spring.j......-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.j......-in-view to disable this warning
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.common.spring.ContextRegister 	message:CommonContextForSpringInJakartaServletを取得します
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定を開始します
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定が完了しました
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:o.s.security.web.DefaultSecurityFilterChain     	message:Will secure any request with [org.spri......security.web.sess......rlFilter@5d63d496, org.spri......security.web.cont.......request.async.WebAsyncManagerIntegrationFilter@2b95004a, org.spri......security.web.cont......erFilter@338f0970, org.spri......security.web.head......erFilter@c63a15f, org.spri......security.web.auth......n.logout.LogoutFilter@8a6eeb8, org.spri......security.web.save......reFilter@53011b2d, org.spri......security.web.serv......stFilter@76dc7bdb, org.spri......security.web.auth......onFilter@4386192f, org.spri......security.web.sess......ntFilter@7f6fdc12, org.spri......security.web.acce......onFilter@179f2542, org.spri......security.web.acce......ntercept.AuthorizationFilter@3b39b73f]
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.common.spring.common.CommonAuthConfiguration	message:AuthServletFilter registered with URL pattern '/*' and order 1.
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2ControllerAutoConfiguration	message:OAuth2 コントローラー自動設定の初期化が完了しました
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:OAuth2 コア自動設定の初期化が完了しました
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:UserInfoServiceFactory を初期化します
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:OAuth2 フィルター自動設定の初期化が完了しました
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationTemplate Bean を登録します
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: header
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: header
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: cookie
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: cookie
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:デフォルトのトークン抽出ストラテジーを登録しました: header, cookie
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:JwtValidationPreHandlerの初期化が完了しました。JwtTokenUtilを注入しました
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationChain Bean を登録します
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 JwtTokenStrategyRegistry Bean
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 CallbackLoginTemplate Bean
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化を開始します
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: test
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: test
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: prod
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: prod
+date:2025-07-26 15:38:29	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化が完了しました
+date:2025-07-26 15:38:30	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplicationTests   	message:Started ShohoApplicationTests in 8.051 seconds (process running for 9.835)
+date:2025-07-26 15:38:31	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:o.s.o.jpa.LocalContainerEntityManagerFactoryBean	message:Closing JPA EntityManagerFactory for persistence unit 'default'
+date:2025-07-26 15:38:31	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Shutdown initiated...
+date:2025-07-26 15:38:31	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Shutdown completed.

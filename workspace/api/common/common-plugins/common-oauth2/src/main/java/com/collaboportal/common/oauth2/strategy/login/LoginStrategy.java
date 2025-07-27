@@ -1,9 +1,9 @@
 package com.collaboportal.common.oauth2.strategy.login;
 
-import com.collaboportal.common.strategy.AuthStrategy;
+
 
 @FunctionalInterface
-public interface LoginStrategy extends AuthStrategy {
-    @Override
+public interface LoginStrategy {
+    
     void run(Object obj);
 }

@@ -68,21 +68,17 @@ public class JwtTokenUtil implements Serializable {
     public static Map<String, String> getItemsJwtToken(String token) {
         Map<String, String> items = new HashMap<>();
         try {
-            JSONObject playload = new JSONObject(
-                    new String(Base64.decodeBase64URLSafe(token.split(delimiter)[1]), "UTF-8"));
-            for (String key : playload.keySet()) {
-                Object value = playload.get(key);
+            Claims claims = Jwts.parser().verifyWith(new JwtTokenUtil().getKey()).build().parseSignedClaims(token).getPayload();
+            for (String key : claims.keySet()) {
+                Object value = claims.get(key);
                 if (value != null) {
                     items.put(key, value.toString());
                 }
             }
             logger.debug("getItemsFromIdTokenで取得した全項目：{}", items);
             return items;
-        } catch (JSONException ex) {
-            logger.error("JWT変換エラー");
-            return items;
-        } catch (UnsupportedEncodingException ex) {
-            logger.error("JWTエンコードエラー");
+        } catch (Exception ex) {
+            logger.error("JWT変換エラー", ex);
             return items;
         }
     }

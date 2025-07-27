@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
@@ -80,6 +82,16 @@ public class WebSecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         logger.debug("認証マネージャーを取得します");
         return config.getAuthenticationManager();
+    }
+
+    /**
+     * パスワードエンコーダーを取得します
+     * @return PasswordEncoder パスワードエンコーダー
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        logger.debug("パスワードエンコーダーを取得します");
+        return new BCryptPasswordEncoder();
     }
 
 }

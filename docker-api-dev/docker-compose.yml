@@ -1,6 +1,17 @@
 version: '3.2'
 
 services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-gateway
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - shoho-spring
+    networks:
+      - default
 
   shoho-spring:
   # 指定したコンテキストより上のフォルダは見えないので、上のフォルダが見れるようにコンテキストを上にしている
@@ -12,6 +23,8 @@ services:
     volumes:
        - ../workspace:/home/workspace
     tty: true
+    expose:
+      - "8080"
   
 networks:
   default:

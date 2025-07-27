@@ -1,0 +1,117 @@
+{"properties": [
+  {
+    "name": "spring.cloud.azure.active-directory.credential.client-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.azure.active-directory.credential.client-secret'"
+  },
+  {
+    "name": "spring.cloud.azure.active-directory.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.azure.active-directory.enabled'"
+  },
+  {
+    "name": "spring.cloud.azure.active-directory.profile.tenant-id",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.azure.active-directory.profile.tenant-id'"
+  },
+  {
+    "name": "spring.cloud.azure.active-directory.credential.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.azure.active-directory.credential.client-id'"
+  },
+  {
+    "name": "util.not.auhtorization.url",
+    "type": "java.lang.String",
+    "description": "A description for 'util.not.auhtorization.url'"
+  },
+  {
+    "name": "hibernate.dialect",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.dialect'"
+  },
+  {
+    "name": "hibernate.connection.url",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.connection.url'"
+  },
+  {
+    "name": "javax.persistence.jdbc.url",
+    "type": "java.lang.String",
+    "description": "A description for 'javax.persistence.jdbc.url'"
+  },
+  {
+    "name": "util.jus.baseurl",
+    "type": "java.lang.String",
+    "description": "A description for 'util.jus.baseurl'"
+  },
+  {
+    "name": "util.log.level",
+    "type": "java.lang.String",
+    "description": "A description for 'util.log.level'"
+  },
+  {
+    "name": "util.collaboportal.baseurl",
+    "type": "java.lang.String",
+    "description": "A description for 'util.collaboportal.baseurl'"
+  },
+  {
+    "name": "util.collaboportal.issuer",
+    "type": "java.lang.String",
+    "description": "A description for 'util.collaboportal.issuer'"
+  },
+  {
+    "name": "util.collaboportal.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'util.collaboportal.client-id'"
+  },
+  {
+    "name": "util.collaboportal.client-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'util.collaboportal.client-secret'"
+  },
+  {
+    "name": "util.collaboportal.audience",
+    "type": "java.lang.String",
+    "description": "A description for 'util.collaboportal.audience'"
+  },
+  {
+    "name": "util.timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'util.timeout'"
+  },
+  {
+    "name": "util.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'util.secret-key'"
+  },
+  {
+    "name": "util.dev-mode",
+    "type": "java.lang.String",
+    "description": "A description for 'util.dev-mode'"
+  },
+  {
+    "name": "util.no-authorization",
+    "type": "java.lang.String",
+    "description": "A description for 'util.no-authorization'"
+  },
+  {
+    "name": "util.is-secure",
+    "type": "java.lang.String",
+    "description": "A description for 'util.is-secure'"
+  },
+  {
+    "name": "util.sso.redirect.login",
+    "type": "java.lang.String",
+    "description": "A description for 'util.sso.redirect.login'"
+  },
+  {
+    "name": "util.sso.redirect.login",
+    "type": "java.lang.String",
+    "description": "A description for 'util.sso.redirect.login'"
+  },
+  {
+    "name": "util.sso.redirect.error",
+    "type": "java.lang.String",
+    "description": "A description for 'util.sso.redirect.error'"
+  }
+]}

@@ -1,0 +1,213 @@
+date:2025-07-26 13:31:38	thread:background-preinit	X-Track:	level:INFO 	logger:org.hibernate.validator.internal.util.Version   	message:HV000001: Hibernate Validator ******.******.******.Final
+date:2025-07-26 13:31:38	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:Starting ShohoApplication using Java ******.******.****** with PID 630402 (/home/workspace/api/shoho/target/classes started by root in /home/workspace)
+date:2025-07-26 13:31:38	thread:restartedMain	X-Track:	level:DEBUG	logger:com.collaboportal.shoho.ShohoApplication        	message:Running with Spring Boot ******.******.******, Spring ******.******.******
+date:2025-07-26 13:31:38	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:No active profile set, falling back to 1 default profile: "default"
+date:2025-07-26 13:31:38	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor 	message:Devtools property defaults active! Set 'spring.d......operties' to 'false' to disable
+date:2025-07-26 13:31:38	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor 	message:For additional web related logging consider setting the 'logging.......evel.web' property to 'DEBUG'
+date:2025-07-26 13:31:39	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-26 13:31:39	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+date:2025-07-26 13:31:39	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 16 ms. Found 0 JPA repository interfaces.
+date:2025-07-26 13:31:39	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-26 13:31:39	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+date:2025-07-26 13:31:39	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+date:2025-07-26 13:31:40	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.boot.web.embedded.tomcat.TomcatWebServer    	message:Tomcat initialized with port(s): 8080 (http)
+date:2025-07-26 13:31:40	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.coyote.http11.Http11NioProtocol      	message:Initializing ProtocolHandler ["http-nio-8080"]
+date:2025-07-26 13:31:40	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.catalina.core.StandardService        	message:Starting service [Tomcat]
+date:2025-07-26 13:31:40	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.catalina.core.StandardEngine         	message:Starting Servlet engine: [Apache Tomcat/******.******.******]
+date:2025-07-26 13:31:40	thread:restartedMain	X-Track:	level:INFO 	logger:o.a.c.c.ContainerBase.[Tomcat].[localhost].[/]  	message:Initializing Spring embedded WebApplicationContext
+date:2025-07-26 13:31:40	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.w.s.c.ServletWebServerApplicationContext  	message:Root WebApplicationContext: initialization completed in 2148 ms
+date:2025-07-26 13:31:40	thread:restartedMain	X-Track:	level:WARN 	logger:c.c.common.config.CommonConfigFactory           	message:環境変数INDEX_PAGEが見つかりません
+date:2025-07-26 13:31:41	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.spring.common.CommonAuthConfiguration	message:AuthServletFilter registered with URL pattern '/*' and order 1.
+date:2025-07-26 13:31:41	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Starting...
+date:2025-07-26 13:31:41	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.pool.HikariPool               	message:syohomoto-app-api-local - Added connection ConnectionID:1 ClientConnectionId: 6b25fc41-a42c-47fc-bd4a-40002dc24f1f
+date:2025-07-26 13:31:41	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Start completed.
+date:2025-07-26 13:31:41	thread:restartedMain	X-Track:	level:INFO 	logger:org.hibernate.jpa.internal.util.LogHelper       	message:HHH000204: Processing PersistenceUnitInfo [name: default]
+date:2025-07-26 13:31:41	thread:restartedMain	X-Track:	level:INFO 	logger:org.hibernate.Version                           	message:HHH000412: Hibernate ORM core version ******.******.******.Final
+date:2025-07-26 13:31:41	thread:restartedMain	X-Track:	level:WARN 	logger:org.hibernate.orm.deprecation                   	message:HHH90000021: Encountered deprecated setting [javax.pe......redCache.mode], use [jakarta.......redCache.mode] instead
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:INFO 	logger:SQL dialect                                     	message:HHH000400: Using dialect: org.hibe.......dialect.SQLServerDialect
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:INFO 	logger:o.h.e.t.j.platform.internal.JtaPlatformInitiator	message:HHH000490: Using JtaPlatform implementation: [org.hibe......e.engine.transact......platform.internal.NoJtaPlatform]
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.o.jpa.LocalContainerEntityManagerFactoryBean	message:Initialized JPA EntityManagerFactory for persistence unit 'default'
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:OAuth2 策略自動配置初始化完成
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 LoginStrategyRegistry Bean
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:LoginStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.controller.AuthorizationController 	message:AuthorizationControllerの初期化が完了し、リクエストの監視を開始しました
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化開始、プロバイダー数: 1
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録の作成に成功: provider1 - 測試環境
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化完了、登録成功プロバイダー: [provider1]
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:Er28W5rtv9Uqqyld7kcC6BoONiPSA1Eh
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:ki6p8tK3ET2wZ8ZHvVyEYfxSVpYy1YqRQXr2x2VNX3pYGSSKCtpvVtNwlbMsLuMu
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.jwt.controller.HealthCheckController 	message:HealthCheckControllerの初期化が完了しました
+date:2025-07-26 13:31:42	thread:restartedMain	X-Track:	level:WARN 	logger:o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration	message:spring.j......-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.j......-in-view to disable this warning
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.common.spring.ContextRegister 	message:CommonContextForSpringInJakartaServletを取得します
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定を開始します
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定が完了しました
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.security.web.DefaultSecurityFilterChain     	message:Will secure any request with [org.spri......security.web.sess......rlFilter@7d88422f, org.spri......security.web.cont.......request.async.WebAsyncManagerIntegrationFilter@62aaa9c1, org.spri......security.web.cont......erFilter@5901b08b, org.spri......security.web.head......erFilter@52ad7ea2, org.spri......security.web.auth......n.logout.LogoutFilter@5ee257e9, org.spri......security.web.save......reFilter@603b0827, org.spri......security.web.serv......stFilter@78307888, org.spri......security.web.auth......onFilter@5f26ccf7, org.spri......security.web.sess......ntFilter@7f41b89d, org.spri......security.web.acce......onFilter@7c9c5e80, org.spri......security.web.acce......ntercept.AuthorizationFilter@3075f916]
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2ControllerAutoConfiguration	message:OAuth2 コントローラー自動設定の初期化が完了しました
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:OAuth2 コア自動設定の初期化が完了しました
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:UserInfoServiceFactory を初期化します
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:OAuth2 フィルター自動設定の初期化が完了しました
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationTemplate Bean を登録します
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: header
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: header
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: cookie
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: cookie
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:デフォルトのトークン抽出ストラテジーを登録しました: header, cookie
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:JwtValidationPreHandlerの初期化が完了しました。JwtTokenUtilを注入しました
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationChain Bean を登録します
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 JwtTokenStrategyRegistry Bean
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 CallbackLoginTemplate Bean
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化を開始します
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: test
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: test
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: prod
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: prod
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化が完了しました
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.autoconfigure.OptionalLiveReloadServer  	message:LiveReload server is running on port 35729
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.coyote.http11.Http11NioProtocol      	message:Starting ProtocolHandler ["http-nio-8080"]
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.boot.web.embedded.tomcat.TomcatWebServer    	message:Tomcat started on port(s): 8080 (http) with context path ''
+date:2025-07-26 13:31:43	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:Started ShohoApplication in 5.507 seconds (process running for 5.956)
+date:2025-07-26 13:31:50	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:o.s.o.jpa.LocalContainerEntityManagerFactoryBean	message:Closing JPA EntityManagerFactory for persistence unit 'default'
+date:2025-07-26 13:31:50	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Shutdown initiated...
+date:2025-07-26 13:31:50	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Shutdown completed.
+date:2025-07-26 13:32:00	thread:background-preinit	X-Track:	level:INFO 	logger:org.hibernate.validator.internal.util.Version   	message:HV000001: Hibernate Validator ******.******.******.Final
+date:2025-07-26 13:32:00	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:Starting ShohoApplication using Java ******.******.****** with PID 631885 (/home/workspace/api/shoho/target/classes started by root in /home/workspace)
+date:2025-07-26 13:32:00	thread:restartedMain	X-Track:	level:DEBUG	logger:com.collaboportal.shoho.ShohoApplication        	message:Running with Spring Boot ******.******.******, Spring ******.******.******
+date:2025-07-26 13:32:00	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:No active profile set, falling back to 1 default profile: "default"
+date:2025-07-26 13:32:00	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor 	message:Devtools property defaults active! Set 'spring.d......operties' to 'false' to disable
+date:2025-07-26 13:32:00	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor 	message:For additional web related logging consider setting the 'logging.......evel.web' property to 'DEBUG'
+date:2025-07-26 13:32:01	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-26 13:32:01	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+date:2025-07-26 13:32:01	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 22 ms. Found 0 JPA repository interfaces.
+date:2025-07-26 13:32:01	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-26 13:32:01	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+date:2025-07-26 13:32:01	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.boot.web.embedded.tomcat.TomcatWebServer    	message:Tomcat initialized with port(s): 8080 (http)
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.coyote.http11.Http11NioProtocol      	message:Initializing ProtocolHandler ["http-nio-8080"]
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.catalina.core.StandardService        	message:Starting service [Tomcat]
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.catalina.core.StandardEngine         	message:Starting Servlet engine: [Apache Tomcat/******.******.******]
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:INFO 	logger:o.a.c.c.ContainerBase.[Tomcat].[localhost].[/]  	message:Initializing Spring embedded WebApplicationContext
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.w.s.c.ServletWebServerApplicationContext  	message:Root WebApplicationContext: initialization completed in 2097 ms
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:WARN 	logger:c.c.common.config.CommonConfigFactory           	message:環境変数INDEX_PAGEが見つかりません
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.spring.common.CommonAuthConfiguration	message:AuthServletFilter registered with URL pattern '/*' and order 1.
+date:2025-07-26 13:32:02	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Starting...
+date:2025-07-26 13:32:03	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.pool.HikariPool               	message:syohomoto-app-api-local - Added connection ConnectionID:1 ClientConnectionId: 0a8f0525-12c2-4057-b6bd-4b53f2e0b96e
+date:2025-07-26 13:32:03	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Start completed.
+date:2025-07-26 13:32:03	thread:restartedMain	X-Track:	level:INFO 	logger:org.hibernate.jpa.internal.util.LogHelper       	message:HHH000204: Processing PersistenceUnitInfo [name: default]
+date:2025-07-26 13:32:03	thread:restartedMain	X-Track:	level:INFO 	logger:org.hibernate.Version                           	message:HHH000412: Hibernate ORM core version ******.******.******.Final
+date:2025-07-26 13:32:03	thread:restartedMain	X-Track:	level:WARN 	logger:org.hibernate.orm.deprecation                   	message:HHH90000021: Encountered deprecated setting [javax.pe......redCache.mode], use [jakarta.......redCache.mode] instead
+date:2025-07-26 13:32:03	thread:restartedMain	X-Track:	level:INFO 	logger:SQL dialect                                     	message:HHH000400: Using dialect: org.hibe.......dialect.SQLServerDialect
+date:2025-07-26 13:32:03	thread:restartedMain	X-Track:	level:INFO 	logger:o.h.e.t.j.platform.internal.JtaPlatformInitiator	message:HHH000490: Using JtaPlatform implementation: [org.hibe......e.engine.transact......platform.internal.NoJtaPlatform]
+date:2025-07-26 13:32:03	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.o.jpa.LocalContainerEntityManagerFactoryBean	message:Initialized JPA EntityManagerFactory for persistence unit 'default'
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:OAuth2 策略自動配置初始化完成
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 LoginStrategyRegistry Bean
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:LoginStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.controller.AuthorizationController 	message:AuthorizationControllerの初期化が完了し、リクエストの監視を開始しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化開始、プロバイダー数: 1
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録の作成に成功: provider1 - 測試環境
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化完了、登録成功プロバイダー: [provider1]
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:Er28W5rtv9Uqqyld7kcC6BoONiPSA1Eh
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:ki6p8tK3ET2wZ8ZHvVyEYfxSVpYy1YqRQXr2x2VNX3pYGSSKCtpvVtNwlbMsLuMu
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.jwt.controller.HealthCheckController 	message:HealthCheckControllerの初期化が完了しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:WARN 	logger:o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration	message:spring.j......-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.j......-in-view to disable this warning
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.common.spring.ContextRegister 	message:CommonContextForSpringInJakartaServletを取得します
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定を開始します
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定が完了しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.security.web.DefaultSecurityFilterChain     	message:Will secure any request with [org.spri......security.web.sess......rlFilter@5d276d03, org.spri......security.web.cont.......request.async.WebAsyncManagerIntegrationFilter@562a7039, org.spri......security.web.cont......erFilter@1efa5656, org.spri......security.web.head......erFilter@337e287d, org.spri......security.web.auth......n.logout.LogoutFilter@17d0b0d3, org.spri......security.web.save......reFilter@b2fb941, org.spri......security.web.serv......stFilter@1b8c0682, org.spri......security.web.auth......onFilter@76c66ab4, org.spri......security.web.sess......ntFilter@11041a4b, org.spri......security.web.acce......onFilter@534796e5, org.spri......security.web.acce......ntercept.AuthorizationFilter@3c86e00e]
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2ControllerAutoConfiguration	message:OAuth2 コントローラー自動設定の初期化が完了しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:OAuth2 コア自動設定の初期化が完了しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:UserInfoServiceFactory を初期化します
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:OAuth2 フィルター自動設定の初期化が完了しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationTemplate Bean を登録します
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: header
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: header
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: cookie
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: cookie
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:デフォルトのトークン抽出ストラテジーを登録しました: header, cookie
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:JwtValidationPreHandlerの初期化が完了しました。JwtTokenUtilを注入しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationChain Bean を登録します
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 JwtTokenStrategyRegistry Bean
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 CallbackLoginTemplate Bean
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化を開始します
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: test
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: test
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: prod
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: prod
+date:2025-07-26 13:32:04	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化が完了しました
+date:2025-07-26 13:32:05	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.autoconfigure.OptionalLiveReloadServer  	message:LiveReload server is running on port 35729
+date:2025-07-26 13:32:05	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.coyote.http11.Http11NioProtocol      	message:Starting ProtocolHandler ["http-nio-8080"]
+date:2025-07-26 13:32:05	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.boot.web.embedded.tomcat.TomcatWebServer    	message:Tomcat started on port(s): 8080 (http) with context path ''
+date:2025-07-26 13:32:05	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:Started ShohoApplication in 5.906 seconds (process running for 6.583)
+date:2025-07-26 13:35:32	thread:background-preinit	X-Track:	level:INFO 	logger:org.hibernate.validator.internal.util.Version   	message:HV000001: Hibernate Validator ******.******.******.Final
+date:2025-07-26 13:35:32	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:Starting ShohoApplication using Java ******.******.****** with PID 634482 (/home/workspace/api/shoho/target/classes started by root in /home/workspace)
+date:2025-07-26 13:35:32	thread:restartedMain	X-Track:	level:DEBUG	logger:com.collaboportal.shoho.ShohoApplication        	message:Running with Spring Boot ******.******.******, Spring ******.******.******
+date:2025-07-26 13:35:32	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:No active profile set, falling back to 1 default profile: "default"
+date:2025-07-26 13:35:32	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor 	message:Devtools property defaults active! Set 'spring.d......operties' to 'false' to disable
+date:2025-07-26 13:35:32	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor 	message:For additional web related logging consider setting the 'logging.......evel.web' property to 'DEBUG'
+date:2025-07-26 13:35:33	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-26 13:35:33	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+date:2025-07-26 13:35:33	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 22 ms. Found 0 JPA repository interfaces.
+date:2025-07-26 13:35:33	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-26 13:35:33	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+date:2025-07-26 13:35:33	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.boot.web.embedded.tomcat.TomcatWebServer    	message:Tomcat initialized with port(s): 8080 (http)
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.coyote.http11.Http11NioProtocol      	message:Initializing ProtocolHandler ["http-nio-8080"]
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.catalina.core.StandardService        	message:Starting service [Tomcat]
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.catalina.core.StandardEngine         	message:Starting Servlet engine: [Apache Tomcat/******.******.******]
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:INFO 	logger:o.a.c.c.ContainerBase.[Tomcat].[localhost].[/]  	message:Initializing Spring embedded WebApplicationContext
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.w.s.c.ServletWebServerApplicationContext  	message:Root WebApplicationContext: initialization completed in 2821 ms
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:WARN 	logger:c.c.common.config.CommonConfigFactory           	message:環境変数INDEX_PAGEが見つかりません
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.spring.common.CommonAuthConfiguration	message:AuthServletFilter registered with URL pattern '/*' and order 1.
+date:2025-07-26 13:35:35	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Starting...
+date:2025-07-26 13:35:36	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.pool.HikariPool               	message:syohomoto-app-api-local - Added connection ConnectionID:1 ClientConnectionId: c188e74b-3fb1-4b73-8981-c06c599957ff
+date:2025-07-26 13:35:36	thread:restartedMain	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Start completed.
+date:2025-07-26 13:35:36	thread:restartedMain	X-Track:	level:INFO 	logger:org.hibernate.jpa.internal.util.LogHelper       	message:HHH000204: Processing PersistenceUnitInfo [name: default]
+date:2025-07-26 13:35:36	thread:restartedMain	X-Track:	level:INFO 	logger:org.hibernate.Version                           	message:HHH000412: Hibernate ORM core version ******.******.******.Final
+date:2025-07-26 13:35:36	thread:restartedMain	X-Track:	level:WARN 	logger:org.hibernate.orm.deprecation                   	message:HHH90000021: Encountered deprecated setting [javax.pe......redCache.mode], use [jakarta.......redCache.mode] instead
+date:2025-07-26 13:35:36	thread:restartedMain	X-Track:	level:INFO 	logger:SQL dialect                                     	message:HHH000400: Using dialect: org.hibe.......dialect.SQLServerDialect
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:INFO 	logger:o.h.e.t.j.platform.internal.JtaPlatformInitiator	message:HHH000490: Using JtaPlatform implementation: [org.hibe......e.engine.transact......platform.internal.NoJtaPlatform]
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.o.jpa.LocalContainerEntityManagerFactoryBean	message:Initialized JPA EntityManagerFactory for persistence unit 'default'
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:OAuth2 策略自動配置初始化完成
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 LoginStrategyRegistry Bean
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:LoginStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.controller.AuthorizationController 	message:AuthorizationControllerの初期化が完了し、リクエストの監視を開始しました
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化開始、プロバイダー数: 1
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録の作成に成功: provider1 - 測試環境
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化完了、登録成功プロバイダー: [provider1]
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:Er28W5rtv9Uqqyld7kcC6BoONiPSA1Eh
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:ki6p8tK3ET2wZ8ZHvVyEYfxSVpYy1YqRQXr2x2VNX3pYGSSKCtpvVtNwlbMsLuMu
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.jwt.controller.HealthCheckController 	message:HealthCheckControllerの初期化が完了しました
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:WARN 	logger:o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration	message:spring.j......-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.j......-in-view to disable this warning
+date:2025-07-26 13:35:37	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.common.spring.ContextRegister 	message:CommonContextForSpringInJakartaServletを取得します
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定を開始します
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定が完了しました
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.security.web.DefaultSecurityFilterChain     	message:Will secure any request with [org.spri......security.web.sess......rlFilter@565c0f8f, org.spri......security.web.cont.......request.async.WebAsyncManagerIntegrationFilter@4230c9a3, org.spri......security.web.cont......erFilter@6989d4a0, org.spri......security.web.head......erFilter@27950d3c, org.spri......security.web.auth......n.logout.LogoutFilter@b2fb941, org.spri......security.web.save......reFilter@7276865f, org.spri......security.web.serv......stFilter@4397c784, org.spri......security.web.auth......onFilter@30a4dec9, org.spri......security.web.sess......ntFilter@3aa320d7, org.spri......security.web.acce......onFilter@18d22484, org.spri......security.web.acce......ntercept.AuthorizationFilter@651e3cc3]
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2ControllerAutoConfiguration	message:OAuth2 コントローラー自動設定の初期化が完了しました
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:OAuth2 コア自動設定の初期化が完了しました
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:UserInfoServiceFactory を初期化します
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:OAuth2 フィルター自動設定の初期化が完了しました
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationTemplate Bean を登録します
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: header
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: header
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: cookie
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: cookie
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:デフォルトのトークン抽出ストラテジーを登録しました: header, cookie
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:JwtValidationPreHandlerの初期化が完了しました。JwtTokenUtilを注入しました
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationChain Bean を登録します
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 JwtTokenStrategyRegistry Bean
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 CallbackLoginTemplate Bean
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化を開始します
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: test
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: test
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: prod
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: prod
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化が完了しました
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.b.d.autoconfigure.OptionalLiveReloadServer  	message:LiveReload server is running on port 35729
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:org.apache.coyote.http11.Http11NioProtocol      	message:Starting ProtocolHandler ["http-nio-8080"]
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:o.s.boot.web.embedded.tomcat.TomcatWebServer    	message:Tomcat started on port(s): 8080 (http) with context path ''
+date:2025-07-26 13:35:38	thread:restartedMain	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:Started ShohoApplication in 7.017 seconds (process running for 8.035)

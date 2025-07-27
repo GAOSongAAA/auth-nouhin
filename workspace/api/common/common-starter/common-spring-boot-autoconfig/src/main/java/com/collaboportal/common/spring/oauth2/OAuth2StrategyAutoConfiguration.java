@@ -20,8 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @AutoConfiguration
 @ComponentScan(basePackages = {
-        "com.collaboportal.common.oauth2.registry",
-        "com.collaboportal.common.oauth2.strategy"
+        "com.collaboportal"
 })
 public class OAuth2StrategyAutoConfiguration {
 

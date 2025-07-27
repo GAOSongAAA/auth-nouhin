@@ -21,7 +21,7 @@ public class AuthInterceptorImpl implements WebMvcConfigurer {
     @Value("${common.auth.excludePaths:}")
     private String excludePaths;
 
-    @Autowired
+
     public AuthInterceptorImpl(AuthorizationInterceptor authorizationInterceptor) {
         this.authorizationInterceptor = authorizationInterceptor;
     }

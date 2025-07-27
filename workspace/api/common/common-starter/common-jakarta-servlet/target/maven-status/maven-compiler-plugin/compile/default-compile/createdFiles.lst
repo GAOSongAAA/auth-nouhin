@@ -1,0 +1,4 @@
+com/collaboportal/common/servlet/ResponseForServlet.class
+com/collaboportal/common/utils/PathPatternParserUtil.class
+com/collaboportal/common/servlet/RequestForServlet.class
+com/collaboportal/common/servlet/StorageForServlet.class

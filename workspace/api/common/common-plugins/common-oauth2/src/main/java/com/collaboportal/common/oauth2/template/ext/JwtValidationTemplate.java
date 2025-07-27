@@ -1,6 +1,5 @@
 package com.collaboportal.common.oauth2.template.ext;
 
-import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +20,7 @@ import com.collaboportal.common.oauth2.template.OAuth2LoginTemplate;
 import com.collaboportal.common.oauth2.utils.CookieUtil;
 import com.collaboportal.common.oauth2.utils.JwtValidationUtils;
 import com.collaboportal.common.utils.Message;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 
 public class JwtValidationTemplate extends OAuth2LoginTemplate {
 

@@ -17,5 +17,6 @@
       "name": "nouki_dev",
       "username": "sa"
     }
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

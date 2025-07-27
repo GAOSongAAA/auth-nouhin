@@ -15,7 +15,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @AutoConfiguration
 @ComponentScan(basePackages = {
-        "com.collaboportal.common.jwt"
+        "com.collaboportal.common.jwt",
+        "com.collaboportal.common.login"
 })
 public class JwtAutoConfiguration {
 

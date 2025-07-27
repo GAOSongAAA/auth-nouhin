@@ -7,6 +7,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.collaboportal.common.exception.AuthenticationException;
 import com.collaboportal.common.exception.CommonException;
 import com.collaboportal.common.exception.ForbiddenException;
 import com.collaboportal.common.model.ErrorResponseBody;
@@ -41,24 +42,29 @@ public class RestExceptionHandler{
     // クエリパラメータのバリデーションエラーのハンドリング
     @ExceptionHandler(BindException.class)
     public ErrorResponseBody handleBindException(BindException ex) {
-        logger.info("===== Bind Exception =====: " + ex.getClass().getName() + ": " + ex.getMessage() + ": " + getBindErrorStackTrace(ex));
+        logger.info("===== Bind Exception =====: {}: {}", ex.getClass().getName(), ex.getMessage(), ex);
         ErrorResponseBody errorResponseBody = new ErrorResponseBody(Integer.toString(HttpStatus.BAD_REQUEST.value()), Message.W400, Message.ERROR_LEVEL_WARNING);
         return errorResponseBody;
     }
     // DB排他エラーのハンドリング
     @ExceptionHandler(OptimisticLockingFailureException.class)
     public ErrorResponseBody handleOptimisticLockingFailureException(OptimisticLockingFailureException e) {
-        logger.error("===== System Error =====: " + e.getClass().getName() + ": " + e.getMessage() + ": " + getSystemErrorStackTrace(e));
+        logger.error("===== System Error =====: {}: {}", e.getClass().getName(), e.getMessage(), e);
         ErrorResponseBody errorResponseBody = new ErrorResponseBody(Integer.toString(HttpStatus.CONFLICT.value()), Message.W409, Message.ERROR_LEVEL_ERROR);
         return errorResponseBody;
     }
     
     @ExceptionHandler(Exception.class)
     public ErrorResponseBody handleGenericException(Exception e) {
-        logger.error("===== System Error (Generic) =====: {}", getSystemErrorStackTrace(e));
+        logger.error("===== System Error (Generic) =====: {}", getStackTrace(e));
 
-        
-        if (e instanceof DataAccessException) {
+        if (e instanceof AuthenticationException) {
+            return new ErrorResponseBody(
+                Integer.toString(HttpStatus.UNAUTHORIZED.value()), 
+                e.getMessage(),  
+                Message.ERROR_LEVEL_ERROR
+            );
+        } else if (e instanceof DataAccessException) {
             logger.error("===== Database Error =====: {}", e.getMessage());
             return new ErrorResponseBody(
                 Integer.toString(HttpStatus.INTERNAL_SERVER_ERROR.value()), 
@@ -89,26 +95,14 @@ public class RestExceptionHandler{
     }
 
 
-    // Bind Exceptionのスタックトレースを取得
-    private static String getBindErrorStackTrace(BindException ex) {
-		StackTraceElement[] list = ex.getStackTrace();
-		StringBuilder b = new StringBuilder();
-		b.append(ex.getClass()).append(":").append(ex.getMessage()).append("\n");
-		for( StackTraceElement s : list ) {
-			b.append(s.toString()).append("\n");
-		}
-		return b.toString();
-	}
-
-    // System Exceptionのスタックトレースを取得
-    private static String getSystemErrorStackTrace(Exception e) {
-		StackTraceElement[] list = e.getStackTrace();
-		StringBuilder b = new StringBuilder();
-		b.append(e.getClass()).append(":").append(e.getMessage()).append("\n");
-		for( StackTraceElement s : list ) {
-			b.append(s.toString()).append("\n");
-		}
-		return b.toString();
-	}
+    private static String getStackTrace(Throwable ex){
+        StackTraceElement[] list = ex.getStackTrace();
+        StringBuilder b = new StringBuilder();
+        b.append(ex.getClass()).append(":").append(ex.getMessage()).append("\n");
+        for( StackTraceElement s : list ) {
+            b.append(s.toString()).append("\n");
+        }
+        return b.toString();
+    }
 
 }
