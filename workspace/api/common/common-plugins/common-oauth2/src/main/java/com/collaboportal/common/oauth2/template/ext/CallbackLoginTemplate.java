@@ -7,6 +7,7 @@ import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.context.CallbackContext;
 import com.collaboportal.common.context.web.BaseCookie;
 import com.collaboportal.common.context.web.BaseResponse;
+import com.collaboportal.common.jwt.utils.CookieUtil;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.entity.DTO.IUserInfoDto;
 import com.collaboportal.common.oauth2.entity.DTO.UserInfo;
@@ -18,7 +19,6 @@ import com.collaboportal.common.oauth2.model.OauthTokenResult;
 import com.collaboportal.common.oauth2.processor.AuthProcessor;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
 import com.collaboportal.common.oauth2.template.OAuth2LoginTemplate;
-import com.collaboportal.common.oauth2.utils.CookieUtil;
 import com.collaboportal.common.utils.Message;
 import com.fasterxml.jackson.databind.JsonSerializable.Base;
 

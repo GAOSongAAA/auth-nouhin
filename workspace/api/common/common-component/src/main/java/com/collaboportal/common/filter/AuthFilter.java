@@ -2,7 +2,7 @@ package com.collaboportal.common.filter;
 
 import java.util.List;
 
-import com.collaboportal.common.strategy.authorization.AuthenticationStrategy;
+import com.collaboportal.common.strategy.authorization.AuthorizationStrategy;
 import com.collaboportal.common.strategy.authorization.AuthorizationErrorStrategy;
 
 
@@ -38,7 +38,7 @@ public interface AuthFilter {
      * @param beforeAuth /
      * @return 对象自身
      */
-    AuthFilter setBeforeAuth(AuthenticationStrategy beforeAuth);
+    AuthFilter setBeforeAuth(AuthorizationStrategy beforeAuth);
 
     /**
      * 写入[ 错误处理函数 ]：在每次[ 认证函数 ]之后执行。

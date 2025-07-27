@@ -10,6 +10,7 @@ import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.exception.AuthenticationException;
 import com.collaboportal.common.exception.RedirectException;
+import com.collaboportal.common.jwt.utils.CookieUtil;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.chain.JwtValidationChain;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
@@ -19,7 +20,6 @@ import com.collaboportal.common.oauth2.exception.OAuth2TokenException;
 import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
 import com.collaboportal.common.oauth2.model.OAuth2ClientRegistration;
 import com.collaboportal.common.oauth2.registry.JwtTokenStrategyRegistry;
-import com.collaboportal.common.oauth2.utils.CookieUtil;
 import com.collaboportal.common.oauth2.utils.JwtValidationUtils;
 import com.collaboportal.common.strategy.authorization.AuthorizationStrategy;
 import com.collaboportal.common.utils.Message;
@@ -60,7 +60,7 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
     @Override
     public void authenticate(BaseRequest request, BaseResponse response) throws AuthenticationException, RedirectException {
         logger.debug("开始执行OAuth2认证策略...");
-
+        OAuth2ProviderContext context = OAuth2ProviderContext.builder().request(request).response(response).build();
         // 2. 构建并执行责任链
         JwtValidationChain chain = buildValidationChain();
         boolean success = chain.execute(context);

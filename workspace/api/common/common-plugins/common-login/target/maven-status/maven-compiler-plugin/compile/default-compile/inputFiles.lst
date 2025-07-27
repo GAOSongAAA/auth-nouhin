@@ -1,7 +1,0 @@
-/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/service/LoginAttemptService.java
-/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/controller/AuthController.java
-/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/service/AuthService.java
-/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/model/LoginResponse.java
-/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/strategy/DatabaseAuthStrategy.java
-/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/service/impl/AuthServiceImpl.java
-/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/model/LoginRequest.java

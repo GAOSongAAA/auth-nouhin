@@ -79,16 +79,16 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
         // 檢查令牌是否存在
         // 如果令牌不存在或為空字串，表示使用者尚未登入或登入狀態已失效
         if (token == null || token.isEmpty()) {
-            logger.info("在Cookie中未發現認證令牌。重定向到登入頁面。");
-            throw new RedirectException("/login");
+            response.redirect("http://localhost:8080/login.html");
+            return;
         }
 
         try {
             // 驗證令牌是否已過期
             // JWT令牌包含過期時間資訊，此處檢查當前時間是否超過令牌的有效期
             if (jwtTokenUtil.isTokenExpired(token)) {
-                logger.info("認證令牌已過期。重定向到登入頁面。");
-                throw new RedirectException("/login");
+                response.redirect("http://localhost:8080/login.html");
+                return;
             }
 
             // 從JWT令牌中提取使用者資訊
@@ -98,8 +98,8 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
             // 檢查使用者資訊是否為空
             // 即使令牌有效，如果不包含使用者資訊也視為認證失敗
             if (userInfo.isEmpty()) {
-                logger.warn("令牌有效但不包含使用者資訊。");
-                throw new AuthenticationException("無效的令牌：使用者資訊遺失。");
+                response.redirect("http://localhost:8080/login.html");
+                return;
             }
             
             // 將使用者資訊存儲到請求上下文中
@@ -123,12 +123,14 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
             // 捕捉JWT過期異常
             // 這是正常的業務流程，當令牌過期時需要重新登入
             logger.info("認證令牌已過期（捕捉異常）。重定向到登入頁面。");
-            throw new RedirectException("http://localhost:8080/login.html");
+            response.redirect("http://localhost:8080/login.html");
+            return;
         } catch (Exception e) {
             // 捕捉其他可能的異常（如令牌格式錯誤、簽名無效等）
             // 記錄錯誤並重定向到登入頁面
             logger.error("資料庫令牌驗證過程中發生錯誤。重定向到登入頁面。", e);
-            throw new RedirectException("http://localhost:8080/login.html");
+            response.redirect("http://localhost:8080/login.html");
+            return;
         }
     }
 }

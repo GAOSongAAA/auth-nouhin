@@ -2,7 +2,7 @@ package com.collaboportal.common.login.controller;
 
 import com.collaboportal.common.login.model.LoginRequest;
 import com.collaboportal.common.login.model.LoginResponse;
-import com.collaboportal.common.login.service.AuthService;
+import com.collaboportal.common.login.service.LoginService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthService authService;
+    private final LoginService loginService;
 
     /**
      * 构造函数
      * 通过依赖注入接收认证服务。
      *
-     * @param authService 认证服务
+     * @param loginService 认证服务
      */
-    public AuthController(AuthService authService) {
-        this.authService = authService;
+    public AuthController(LoginService loginService) {
+        this.loginService = loginService;
     }
 
     /**
@@ -37,8 +37,7 @@ public class AuthController {
      * @return 如果成功，返回包含JWT的200 OK响应；如果失败，由全局异常处理器处理
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-        LoginResponse response = authService.login(loginRequest);
-        return ResponseEntity.ok(response);
+    public void login(@RequestBody LoginRequest loginRequest) {
+        loginService.login(loginRequest);
     }
 }

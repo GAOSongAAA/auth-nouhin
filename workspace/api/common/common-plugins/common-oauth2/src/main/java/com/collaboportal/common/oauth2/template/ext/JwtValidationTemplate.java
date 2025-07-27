@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.context.web.BaseResponse;
+import com.collaboportal.common.jwt.utils.CookieUtil;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.chain.JwtValidationChain;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
@@ -17,7 +18,6 @@ import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
 import com.collaboportal.common.oauth2.model.OAuth2ClientRegistration;
 import com.collaboportal.common.oauth2.registry.JwtTokenStrategyRegistry;
 import com.collaboportal.common.oauth2.template.OAuth2LoginTemplate;
-import com.collaboportal.common.oauth2.utils.CookieUtil;
 import com.collaboportal.common.oauth2.utils.JwtValidationUtils;
 import com.collaboportal.common.utils.Message;
 

@@ -32,7 +32,7 @@ public class CommonAuthConfiguration {
         logger.info("Creating default AuthServletFilter bean. This can be overridden by the user.");
         // 在这里可以进行一些默认配置
         return new AuthServletFilter(strategyRegistry)
-                .addExclude("/login", "/error", "/static/**", "/favicon.ico");
+                .addExclude("login.html","/login", "/error", "/static/**", "/favicon.ico");
     }
 
     /**

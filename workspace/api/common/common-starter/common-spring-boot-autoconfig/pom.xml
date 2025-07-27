@@ -29,6 +29,11 @@
             <artifactId>common-oauth2</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.collaboportal</groupId>
+            <artifactId>common-login</artifactId>
+        </dependency>
+
         <!-- MS SQL Server JDBC Driver -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
