@@ -7,55 +7,55 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 登录尝试服务
- * 负责跟踪和管理用户的登录失败尝试次数，以防止暴力破解攻击。
+ * ログイン試行サービス
+ * ユーザーのログイン失敗試行回数を追跡し、ブルートフォース攻撃を防止します。
  *
  * 主要功能：
- * 1. 记录指定用户的登录失败次数。
- * 2. 在失败次数达到阈值时，暂时锁定用户账户。
- * 3. 自动解锁在锁定时间过期的账户。
+ * 1. 指定されたユーザーのログイン失敗回数を記録します。
+ * 2. 失敗回数がしきい値に達した場合、一時的にユーザーアカウントをロックします。
+ * 3. ロック時間が経過したアカウントを自動的にロック解除します。
  *
  * 实现方式：
- * - 使用 Caffeine 缓存库来存储登录失败次数。
- * - Caffeine 的 `expireAfterWrite` 功能可以方便地实现自动解锁。
+ * - Caffeine キャッシュライブラリを使用して、ログイン失敗回数を保存します。
+ * - Caffeine の `expireAfterWrite` 機能を使用して、自動ロック解除を簡単に実現します。
  */
 @Service
 public class LoginAttemptService {
 
-    private final int MAX_ATTEMPTS = 5; // 最大失败尝试次数
-    private final int LOCK_DURATION_MINUTES = 5; // 账户锁定时间（分钟）
+    private final int MAX_ATTEMPTS = 5; // 最大失敗試行回数
+    private final int LOCK_DURATION_MINUTES = 5; // アカウントロック時間（分）
 
-    // 使用 LoadingCache 存储登录失败次数
-    // - key: 用户的唯一标识符（例如，邮箱地址）
-    // - value: 失败尝试次数
+    // LoadingCache を使用して、ログイン失敗回数を保存します
+    // - key: ユーザーの一意の識別子（例：メールアドレス）
+    // - value: 失敗試行回数
     private final LoadingCache<String, Integer> attemptsCache;
 
     /**
      * 构造函数
-     * 初始化 Caffeine 缓存，设置锁定时间和最大缓存大小。
+     * Caffeine キャッシュを初期化し、ロック時間と最大キャッシュサイズを設定します。
      */
     public LoginAttemptService() {
         attemptsCache = Caffeine.newBuilder()
-                .expireAfterWrite(LOCK_DURATION_MINUTES, TimeUnit.MINUTES) // 5分钟后自动过期（即解锁）
-                .maximumSize(1000) // 缓存最大条目数，防止内存溢出
-                .build(key -> 0); // 当缓存中没有对应key时，默认返回0
+                .expireAfterWrite(LOCK_DURATION_MINUTES, TimeUnit.MINUTES) // 5分後に自動的に期限切れ（即ロック解除）
+                .maximumSize(1000) // キャッシュ最大項目数、メモリーリーク防止
+                .build(key -> 0); // キャッシュに対応するkeyがない場合、デフォルトで0を返す
     }
 
     /**
-     * 登录成功处理
-     * 当用户成功登录时，重置其失败尝试次数。
+     * ログイン成功処理
+     * ユーザーがログイン成功した場合、失敗試行回数をリセットします。
      *
-     * @param key 用户的唯一标识符
+     * @param key ユーザーの一意の識別子
      */
     public void loginSucceeded(String key) {
         attemptsCache.invalidate(key);
     }
 
     /**
-     * 登录失败处理
-     * 当用户登录失败时，增加其失败尝试次数。
+            * ログイン失敗処理
+     * ユーザーがログイン失敗した場合、失敗試行回数を増加します。
      *
-     * @param key 用户的唯一标识符
+     * @param key ユーザーの一意の識別子
      */
     public void loginFailed(String key) {
         int attempts = attemptsCache.get(key);
@@ -64,10 +64,10 @@ public class LoginAttemptService {
     }
 
     /**
-     * 检查账户是否被锁定
+     * アカウントがロックされているかどうかを確認します
      *
-     * @param key 用户的唯一标识符
-     * @return 如果账户被锁定，则返回 true
+     * @param key ユーザーの一意の識別子
+     * @return アカウントがロックされている場合はtrueを返します
      */
     public boolean isBlocked(String key) {
         return attemptsCache.get(key) >= MAX_ATTEMPTS;

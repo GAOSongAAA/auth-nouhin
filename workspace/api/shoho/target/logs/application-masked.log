@@ -1,0 +1,252 @@
+date:2025-07-28 17:44:35	thread:background-preinit	X-Track:	level:INFO 	logger:org.hibernate.validator.internal.util.Version   	message:HV000001: Hibernate Validator ******.******.******.Final
+date:2025-07-28 17:44:35	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:Starting ShohoApplication ******.******.****** using Java ******.******.****** with PID 12141 (/home/workspace/api/shoho/target/shoho.jar started by root in /home/workspace/api/shoho/target)
+date:2025-07-28 17:44:35	thread:main	X-Track:	level:DEBUG	logger:com.collaboportal.shoho.ShohoApplication        	message:Running with Spring Boot ******.******.******, Spring ******.******.******
+date:2025-07-28 17:44:36	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:No active profile set, falling back to 1 default profile: "default"
+date:2025-07-28 17:44:37	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-28 17:44:37	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+date:2025-07-28 17:44:37	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 30 ms. Found 0 JPA repository interfaces.
+date:2025-07-28 17:44:37	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Multiple Spring Data modules found, entering strict repository configuration mode
+date:2025-07-28 17:44:37	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+date:2025-07-28 17:44:37	thread:main	X-Track:	level:INFO 	logger:o.s.d.r.config.RepositoryConfigurationDelegate  	message:Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:o.s.boot.web.embedded.tomcat.TomcatWebServer    	message:Tomcat initialized with port(s): 8080 (http)
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:org.apache.coyote.http11.Http11NioProtocol      	message:Initializing ProtocolHandler ["http-nio-8080"]
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:org.apache.catalina.core.StandardService        	message:Starting service [Tomcat]
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:org.apache.catalina.core.StandardEngine         	message:Starting Servlet engine: [Apache Tomcat/******.******.******]
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:o.a.c.c.ContainerBase.[Tomcat].[localhost].[/]  	message:Initializing Spring embedded WebApplicationContext
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:o.s.b.w.s.c.ServletWebServerApplicationContext  	message:Root WebApplicationContext: initialization completed in 3193 ms
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:WARN 	logger:c.c.common.config.CommonConfigFactory           	message:環境変数INDEX_PAGEが見つかりません
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化開始、プロバイダー数: 1
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録の作成に成功: provider1 - 測試環境
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:c.c.c.o.factory.OAuth2ClientRegistrationFactory 	message:OAuth2クライアント登録ファクトリー初期化完了、登録成功プロバイダー: [provider1]
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: header
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: header
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: cookie
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: cookie
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:DEBUG	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:デフォルトのトークン抽出戦略が登録されました: header, cookie
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:DEBUG	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:OAuth2AuthStrategy の初期化が完了しました。
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:c.c.common.spring.common.CommonAuthConfiguration	message:デフォルトの AuthServletFilter Bean を作成しています。これはユーザーによって上書き可能です。
+date:2025-07-28 17:44:39	thread:main	X-Track:	level:INFO 	logger:c.c.common.spring.common.CommonAuthConfiguration	message:AuthFilter Bean が URL パターン '/*' と順序 1 で登録されました。
+date:2025-07-28 17:44:40	thread:main	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Starting...
+date:2025-07-28 17:44:40	thread:main	X-Track:	level:INFO 	logger:com.zaxxer.hikari.pool.HikariPool               	message:syohomoto-app-api-local - Added connection ConnectionID:1 ClientConnectionId: 794c212f-35c2-4ff2-b14e-2f0885812d03
+date:2025-07-28 17:44:40	thread:main	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Start completed.
+date:2025-07-28 17:44:40	thread:main	X-Track:	level:INFO 	logger:org.hibernate.jpa.internal.util.LogHelper       	message:HHH000204: Processing PersistenceUnitInfo [name: default]
+date:2025-07-28 17:44:40	thread:main	X-Track:	level:INFO 	logger:org.hibernate.Version                           	message:HHH000412: Hibernate ORM core version ******.******.******.Final
+date:2025-07-28 17:44:41	thread:main	X-Track:	level:WARN 	logger:org.hibernate.orm.deprecation                   	message:HHH90000021: Encountered deprecated setting [javax.pe......redCache.mode], use [jakarta.......redCache.mode] instead
+date:2025-07-28 17:44:41	thread:main	X-Track:	level:INFO 	logger:SQL dialect                                     	message:HHH000400: Using dialect: org.hibe.......dialect.SQLServerDialect
+date:2025-07-28 17:44:41	thread:main	X-Track:	level:INFO 	logger:o.h.e.t.j.platform.internal.JtaPlatformInitiator	message:HHH000490: Using JtaPlatform implementation: [org.hibe......e.engine.transact......platform.internal.NoJtaPlatform]
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:INFO 	logger:o.s.o.jpa.LocalContainerEntityManagerFactoryBean	message:Initialized JPA EntityManagerFactory for persistence unit 'default'
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:OAuth2 策略自動配置初始化完成
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 LoginStrategyRegistry Bean
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:LoginStrategyRegistryの初期化が完了しました
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.controller.AuthorizationController 	message:AuthorizationControllerの初期化が完了し、リクエストの監視を開始しました
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:Er28W5rtv9Uqqyld7kcC6BoONiPSA1Eh
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.processor.impl.AuthProcessorImpl   	message:ki6p8tK3ET2wZ8ZHvVyEYfxSVpYy1YqRQXr2x2VNX3pYGSSKCtpvVtNwlbMsLuMu
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:INFO 	logger:c.c.common.jwt.controller.HealthCheckController 	message:HealthCheckControllerの初期化が完了しました
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2ControllerAutoConfiguration	message:OAuth2 コントローラー自動設定の初期化が完了しました
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:OAuth2 コア自動設定の初期化が完了しました
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:OAuth2 フィルター自動設定の初期化が完了しました
+date:2025-07-28 17:44:42	thread:main	X-Track:	level:WARN 	logger:o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration	message:spring.j......-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.j......-in-view to disable this warning
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:o.s.b.a.web.servlet.WelcomePageHandlerMapping   	message:Adding welcome page: class path resource [static/index.html]
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.common.spring.ContextRegister 	message:CommonContextForSpringInJakartaServletを取得します
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.spring.oauth2.OAuth2CoreAutoConfiguration 	message:UserInfoServiceFactory を初期化します
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationTemplate Bean を登録します
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: header
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: header
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] 新しいストラテジーを登録します。キー: cookie
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:[JWTストラテジー登録] ストラテジーの登録が正常に完了しました。キー: cookie
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:デフォルトのトークン抽出ストラテジーを登録しました: header, cookie
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.template.ext.JwtValidationTemplate 	message:JwtValidationPreHandlerの初期化が完了しました。JwtTokenUtilを注入しました
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2FilterAutoConfiguration    	message:JwtValidationChain Bean を登録します
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定を開始します
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:c.c.common.strategy.ExceptionHandlingStrategy   	message:例外処理設定が完了しました
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:o.s.security.web.DefaultSecurityFilterChain     	message:Will secure any request with [org.spri......security.web.sess......rlFilter@27755487, org.spri......security.web.cont.......request.async.WebAsyncManagerIntegrationFilter@4f0cab0a, org.spri......security.web.cont......erFilter@3bb87d36, org.spri......security.web.head......erFilter@6e6d4780, org.spri......security.web.auth......n.logout.LogoutFilter@7847ef2c, org.spri......security.web.save......reFilter@5e1dde44, org.spri......security.web.serv......stFilter@71e35c4, org.spri......security.web.auth......onFilter@fe7b6b0, org.spri......security.web.sess......ntFilter@7ff8a9dc, org.spri......security.web.acce......onFilter@69d45cca, org.spri......security.web.acce......ntercept.AuthorizationFilter@41853299]
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 JwtTokenStrategyRegistry Bean
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.oauth2.registry.JwtTokenStrategyRegistry  	message:JwtTokenStrategyRegistryの初期化が完了しました
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.c.s.oauth2.OAuth2StrategyAutoConfiguration  	message:註冊 CallbackLoginTemplate Bean
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化を開始します
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: test
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: test
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:DEBUG	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] 新しいストラテジーを登録します。キー: prod
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:c.c.common.oauth2.registry.LoginStrategyRegistry	message:[ログインストラテジー登録] ストラテジーの登録が正常に完了しました。キー: prod
+date:2025-07-28 17:44:43	thread:main	X-Track:	level:INFO 	logger:c.c.c.oauth2.template.ext.CallbackLoginTemplate 	message:ログインストラテジーの初期化が完了しました
+date:2025-07-28 17:44:44	thread:main	X-Track:	level:INFO 	logger:org.apache.coyote.http11.Http11NioProtocol      	message:Starting ProtocolHandler ["http-nio-8080"]
+date:2025-07-28 17:44:44	thread:main	X-Track:	level:INFO 	logger:o.s.boot.web.embedded.tomcat.TomcatWebServer    	message:Tomcat started on port(s): 8080 (http) with context path ''
+date:2025-07-28 17:44:44	thread:main	X-Track:	level:INFO 	logger:com.collaboportal.shoho.ShohoApplication        	message:Started ShohoApplication in 10.035 seconds (process running for 10.866)
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:o.a.c.c.ContainerBase.[Tomcat].[localhost].[/]  	message:Initializing Spring DispatcherServlet 'dispatcherServlet'
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:o.springframework.web.servlet.DispatcherServlet 	message:Initializing Servlet 'dispatcherServlet'
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:o.springframework.web.servlet.DispatcherServlet 	message:Completed initialization in 1 ms
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/login.html」とパス「/」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/login」とパス「/」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/error」とパス「/」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/static/**」とパス「/」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/favicon.ico」とパス「/」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/testEnv」とパス「/」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/testEnv.html」とパス「/」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:リクエストラッパーオブジェクトを取得します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:レスポンスラッパーオブジェクトを取得します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:DEBUG	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:OAuth2認証戦略の実行を開始します...
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:DEBUG	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:認証Cookieが検出されませんでした。
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:DEBUG	logger:c.c.common.oauth2.utils.JwtValidationUtils      	message:パス [/] はCookie認証を使用可能です
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-1	X-Track:	level:INFO 	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:OAuth2認証にはリダイレクトが必要です。ターゲットアドレス: /testEnv
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/login.html」とパス「/testEnv」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/login」とパス「/testEnv」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/error」とパス「/testEnv」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/static/**」とパス「/testEnv」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/favicon.ico」とパス「/testEnv」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/testEnv」とパス「/testEnv」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-2	X-Track:	level:INFO 	logger:c.c.common.jwt.controller.TestController        	message:Redirecting to /testEnv.html
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/login.html」とパス「/testEnv.html」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/login」とパス「/testEnv.html」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/error」とパス「/testEnv.html」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/static/**」とパス「/testEnv.html」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/favicon.ico」とパス「/testEnv.html」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/testEnv」とパス「/testEnv.html」のマッチ判定を行います
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:53	thread:http-nio-8080-exec-3	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/testEnv.html」とパス「/testEnv.html」のマッチ判定を行います
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/login.html」とパス「/.well-known/appspecific/com.chro......devtools.json」のマッチ判定を行います
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/login」とパス「/.well-known/appspecific/com.chro......devtools.json」のマッチ判定を行います
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/error」とパス「/.well-known/appspecific/com.chro......devtools.json」のマッチ判定を行います
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/static/**」とパス「/.well-known/appspecific/com.chro......devtools.json」のマッチ判定を行います
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/favicon.ico」とパス「/.well-known/appspecific/com.chro......devtools.json」のマッチ判定を行います
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/testEnv」とパス「/.well-known/appspecific/com.chro......devtools.json」のマッチ判定を行います
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:ルーティングパターン「/testEnv.html」とパス「/.well-known/appspecific/com.chro......devtools.json」のマッチ判定を行います
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:リクエストラッパーオブジェクトを取得します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:このコンテキストが有効かどうかを判定します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.c.spring.ContextForSpringInJakartaServlet   	message:レスポンスラッパーオブジェクトを取得します
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:DEBUG	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:OAuth2認証戦略の実行を開始します...
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:DEBUG	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:認証Cookieが検出されませんでした。
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:DEBUG	logger:c.c.common.oauth2.utils.JwtValidationUtils      	message:パス [/.well-known/appspecific/com.chro......devtools.json] はCookie認証を使用できません
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:WARN 	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:現在のパスではCookieモードの使用が許可されていません。認証は拒否されました。
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.common.oauth2.strategy.OAuth2AuthStrategy   	message:OAuth2認証にはリダイレクトが必要です。ターゲットアドレス: /testEnv
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:ERROR	logger:o.a.c.c.C.[.[localhost].[/].[dispatcherServlet] 	message:Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [jakarta.......xception: Request processing failed: java.lan......xception: Cannot call sendError() after the response has been committed] with root cause
+java.lang.IllegalStateException: Cannot call sendError() after the response has been committed
+  	at org.apache.catalina.connector.ResponseFacade.sendError(ResponseFacade.java:447)
+  	at jakarta.servlet.http.HttpServletResponseWrapper.sendError(HttpServletResponseWrapper.java:100)
+  	at jakarta.servlet.http.HttpServletResponseWrapper.sendError(HttpServletResponseWrapper.java:100)
+  	at jakarta.servlet.http.HttpServletResponseWrapper.sendError(HttpServletResponseWrapper.java:100)
+  	at jakarta.servlet.http.HttpServletResponseWrapper.sendError(HttpServletResponseWrapper.java:100)
+  	at org.springframework.security.web.util.OnCommittedResponseWrapper.sendError(OnCommittedResponseWrapper.java:116)
+  	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:558)
+  	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
+  	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080)
+  	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:973)
+  	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+  	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+  	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:527)
+  	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+  	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:614)
+  	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+  	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+  	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+  	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+  	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+  	at com.collaboportal.common.filter.AuthServletFilter.doFilter(AuthServletFilter.java:79)
+  	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+  	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+  	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+  	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+  	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+  	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+  	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+  	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+  	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+  	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+  	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+  	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+  	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+  	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+  	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+  	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:351)
+  	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+  	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+  	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+  	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+  	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+  	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+  	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+  	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+  	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+  	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+  	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+  	at org.zalando.logbook.servlet.LogbookFilter.doFilter(LogbookFilter.java:76)
+  	at org.zalando.logbook.servlet.SecureLogbookFilter.doFilter(SecureLogbookFilter.java:32)
+  	at org.zalando.logbook.servlet.HttpFilter.doFilter(HttpFilter.java:32)
+  	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+  	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+  	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+  	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+  	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+  	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+  	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177)
+  	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+  	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+  	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:119)
+  	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+  	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+  	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+  	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:400)
+  	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+  	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:859)
+  	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1734)
+  	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+  	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+  	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+  	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+  	at java.base/java.lang.Thread.run(Thread.java:840)
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:INFO 	logger:c.c.common.controller.CustomErrorController     	message:=== CustomErrorController.handleError 已被呼叫 ===
+date:2025-07-28 17:44:54	thread:http-nio-8080-exec-4	X-Track:	level:ERROR	logger:c.c.common.controller.CustomErrorController     	message:發生系統錯誤。例外: jakarta.......xception: Request processing failed: java.lan......xception: Cannot call sendError() after the response has been committed
+date:2025-07-28 17:45:19	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:o.s.o.jpa.LocalContainerEntityManagerFactoryBean	message:Closing JPA EntityManagerFactory for persistence unit 'default'
+date:2025-07-28 17:45:20	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Shutdown initiated...
+date:2025-07-28 17:45:20	thread:SpringApplicationShutdownHook	X-Track:	level:INFO 	logger:com.zaxxer.hikari.HikariDataSource              	message:syohomoto-app-api-local - Shutdown completed.

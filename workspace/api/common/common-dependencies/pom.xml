@@ -12,78 +12,78 @@
     <description>Common Dependencies Management</description>
 
     <properties>
-        <!-- 基礎配置 -->
+        <!-- 基本設定 -->
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
-        <!-- Maven插件版本 -->
+        <!-- Mavenプラグインバージョン -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <flatten-maven-plugin.version>1.3.0</flatten-maven-plugin.version>
         
-        <!-- Spring Boot版本 -->
+        <!-- Spring Bootバージョン -->
         <spring-boot.version>3.2.0</spring-boot.version>
         <spring.version>6.1.0</spring.version>
         
-        <!-- JSON處理 -->
+        <!-- JSON処理 -->
         <jackson.version>2.15.3</jackson.version>
         <fastjson.version>1.2.83</fastjson.version>
         <fastjson2.version>2.0.43</fastjson2.version>
         <json.version>20231013</json.version>
         
-        <!-- JWT相關 -->
-        <jjwt.version>0.12.3</jjwt.version>
+        <!-- JWT関連 -->
+        <jjwt.version>0.11.5</jjwt.version>
         <hutool-jwt.version>5.8.22</hutool-jwt.version>
         
-        <!-- 緩存相關 -->
+        <!-- キャッシュ関連 -->
         <redisson.version>3.24.3</redisson.version>
         <hutool-cache.version>5.8.22</hutool-cache.version>
         <caffeine.version>3.1.8</caffeine.version>
         
-        <!-- 數據庫相關 -->
+        <!-- データベース関連 -->
         <mybatis.version>3.5.14</mybatis.version>
         <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
         <mssql-jdbc.version>12.4.2.jre11</mssql-jdbc.version>
         
-        <!-- 網路相關 -->
+        <!-- ネットワーク関連 -->
         <retrofit2.version>2.9.0</retrofit2.version>
         <dubbo.version>3.2.7</dubbo.version>
         <grpc-spring-boot-starter.version>5.1.5</grpc-spring-boot-starter.version>
         
-        <!-- 工具類 -->
+        <!-- ユーティリティクラス -->
         <lombok.version>1.18.30</lombok.version>
         <commons-codec.version>1.16.0</commons-codec.version>
         <commons-pool2.version>2.12.0</commons-pool2.version>
         
-        <!-- 模板引擎 -->
+        <!-- テンプレートエンジン -->
         <thymeleaf.version>3.1.2.RELEASE</thymeleaf.version>
         <freemarker.version>2.3.32</freemarker.version>
         
-        <!-- 其他框架 -->
+        <!-- その他のフレームワーク -->
         <solon.version>2.5.10</solon.version>
         <jfinal.version>5.1.2</jfinal.version>
         <jboot.version>4.0.8</jboot.version>
         <noear-redisx.version>1.7.1</noear-redisx.version>
         <noear-snack3.version>3.2.88</noear-snack3.version>
         
-        <!-- 日誌相關 -->
+        <!-- ログ関連 -->
         <slf4j.version>2.0.9</slf4j.version>
         <logbook.version>3.7.0</logbook.version>
         
-        <!-- 伺服器相關 -->
+        <!-- サーバー関連 -->
         <servlet-api.version>4.0.1</servlet-api.version>
         <jakarta-servlet-api.version>6.0.0</jakarta-servlet-api.version>
         <jakarta-annotation-api.version>2.1.1</jakarta-annotation-api.version>
         <jakarta-validation-api.version>3.0.2</jakarta-validation-api.version>
         <tomcat-util.version>10.1.15</tomcat-util.version>
         
-        <!-- 測試相關 -->
+        <!-- テスト関連 -->
         <junit.version>5.10.1</junit.version>
         <mockito.version>5.6.0</mockito.version>
         
-        <!-- 其他 -->
+        <!-- その他 -->
         <reactor-core.version>3.6.0</reactor-core.version>
         <spring-data-commons.version>3.2.0</spring-data-commons.version>
         <aspectj.version>1.9.20.1</aspectj.version>
@@ -100,7 +100,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- ===== 基礎組件 ===== -->
+            <!-- ===== 基本コンポーネント ===== -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -132,7 +132,7 @@
                 <version>${jakarta-validation-api.version}</version>
             </dependency>
 
-            <!-- ===== Spring框架 ===== -->
+            <!-- ===== Springフレームワーク ===== -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
@@ -151,7 +151,7 @@
                 <version>${spring-data-commons.version}</version>
             </dependency>
 
-            <!-- ===== JSON處理 ===== -->
+            <!-- ===== JSON処理 ===== -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
@@ -182,7 +182,7 @@
                 <version>${json.version}</version>
             </dependency>
 
-            <!-- ===== JWT處理 ===== -->
+            <!-- ===== JWT処理 ===== -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-api</artifactId>
@@ -207,7 +207,7 @@
                 <version>${hutool-jwt.version}</version>
             </dependency>
 
-            <!-- ===== 緩存相關 ===== -->
+            <!-- ===== キャッシュ関連 ===== -->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
@@ -238,7 +238,7 @@
                 <version>${commons-pool2.version}</version>
             </dependency>
 
-            <!-- ===== 數據庫相關 ===== -->
+            <!-- ===== データベース関連 ===== -->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
@@ -257,7 +257,7 @@
                 <version>${mssql-jdbc.version}</version>
             </dependency>
 
-            <!-- ===== 模板引擎 ===== -->
+            <!-- ===== テンプレートエンジン ===== -->
             <dependency>
                 <groupId>org.thymeleaf</groupId>
                 <artifactId>thymeleaf</artifactId>
@@ -270,7 +270,7 @@
                 <version>${freemarker.version}</version>
             </dependency>
 
-            <!-- ===== 網路相關 ===== -->
+            <!-- ===== ネットワーク関連 ===== -->
             <dependency>
                 <groupId>com.squareup.retrofit2</groupId>
                 <artifactId>retrofit</artifactId>
@@ -295,7 +295,7 @@
                 <version>${grpc-spring-boot-starter.version}</version>
             </dependency>
 
-            <!-- ===== 其他框架 ===== -->
+            <!-- ===== その他のフレームワーク ===== -->
             <dependency>
                 <groupId>org.noear</groupId>
                 <artifactId>solon</artifactId>
@@ -332,7 +332,7 @@
                 <version>${jfinal.version}</version>
             </dependency>
 
-            <!-- ===== 日誌相關 ===== -->
+            <!-- ===== ログ関連 ===== -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -351,7 +351,7 @@
                 <version>${logbook.version}</version>
             </dependency>
 
-            <!-- ===== 工具類 ===== -->
+            <!-- ===== ユーティリティクラス ===== -->
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -382,7 +382,7 @@
                 <version>${aspectj.version}</version>
             </dependency>
 
-            <!-- ===== 測試相關 ===== -->
+            <!-- ===== テスト関連 ===== -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>

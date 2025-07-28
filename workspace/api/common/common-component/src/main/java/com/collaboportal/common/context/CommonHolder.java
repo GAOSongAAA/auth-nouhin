@@ -6,53 +6,46 @@ import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.context.web.BaseStorage;
 
-/**
- * Sa-Token 上下文持有类，你可以通过此类快速获取当前环境下的 SaRequest、SaResponse、SaStorage、SaApplication 对象。
- *
- * @author click33
- * @since 1.18.0
- */
 public class CommonHolder {
 	
 	/**
-	 * 获取当前请求的 SaTokenContext 上下文对象
-	 * @see SaTokenContext
+	 * 現在のリクエストのCommonContext（共通コンテキスト）オブジェクトを取得します。
+	 * @see CommonContext
 	 * 
-	 * @return /
+	 * @return CommonContextインスタンス
 	 */
 	public static CommonContext getContext() {
 		return ConfigManager.getCommonContext();
 	}
 
 	/**
-	 * 获取当前请求的 Request 包装对象
-	 * @see SaRequest
+	 * 現在のリクエストのRequestラッパーオブジェクトを取得します。
+	 * @see BaseRequest
 	 * 
-	 * @return /
+	 * @return BaseRequestインスタンス
 	 */
 	public static BaseRequest getRequest() {
 		return ConfigManager.getCommonContext().getRequest();
 	}
 
 	/**
-	 * 获取当前请求的 Response 包装对象
-	 * @see SaResponse
+	 * 現在のリクエストのResponseラッパーオブジェクトを取得します。
+	 * @see BaseResponse
 	 * 
-	 * @return /
+	 * @return BaseResponseインスタンス
 	 */
 	public static BaseResponse getResponse() {
 		return ConfigManager.getCommonContext().getResponse();
 	}
 
 	/**
-	 * 获取当前请求的 Storage 包装对象
-	 * @see SaStorage
+	 * 現在のリクエストのStorageラッパーオブジェクトを取得します。
+	 * @see BaseStorage
 	 *
-	 * @return /
+	 * @return BaseStorageインスタンス
 	 */
 	public static BaseStorage getStorage() {
 		return ConfigManager.getCommonContext().getStorage();
 	}
-
 
 }

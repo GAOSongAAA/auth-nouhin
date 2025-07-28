@@ -6,22 +6,24 @@ services:
     container_name: nginx-gateway
     ports:
       - "80:80"
+      - "415:415"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./static:/var/www/static:ro
     depends_on:
       - shoho-spring
     networks:
       - default
 
   shoho-spring:
-  # 指定したコンテキストより上のフォルダは見えないので、上のフォルダが見れるようにコンテキストを上にしている
+    # 指定したコンテキストより上のフォルダは見えないので、上のフォルダが見れるようにコンテキストを上にしている
     build:
       context: .
       dockerfile: dockerfile_build_api
     image: shoho-spring
     container_name: shohoSpringBuild
     volumes:
-       - ../workspace:/home/workspace
+      - ../workspace:/home/workspace
     tty: true
     expose:
       - "8080"
@@ -30,4 +32,3 @@ networks:
   default:
     name: docker-dev_default
     external: true
-

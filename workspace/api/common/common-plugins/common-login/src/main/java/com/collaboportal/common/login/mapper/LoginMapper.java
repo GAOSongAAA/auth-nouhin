@@ -5,17 +5,17 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * 登录相关的MyBatis Mapper接口
- * 定义了从数据库获取用户信息的抽象方法。
+ * ログイン関連のMyBatis Mapperインターフェース
+ * データベースからユーザー情報を取得するための抽象メソッドを定義します。
  */
 @Mapper
 public interface LoginMapper {
 
     /**
-     * 根据用户名查询用户信息
+     * ユーザー名でユーザー情報を検索する
      *
-     * @param username 用户名
-     * @return 匹配的用户信息，如果不存在则返回null
+     * @param username ユーザー名
+     * @return 一致するユーザー情報。存在しない場合はnullを返します。
      */
     UserEPL findUserByUsername(@Param("username") String username);
 

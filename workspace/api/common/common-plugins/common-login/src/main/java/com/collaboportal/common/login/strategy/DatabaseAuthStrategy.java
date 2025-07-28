@@ -4,7 +4,6 @@ import com.collaboportal.common.context.CommonHolder;
 import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.exception.AuthenticationException;
-import com.collaboportal.common.exception.RedirectException;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.strategy.authorization.AuthorizationStrategy;
 import com.collaboportal.common.utils.Message;
@@ -66,10 +65,9 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
      * @param request  基礎請求物件，包含HTTP請求的相關資訊
      * @param response 基礎回應物件，用於設定HTTP回應的相關資訊
      * @throws AuthenticationException 當認證過程中發生錯誤時拋出
-     * @throws RedirectException 當需要重定向到登入頁面時拋出
      */
     @Override
-    public void authenticate(BaseRequest request, BaseResponse response) throws AuthenticationException, RedirectException {
+    public void authenticate(BaseRequest request, BaseResponse response) throws AuthenticationException {
         logger.debug("開始執行資料庫認證策略...");
 
         // 從Cookie中獲取認證令牌

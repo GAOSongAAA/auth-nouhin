@@ -10,29 +10,23 @@ import com.collaboportal.common.funcs.ParamFunction;
 import com.collaboportal.common.funcs.ParamRetFunction;
 
 
-/**
- * 路由匹配操作对象 
- * 
- * @author click33
- * @since 1.27.0
- */
 public class CommonRouterStaff {
 
 	/**
-	 * 是否命中的标记变量 
+	 * マッチしたかどうかのフラグ変数
 	 */
 	public boolean isHit = true;
 	
 	/**
-	 * @return 是否命中 
+	 * @return マッチしたかどうか
 	 */
 	public boolean isHit() {
 		return isHit;
 	}
 
 	/**
-	 * @param isHit 命中标记 
-	 * @return 对象自身 
+	 * @param isHit マッチフラグ
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff setHit(boolean isHit) {
 		this.isHit = isHit;
@@ -40,8 +34,8 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 重置命中标记为 true 
-	 * @return 对象自身 
+	 * マッチフラグをtrueにリセット
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff reset() {
 		this.isHit = true;
@@ -49,12 +43,12 @@ public class CommonRouterStaff {
 	}
 	
 	
-	// ----------------- path匹配 
+	// ----------------- パスのマッチング
 	
 	/**
-	 * 路由匹配 
-	 * @param patterns 路由匹配符数组  
-	 * @return 对象自身 
+	 * ルーティングマッチング
+	 * @param patterns ルーティングパターン配列
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff match(String... patterns) {
 		if(isHit)  {
@@ -64,9 +58,9 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 路由匹配排除 
-	 * @param patterns 路由匹配符排除数组  
-	 * @return 对象自身 
+	 * ルーティングマッチング除外
+	 * @param patterns 除外するルーティングパターン配列
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff notMatch(String... patterns) {
 		if(isHit)  {
@@ -76,9 +70,9 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 路由匹配 
-	 * @param patterns 路由匹配符集合 
-	 * @return 对象自身 
+	 * ルーティングマッチング
+	 * @param patterns ルーティングパターンリスト
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff match(List<String> patterns) {
 		if(isHit)  {
@@ -88,9 +82,9 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 路由匹配排除 
-	 * @param patterns 路由匹配符排除集合 
-	 * @return 对象自身 
+	 * ルーティングマッチング除外
+	 * @param patterns 除外するルーティングパターンリスト
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff notMatch(List<String> patterns) {
 		if(isHit)  {
@@ -103,12 +97,12 @@ public class CommonRouterStaff {
 
 
 
-	// ----------------- 条件匹配 
+	// ----------------- 条件マッチング
 
 	/**
-	 * 根据 boolean 值进行匹配 
-	 * @param flag boolean值 
-	 * @return 对象自身 
+	 * boolean値でマッチング
+	 * @param flag boolean値
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff match(boolean flag) {
 		if(isHit)  {
@@ -118,9 +112,9 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 根据 boolean 值进行匹配排除 
-	 * @param flag boolean值 
-	 * @return 对象自身 
+	 * boolean値でマッチング除外
+	 * @param flag boolean値
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff notMatch(boolean flag) {
 		if(isHit)  {
@@ -130,9 +124,9 @@ public class CommonRouterStaff {
 	}
 	
 	/**
-	 * 根据自定义方法进行匹配 (lazy)  
-	 * @param fun 自定义方法
-	 * @return 对象自身 
+	 * カスタムメソッドでマッチング (lazy)
+	 * @param fun カスタムメソッド
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff match(ParamRetFunction<Object, Boolean> fun) {
 		if(isHit)  {
@@ -142,9 +136,9 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 根据自定义方法进行匹配排除 (lazy) 
-	 * @param fun 自定义排除方法
-	 * @return 对象自身 
+	 * カスタムメソッドでマッチング除外 (lazy)
+	 * @param fun 除外用カスタムメソッド
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff notMatch(ParamRetFunction<Object, Boolean> fun) {
 		if(isHit)  {
@@ -154,12 +148,12 @@ public class CommonRouterStaff {
 	}
 	
 	
-	// ----------------- 函数校验执行 
+	// ----------------- 関数検証実行
 
 	/**
-	 * 执行校验函数 (无参) 
-	 * @param fun 要执行的函数 
-	 * @return 对象自身 
+	 * 検証関数を実行（引数なし）
+	 * @param fun 実行する関数
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff check(Function fun) {
 		if(isHit)  {
@@ -169,9 +163,9 @@ public class CommonRouterStaff {
 	}
 	
 	/**
-	 * 执行校验函数 (带参) 
-	 * @param fun 要执行的函数 
-	 * @return 对象自身 
+	 * 検証関数を実行（引数あり）
+	 * @param fun 実行する関数
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff check(ParamFunction<CommonRouterStaff> fun) {
 		if(isHit)  {
@@ -181,28 +175,28 @@ public class CommonRouterStaff {
 	}
 	
 	/**
-	 * 自由匹配 （ 在free作用域里执行stop()不会跳出Auth函数，而是仅仅跳出free代码块 ）
-	 * @param fun 要执行的函数 
-	 * @return 对象自身 
+	 * フリーマッチング（freeスコープ内でstop()を実行してもAuth関数から抜けず、freeブロックだけ抜ける）
+	 * @param fun 実行する関数
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff free(ParamFunction<CommonRouterStaff> fun) {
 		if(isHit)  {
 			try {
 				fun.run(this);
 			} catch (StopMatchException e) {
-				// 跳出 free自由匹配代码块 
+				// freeフリーマッチングブロックから抜ける
 			}
 		}
 		return this;
 	}
 
 	
-	// ----------------- 直接指定check函数 
+	// ----------------- 直接check関数指定
 	
 	/**
-	 * 路由匹配，如果匹配成功则执行认证函数 
-	 * @param pattern 路由匹配符
-	 * @param fun 要执行的校验方法 
+	 * ルーティングマッチング、マッチした場合は認証関数を実行
+	 * @param pattern ルーティングパターン
+	 * @param fun 実行する検証メソッド
 	 * @return /
 	 */
 	public CommonRouterStaff match(String pattern, Function fun) {
@@ -210,9 +204,9 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 路由匹配，如果匹配成功则执行认证函数 
-	 * @param pattern 路由匹配符
-	 * @param fun 要执行的校验方法 
+	 * ルーティングマッチング、マッチした場合は認証関数を実行
+	 * @param pattern ルーティングパターン
+	 * @param fun 実行する検証メソッド
 	 * @return /
 	 */
 	public CommonRouterStaff match(String pattern, ParamFunction<CommonRouterStaff> fun) {
@@ -220,10 +214,10 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 路由匹配 (并指定排除匹配符)，如果匹配成功则执行认证函数 
-	 * @param pattern 路由匹配符 
-	 * @param excludePattern 要排除的路由匹配符 
-	 * @param fun 要执行的方法 
+	 * ルーティングマッチング（除外パターン指定）、マッチした場合は認証関数を実行
+	 * @param pattern ルーティングパターン
+	 * @param excludePattern 除外するルーティングパターン
+	 * @param fun 実行するメソッド
 	 * @return /
 	 */
 	public CommonRouterStaff match(String pattern, String excludePattern, Function fun) {
@@ -231,10 +225,10 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 路由匹配 (并指定排除匹配符)，如果匹配成功则执行认证函数 
-	 * @param pattern 路由匹配符 
-	 * @param excludePattern 要排除的路由匹配符 
-	 * @param fun 要执行的方法 
+	 * ルーティングマッチング（除外パターン指定）、マッチした場合は認証関数を実行
+	 * @param pattern ルーティングパターン
+	 * @param excludePattern 除外するルーティングパターン
+	 * @param fun 実行するメソッド
 	 * @return /
 	 */
 	public CommonRouterStaff match(String pattern, String excludePattern, ParamFunction<CommonRouterStaff> fun) {
@@ -242,11 +236,11 @@ public class CommonRouterStaff {
 	}
 	
 	
-	// ----------------- 提前退出 
+	// ----------------- 早期終了
 
 	/**
-	 * 停止匹配，跳出函数 (在多个匹配链中一次性跳出Auth函数) 
-	 * @return 对象自身 
+	 * マッチングを停止し、関数から抜ける（複数のマッチングチェーンで一度にAuth関数から抜ける）
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff stop() {
 		if(isHit) {
@@ -256,8 +250,8 @@ public class CommonRouterStaff {
 	}
 
 	/**
-	 * 停止匹配，结束执行，向前端返回结果 
-	 * @return 对象自身 
+	 * マッチングを停止し、実行を終了し、フロントエンドに結果を返す
+	 * @return オブジェクト自身
 	 */
 	public CommonRouterStaff back() {
 		if(isHit) {
@@ -267,9 +261,9 @@ public class CommonRouterStaff {
 	}
 	
 	/**
-	 * 停止匹配，结束执行，向前端返回结果 
-	 * @return 对象自身 
-	 * @param result 要输出的结果 
+	 * マッチングを停止し、実行を終了し、フロントエンドに結果を返す
+	 * @return オブジェクト自身
+	 * @param result 出力する結果
 	 */
 	public CommonRouterStaff back(Object result) {
 		if(isHit) {

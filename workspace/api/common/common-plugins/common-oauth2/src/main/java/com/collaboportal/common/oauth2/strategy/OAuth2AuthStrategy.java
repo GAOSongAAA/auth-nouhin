@@ -1,15 +1,13 @@
-// 文件路径: com/collaboportal/common/oauth2/strategy/OAuth2AuthStrategy.java
-// (这个文件将替换旧的 OAuth2AuthStrategy 和 JwtValidationTemplate)
+// ファイルパス: com/collaboportal/common/oauth2/strategy/OAuth2AuthStrategy.java
+// (このファイルは、古い OAuth2AuthStrategy と JwtValidationTemplate を置き換えます)
 
 package com.collaboportal.common.oauth2.strategy;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.context.AuthContext;
 import com.collaboportal.common.context.CommonHolder;
 import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.exception.AuthenticationException;
-import com.collaboportal.common.exception.RedirectException;
 import com.collaboportal.common.jwt.utils.CookieUtil;
 import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.chain.JwtValidationChain;
@@ -28,8 +26,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 最终的、正确的OAuth2认证策略实现。
- * 它完整地封装了您设计的JwtValidationTemplate的流程控制逻辑。
+ * 最終的かつ正しいOAuth2認証戦略の実装。
+ * これは、設計されたJwtValidationTemplateのフロー制御ロジックを完全にカプセル化します。
  */
 @Component("oauth2AuthStrategy")
 public class OAuth2AuthStrategy implements AuthorizationStrategy {
@@ -43,54 +41,54 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
     private final String localAuthPage = "/testEnv";
 
     /**
-     * 构造函数，通过依赖注入接收所有必要的组件。
+     * コンストラクタ。依存性注入により必要なすべてのコンポーネントを受け取ります。
      */
     public OAuth2AuthStrategy(JwtTokenUtil jwtTokenUtil, OAuth2ClientRegistrationFactory clientRegistrationFactory) {
         this.jwtTokenUtil = jwtTokenUtil;
         this.clientRegistrationFactory = clientRegistrationFactory;
         this.jwtTokenStrategyRegistry = new JwtTokenStrategyRegistry();
         registerDefaultStrategies();
-        logger.debug("OAuth2AuthStrategy 初始化完成。");
+        logger.debug("OAuth2AuthStrategy の初期化が完了しました。");
     }
     
     /**
-     * 认证策略的核心实现。
-     * 它将构建并执行一个验证链，来处理复杂的OAuth2认证和重定向逻辑。
+     * 認証戦略のコア実装。
+     * 複雑なOAuth2認証とリダイレクトロジックを処理するために、検証チェーンを構築し実行します。
      */
     @Override
-    public void authenticate(BaseRequest request, BaseResponse response) throws AuthenticationException, RedirectException {
-        logger.debug("开始执行OAuth2认证策略...");
+    public void authenticate(BaseRequest request, BaseResponse response) throws AuthenticationException {
+        logger.debug("OAuth2認証戦略の実行を開始します...");
         OAuth2ProviderContext context = OAuth2ProviderContext.builder().request(request).response(response).build();
-        // 2. 构建并执行责任链
+        // 2. 責任チェーンを構築し実行します
         JwtValidationChain chain = buildValidationChain();
         boolean success = chain.execute(context);
 
-        // 3. 根据链的执行结果进行处理
+        // 3. チェーンの実行結果に基づいて処理を行います
         if (success) {
-            // 如果链成功执行（意味着token有效或被刷新），则认证通过
-            logger.info("OAuth2认证成功，令牌有效。");
-            // 将用户信息存入上下文，以便后续业务使用
+            // チェーンが正常に実行された場合（トークンが有効または更新されたことを意味する）、認証は成功です
+            logger.info("OAuth2認証が成功し、トークンは有効です。");
+            // ユーザー情報をコンテキストに保存し、後続のビジネスロジックで使用できるようにします
             CommonHolder.getStorage().set("USER_INFO", JwtTokenUtil.getItemsJwtToken(context.getToken()));
         } else {
-            // 如果链执行中断（意味着需要重定向），则抛出RedirectException
+            // チェーンの実行が中断された場合（リダイレクトが必要であることを意味する）、RedirectExceptionをスローします
             String redirectUrl = context.getAuthProviderUrl();
             if (redirectUrl == null || redirectUrl.isBlank()) {
-                logger.error("OAuth2认证失败，但未提供重定向URL。");
-                throw new OAuth2ConfigurationException("OAuth2认证失败，且无法确定重定向地址。");
+                logger.error("OAuth2認証は失敗しましたが、リダイレクトURLが提供されていません。");
+                throw new OAuth2ConfigurationException("OAuth2認証は失敗し、リダイレクトアドレスを特定できません。");
             }
-            logger.info("OAuth2认证需要重定向，目标地址: {}", redirectUrl);
-            throw new RedirectException(redirectUrl);
+            logger.info("OAuth2認証にはリダイレクトが必要です。ターゲットアドレス: {}", redirectUrl);
+            response.redirect(redirectUrl);
         }
     }
 
     // =================================================================================
-    // 以下所有方法都是从您设计的 JwtValidationTemplate 中原封不动迁移过来的内部实现细节
+    // 以下すべてのメソッドは、設計された JwtValidationTemplate からそのまま移行された内部実装の詳細です
     // =================================================================================
 
     private void registerDefaultStrategies() {
         jwtTokenStrategyRegistry.register("header", JwtValidationUtils::extractTokenFromHeader);
         jwtTokenStrategyRegistry.register("cookie", JwtValidationUtils::extractTokenFromCookie);
-        logger.debug("默认的令牌提取策略已注册: header, cookie");
+        logger.debug("デフォルトのトークン抽出戦略が登録されました: header, cookie");
     }
 
     private JwtValidationChain buildValidationChain() {
@@ -109,14 +107,14 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
             context.setSelectedProviderId(providerId);
             return true;
         }
-        logger.warn("未在请求头中找到 Authorization-Provider。");
+        logger.warn("リクエストヘッダーに Authorization-Provider が見つかりませんでした。");
         return false;
     }
 
     private boolean oauthContextHandler(OAuth2ProviderContext context) {
         OAuth2ClientRegistration clientRegistration = getClientRegistration(context);
         if (clientRegistration == null) {
-            throw new OAuth2ConfigurationException("未找到OAuth2客户端配置: " + context.getSelectedProviderId(), context.getSelectedProviderId());
+            throw new OAuth2ConfigurationException("OAuth2クライアント設定が見つかりません: " + context.getSelectedProviderId(), context.getSelectedProviderId());
         }
         context.setIssuer(clientRegistration.getIssuer());
         context.setClientId(clientRegistration.getClientId());
@@ -130,7 +128,7 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
         String cookieValue = req.getCookieValue(Message.Cookie.AUTH_STATE);
 
         if (cookieValue == null || cookieValue.isEmpty()) {
-            logger.debug("Cookie中不存在State参数，正在生成新的State。");
+            logger.debug("CookieにStateパラメータが存在しません。新しいStateを生成しています。");
             ContextSerializableDto dto = new ContextSerializableDto(context.getIssuer(), context.getClientId(), context.getAudience());
             storeStateInformation(dto, resp);
         }
@@ -139,16 +137,16 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
 
     private boolean cookieCheckHandler(OAuth2ProviderContext context) {
         if (context.getRequest().getCookieValue(Message.Cookie.AUTH) == null) {
-            logger.debug("未检测到认证Cookie。");
+            logger.debug("認証Cookieが検出されませんでした。");
             if (!JwtValidationUtils.isUseCookieAuthorization(context.getRequest())) {
-                logger.warn("当前路径不允许使用Cookie模式，认证被拒绝。");
+                logger.warn("現在のパスではCookieモードの使用が許可されていません。認証は拒否されました。");
                 context.setAuthProviderUrl(getRedirectUrlByEnv(context));
                 return false;
             }
             context.setAuthProviderUrl(getRedirectUrlByEnv(context));
             return false;
         }
-        logger.debug("检测到认证Cookie。");
+        logger.debug("認証Cookieが検出されました。");
         return true;
     }
 
@@ -157,26 +155,26 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
         String token = jwtTokenStrategyRegistry.resolveToken(context.getRequest(), strategyKey);
 
         if (token == null || token.isBlank()) {
-            logger.debug("令牌不存在，认证失败。");
+            logger.debug("トークンが存在しないため、認証に失敗しました。");
             context.setAuthProviderUrl(getRedirectUrlByEnv(context));
             return false;
         }
 
-        context.setToken(token); // 将找到的令牌存入上下文
+        context.setToken(token); // 見つかったトークンをコンテキストに保存します
 
         try {
             if (jwtTokenUtil.isTokenExpired(token)) {
-                logger.debug("令牌已过期。");
-                throw new OAuth2TokenException("JWT令牌已过期", token);
+                logger.debug("トークンは期限切れです。");
+                throw new OAuth2TokenException("JWTトークンは期限切れです", token);
             }
             String updatedToken = jwtTokenUtil.updateExpiresAuthToken(token);
-            logger.debug("令牌验证成功，已刷新。");
+            logger.debug("トークンの検証に成功し、更新されました。");
             JwtValidationUtils.setCookie(context.getResponse(), Message.Cookie.AUTH, updatedToken);
             return true;
         } catch (Exception e) {
-            logger.warn("令牌验证异常: {}", e.getMessage(), e);
+            logger.warn("トークン検証エラー: {}", e.getMessage(), e);
             context.setAuthProviderUrl(getRedirectUrlByEnv(context));
-            throw e; // 向上抛出异常，由外部处理
+            throw e; // 例外を上位にスローし、外部で処理させます
         }
     }
 
@@ -192,6 +190,6 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
     private String getRedirectUrlByEnv(OAuth2ProviderContext context) {
         return "0".equals(ConfigManager.getConfig().getEnvFlag())
                 ? localAuthPage
-                : JwtValidationUtils.buildAuthRedirectUrl(context); // 确保传递context
+                : JwtValidationUtils.buildAuthRedirectUrl(context);
     }
 }

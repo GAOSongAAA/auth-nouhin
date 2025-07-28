@@ -1,4 +1,4 @@
-// 文件路径: com/collaboportal/common/spring/common/CommonAuthConfiguration.java
+// ファイルパス: com/collaboportal/common/spring/common/CommonAuthConfiguration.java
 package com.collaboportal.common.spring.common;
 
 import com.collaboportal.common.filter.AuthFilter;
@@ -20,41 +20,41 @@ public class CommonAuthConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(CommonAuthConfiguration.class);
 
     /**
-     * 将 AuthFilter 自身定义为一个 Bean。
-     * 这样它就可以被其他 @Configuration 类注入并进行配置 (例如调用 setAuth)。
-     * @ConditionalOnMissingBean 允许用户在自己的项目中定义同名的 Bean 来覆盖默认行为。
-     * @param strategyRegistry 自动注入策略注册表
-     * @return AuthFilter 实例
+     * AuthFilter 自体を Bean として定義します。
+     * これにより、他の @Configuration クラスから注入され、設定（例：setAuth の呼び出し）が可能になります。
+     * @ConditionalOnMissingBean は、ユーザーが自身のプロジェクトで同名の Bean を定義してデフォルトの動作を上書きすることを許可します。
+     * @param strategyRegistry 自動注入される認証戦略レジストリ
+     * @return AuthFilter インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(AuthFilter.class)
     public AuthFilter authFilter(AuthenticationStrategyRegistry strategyRegistry) {
-        logger.info("Creating default AuthServletFilter bean. This can be overridden by the user.");
-        // 在这里可以进行一些默认配置
+        logger.info("デフォルトの AuthServletFilter Bean を作成しています。これはユーザーによって上書き可能です。");
+        // ここでいくつかのデフォルト設定を行うことができます
         return new AuthServletFilter(strategyRegistry)
-                .addExclude("login.html","/login", "/error", "/static/**", "/favicon.ico");
+                .addExclude("/login.html","/login", "/error", "/static/**", "/favicon.ico","/testEnv","/testEnv.html");
     }
 
     /**
-     * 负责将 AuthFilter Bean 注册到 Servlet 容器的过滤器链中。
-     * 它依赖于上面定义的 AuthFilter Bean。
-     * @param authFilter 从 Spring IoC 容器中注入的 AuthFilter 实例
+     * AuthFilter Bean を Servlet コンテナのフィルターチェーンに登録する役割を担います。
+     * これは、上記で定義された AuthFilter Bean に依存します。
+     * @param authFilter Spring IoC コンテナから注入された AuthFilter インスタンス
      * @return FilterRegistrationBean
      */
     @Bean
     public FilterRegistrationBean<Filter> authFilterRegistration(AuthFilter authFilter) {
         FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
         
-        // 确保注入的是一个 jakarta.servlet.Filter
+        // 注入されたものが jakarta.servlet.Filter であることを確認します
         if (!(authFilter instanceof Filter)) {
-            throw new IllegalStateException("The AuthFilter bean must implement jakarta.servlet.Filter");
+            throw new IllegalStateException("AuthFilter Bean は jakarta.servlet.Filter を実装している必要があります");
         }
         
         registrationBean.setFilter((Filter) authFilter);
         registrationBean.addUrlPatterns("/*");
         registrationBean.setOrder(1);
         
-        logger.info("AuthFilter bean registered with URL pattern '/*' and order 1.");
+        logger.info("AuthFilter Bean が URL パターン '/*' と順序 1 で登録されました。");
         
         return registrationBean;
     }

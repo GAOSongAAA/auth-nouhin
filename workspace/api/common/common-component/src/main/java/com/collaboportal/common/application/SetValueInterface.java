@@ -3,33 +3,33 @@ package com.collaboportal.common.application;
 import com.collaboportal.common.funcs.RetFunction;
 
 public interface SetValueInterface extends GetValueInterface {
-    	// --------- 需要子类实现的方法 
+    	// --------- サブクラスが実装する必要があるメソッド 
 	
 	/**
-	 * 写值 
+	 * 値を設定 
 	 * @param key   名称
-	 * @param value 值
-	 * @return 对象自身
+	 * @param value 値
+	 * @return オブジェクト自身
 	 */
 	SetValueInterface set(String key, Object value);
 	
 	/**
-	 * 删值 
-	 * @param key 要删除的key
-	 * @return 对象自身
+	 * 値を削除 
+	 * @param key 削除するキー
+	 * @return オブジェクト自身
 	 */
 	SetValueInterface delete(String key);
 
 	
-	// --------- 接口提供封装的方法 
+	// --------- インターフェースが提供するラップメソッド 
 
 	/**
 	 * 
-	 * 取值 (如果值为 null，则执行 fun 函数获取值，并把函数返回值写入缓存) 
-	 * @param <T> 返回值的类型 
-	 * @param key key 
-	 * @param fun 值为null时执行的函数 
-	 * @return 值 
+	 * 値を取得（値が null の場合、fun 関数を実行して値を取得し、その戻り値をキャッシュに書き込む） 
+	 * @param <T> 戻り値の型 
+	 * @param key キー 
+	 * @param fun 値がnullの時に実行する関数 
+	 * @return 値 
 	 */
 	@SuppressWarnings("unchecked")
 	default <T> T get(String key, RetFunction fun) {
@@ -42,10 +42,10 @@ public interface SetValueInterface extends GetValueInterface {
 	}
 	
 	/**
-	 * 写值 (只有在此 key 原本无值的情况下才会写入) 
+	 * 値を設定（この key に元々値がない場合のみ書き込む） 
 	 * @param key   名称
-	 * @param value 值
-	 * @return 对象自身
+	 * @param value 値
+	 * @return オブジェクト自身
 	 */
 	default SetValueInterface setByNull(String key, Object value) {
 		if( ! has(key)) {

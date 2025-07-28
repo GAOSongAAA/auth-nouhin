@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * 登录服务的实现类
- * 实现了核心的登录逻辑，包括密码验证、失败锁定和JWT生成。
+ * ログインサービスの実装クラス
+ * パスワード検証、失敗ロック、JWT生成などの主要なログインロジックを実装します。
  */
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -26,13 +26,13 @@ public class LoginServiceImpl implements LoginService {
     private final LoginAttemptService loginAttemptService;
 
     /**
-     * 构造函数
-     * 通过依赖注入初始化所需的服务和组件。
+     * コンストラクタ
+     * 必要なサービスとコンポーネントを初期化するために、依存性注入を使用します。
      *
-     * @param loginMapper        用于数据库操作的MyBatis Mapper
-     * @param passwordEncoder   用于密码加密和验证的服务
-     * @param jwtTokenUtil      用于生成JWT的工具类
-     * @param loginAttemptService 用于处理登录失败的服务
+     * @param loginMapper        データベース操作のためのMyBatis Mapper
+     * @param passwordEncoder   パスワードの暗号化と検証を行うサービス
+     * @param jwtTokenUtil      JWTを生成するためのユーティリティクラス
+     * @param loginAttemptService ログイン失敗を処理するサービス
      */
     public LoginServiceImpl(LoginMapper loginMapper, PasswordEncoder passwordEncoder,
                            JwtTokenUtil jwtTokenUtil, LoginAttemptService loginAttemptService) {
@@ -43,42 +43,42 @@ public class LoginServiceImpl implements LoginService {
     }
 
     /**
-     * 用户登录认证
-     * 1. 检查账户是否被锁定。
-     * 2. 从数据库获取用户信息。
-     * 3. 验证密码。
-     * 4. 登录成功后，生成并返回JWT。
-     * 5. 登录失败后，记录失败次数。
+     * ユーザーログイン認証
+     * 1. アカウントがロックされているかどうかを確認します。
+     * 2. データベースからユーザー情報を取得します。
+     * 3. パスワードを検証します。
+     * 4. ログイン成功後、JWTを生成して返します。
+     * 5. ログイン失敗後、失敗回数を記録します。
      *
-     * @param loginRequest 包含用户凭证的登录请求
-     * @return 包含JWT的登录响应
-     * @throws AuthenticationException 如果认证失败
+     * @param loginRequest ユーザー認証情報を含むログインリクエスト
+     * @return JWTを含むログイン応答
+     * @throws AuthenticationException 認証に失敗した場合
      */
     @Override
     public void login(LoginRequest loginRequest) {
         BaseResponse response = CommonHolder.getResponse();
-        // 检查账户是否被锁定
+        // アカウントがロックされているかどうかを確認します
         if (loginAttemptService.isBlocked(loginRequest.getUsername())) {
             throw new AuthenticationException("Account is blocked");
         }
 
-        // 从数据库获取用户信息
+        // データベースからユーザー情報を取得します
         UserEPL user = loginMapper.findUserByUsername(loginRequest.getUsername());
         if (user == null) {
             throw new AuthenticationException("Invalid credentials");
         }
 
-        // 验证密码
+        // パスワードを検証します
         if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            // 登录成功，重置失败计数
+            // ログイン成功、失敗回数をリセットします
             loginAttemptService.loginSucceeded(loginRequest.getUsername());
 
-            // 生成JWT
+            // JWTを生成します
             String token = jwtTokenUtil.generateTokenFromObject(user);
             CookieUtil.setNoneSameSiteCookie(response, "token", token);
             response.redirect("/index.html");
         } else {
-            // 登录失败，增加失败计数
+            // ログイン失敗、失敗回数を増加します
             loginAttemptService.loginFailed(loginRequest.getUsername());
             throw new AuthenticationException("Invalid credentials");
         }
