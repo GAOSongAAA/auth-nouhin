@@ -59,13 +59,13 @@ public class LoginServiceImpl implements LoginService {
         BaseResponse response = CommonHolder.getResponse();
         // アカウントがロックされているかどうかを確認します
         if (loginAttemptService.isBlocked(loginRequest.getUsername())) {
-            throw new AuthenticationException("Account is blocked");
+            throw new AuthenticationException("アカウントがロックされています");
         }
 
         // データベースからユーザー情報を取得します
         UserEPL user = loginMapper.findUserByUsername(loginRequest.getUsername());
         if (user == null) {
-            throw new AuthenticationException("Invalid credentials");
+            throw new AuthenticationException("ユーザーが見つかりません");
         }
 
         // パスワードを検証します

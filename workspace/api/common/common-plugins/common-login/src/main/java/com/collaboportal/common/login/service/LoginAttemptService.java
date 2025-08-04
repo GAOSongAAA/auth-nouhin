@@ -1,9 +1,19 @@
 package com.collaboportal.common.login.service;
 
+import com.collaboportal.common.context.CommonHolder;
+import com.collaboportal.common.jwt.constants.JwtConstants;
+import com.collaboportal.common.jwt.service.JwtService;
+import com.collaboportal.common.jwt.utils.CookieUtil;
+import com.fasterxml.jackson.databind.annotation.JsonAppend.Attr;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import org.springframework.stereotype.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,24 +32,15 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class LoginAttemptService {
 
-    private final int MAX_ATTEMPTS = 5; // 最大失敗試行回数
-    private final int LOCK_DURATION_MINUTES = 5; // アカウントロック時間（分）
+    private final JwtService jwtService;
+    private static final int MAX_ATTEMPTS = 3;
 
-    // LoadingCache を使用して、ログイン失敗回数を保存します
-    // - key: ユーザーの一意の識別子（例：メールアドレス）
-    // - value: 失敗試行回数
-    private final LoadingCache<String, Integer> attemptsCache;
 
-    /**
-     * 构造函数
-     * Caffeine キャッシュを初期化し、ロック時間と最大キャッシュサイズを設定します。
-     */
-    public LoginAttemptService() {
-        attemptsCache = Caffeine.newBuilder()
-                .expireAfterWrite(LOCK_DURATION_MINUTES, TimeUnit.MINUTES) // 5分後に自動的に期限切れ（即ロック解除）
-                .maximumSize(1000) // キャッシュ最大項目数、メモリーリーク防止
-                .build(key -> 0); // キャッシュに対応するkeyがない場合、デフォルトで0を返す
+    private LoginAttemptService(JwtService jwtService) {
+        this.jwtService = jwtService;
     }
+
+
 
     /**
      * ログイン成功処理
@@ -48,20 +49,9 @@ public class LoginAttemptService {
      * @param key ユーザーの一意の識別子
      */
     public void loginSucceeded(String key) {
-        attemptsCache.invalidate(key);
     }
 
-    /**
-            * ログイン失敗処理
-     * ユーザーがログイン失敗した場合、失敗試行回数を増加します。
-     *
-     * @param key ユーザーの一意の識別子
-     */
-    public void loginFailed(String key) {
-        int attempts = attemptsCache.get(key);
-        attempts++;
-        attemptsCache.put(key, attempts);
-    }
+    public void loginFailed(String uid) {
 
     /**
      * アカウントがロックされているかどうかを確認します
@@ -69,7 +59,11 @@ public class LoginAttemptService {
      * @param key ユーザーの一意の識別子
      * @return アカウントがロックされている場合はtrueを返します
      */
-    public boolean isBlocked(String key) {
-        return attemptsCache.get(key) >= MAX_ATTEMPTS;
+    public boolean isBlocked(String retryToken) {
+        Integer retry = jwtService.extractClaim(retryToken, "retry");
+        if (retry == null) {
+            return false;
+        }
+        return retry >= MAX_ATTEMPTS;
     }
 }

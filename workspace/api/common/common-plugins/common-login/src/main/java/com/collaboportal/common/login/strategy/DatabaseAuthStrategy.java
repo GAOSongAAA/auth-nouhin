@@ -15,118 +15,118 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * 資料庫認證策略實作類
+ * データベース認証戦略実装クラス
  * 
- * 此類實作了AuthenticationStrategy介面，負責處理基於資料庫的使用者認證流程。
- * 主要功能包括：
- * 1. 檢查和驗證現有的JWT認證令牌
- * 2. 刷新即將過期的有效令牌
- * 3. 處理過期或無效令牌的重定向到登入頁面
- * 4. 提供使用者資訊的存儲和管理
+ * このクラスはAuthenticationStrategyインターフェースを実装し、データベースベースのユーザー認証フローを処理する責任を持ちます。
+ * 主な機能は以下の通りです：
+ * 1. 既存のJWT認証トークンの確認と検証
+ * 2. 期限切れ間近の有効なトークンの更新
+ * 3. 期限切れまたは無効なトークンのログインページへのリダイレクト処理
+ * 4. ユーザー情報の保存と管理
  * 
- * 認證流程：
- * - 首先檢查Cookie中是否存在認證令牌
- * - 如果令牌存在且有效，則刷新令牌並繼續
- * - 如果令牌不存在、過期或無效，則重定向到登入頁面
+ * 認証フロー：
+ * - まずCookieに認証トークンが存在するかを確認
+ * - トークンが存在し有効であれば、トークンを更新して続行
+ * - トークンが存在しない、期限切れ、または無効な場合はログインページにリダイレクト
  */
 @Component("databaseAuthStrategy")
 public class DatabaseAuthStrategy implements AuthorizationStrategy {
 
     /**
-     * 日誌記錄器，用於記錄認證過程中的各種狀態和錯誤資訊
+     * ログレコーダー、認証プロセス中の各種状態とエラー情報を記録するために使用
      */
     private static final Logger logger = LoggerFactory.getLogger(DatabaseAuthStrategy.class);
     
     /**
-     * JWT令牌工具類，用於令牌的生成、驗證和操作
+     * JWTトークンユーティリティクラス、トークンの生成、検証、操作に使用
      */
     private final JwtTokenUtil jwtTokenUtil;
 
     /**
-     * 構造函數
-     * 通過依賴注入接收JWT令牌工具類實例
+     * コンストラクタ
+     * 依存性注入によってJWTトークンユーティリティクラスインスタンスを受け取る
      * 
-     * @param jwtTokenUtil JWT令牌工具類，用於處理令牌相關操作
+     * @param jwtTokenUtil JWTトークンユーティリティクラス、トークン関連操作の処理に使用
      */
     public DatabaseAuthStrategy(JwtTokenUtil jwtTokenUtil) {
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
     /**
-     * 執行資料庫認證邏輯
+     * データベース認証ロジックを実行
      * 
-     * 此方法是認證策略的核心實作，按照以下步驟執行：
-     * 1. 從請求的Cookie中提取認證令牌
-     * 2. 檢查令牌是否存在
-     * 3. 如果令牌存在，驗證其有效性和過期狀態
-     * 4. 對於有效令牌，提取使用者資訊並刷新令牌
-     * 5. 對於無效或不存在的令牌，重定向到登入頁面
+     * このメソッドは認証戦略の核心実装であり、以下の手順で実行されます：
+     * 1. リクエストのCookieから認証トークンを抽出
+     * 2. トークンが存在するかを確認
+     * 3. トークンが存在する場合、有効性と期限切れ状態を検証
+     * 4. 有効なトークンに対して、ユーザー情報を抽出しトークンを更新
+     * 5. 無効または存在しないトークンに対して、ログインページにリダイレクト
      * 
-     * @param request  基礎請求物件，包含HTTP請求的相關資訊
-     * @param response 基礎回應物件，用於設定HTTP回應的相關資訊
-     * @throws AuthenticationException 當認證過程中發生錯誤時拋出
+     * @param request  ベースリクエストオブジェクト、HTTPリクエストの関連情報を含む
+     * @param response ベースレスポンスオブジェクト、HTTPレスポンスの関連情報を設定するために使用
+     * @throws AuthenticationException 認証プロセス中にエラーが発生した場合に投げられる
      */
     @Override
     public void authenticate(BaseRequest request, BaseResponse response) throws AuthenticationException {
-        logger.debug("開始執行資料庫認證策略...");
+        logger.debug("データベース認証戦略の実行を開始します...");
 
-        // 從Cookie中獲取認證令牌
-        // 使用預定義的Cookie名稱來查找認證令牌
+        // Cookieから認証トークンを取得
+        // 事前定義されたCookie名を使用して認証トークンを検索
         String token = request.getCookieValue(Message.Cookie.AUTH);
 
-        // 檢查令牌是否存在
-        // 如果令牌不存在或為空字串，表示使用者尚未登入或登入狀態已失效
+        // トークンが存在するかを確認
+        // トークンが存在しないか空文字列の場合、ユーザーがまだログインしていないか、ログイン状態が失効していることを表す
         if (token == null || token.isEmpty()) {
             response.redirect("http://localhost:8080/login.html");
             return;
         }
 
         try {
-            // 驗證令牌是否已過期
-            // JWT令牌包含過期時間資訊，此處檢查當前時間是否超過令牌的有效期
+            // トークンが期限切れかを検証
+            // JWTトークンは期限切れ時間情報を含み、ここで現在時間がトークンの有効期限を超えているかを確認
             if (jwtTokenUtil.isTokenExpired(token)) {
                 response.redirect("http://localhost:8080/login.html");
                 return;
             }
 
-            // 從JWT令牌中提取使用者資訊
-            // JWT令牌的payload中包含使用者的相關資訊，如使用者ID、角色等
+            // JWTトークンからユーザー情報を抽出
+            // JWTトークンのpayloadにはユーザーID、ロールなどのユーザー関連情報が含まれている
             Map<String, String> userInfo = JwtTokenUtil.getItemsJwtToken(token);
             
-            // 檢查使用者資訊是否為空
-            // 即使令牌有效，如果不包含使用者資訊也視為認證失敗
+            // ユーザー情報が空かを確認
+            // トークンが有効でも、ユーザー情報が含まれていない場合は認証失敗と見なす
             if (userInfo.isEmpty()) {
                 response.redirect("http://localhost:8080/login.html");
                 return;
             }
             
-            // 將使用者資訊存儲到請求上下文中
-            // 這允許後續的處理邏輯訪問當前認證使用者的資訊
+            // ユーザー情報をリクエストコンテキストに保存
+            // これにより、後続の処理ロジックが現在認証されているユーザーの情報にアクセスできる
             CommonHolder.getStorage().set("USER_INFO", userInfo);
-            logger.debug("使用者資訊已解析並存儲到請求上下文中：{}", userInfo.get("sub"));
+            logger.debug("ユーザー情報が解析され、リクエストコンテキストに保存されました：{}", userInfo.get("sub"));
 
-            // 刷新令牌的過期時間
-            // 這有助於保持使用者的登入狀態，避免頻繁重新登入
+            // トークンの期限切れ時間を更新
+            // これはユーザーのログイン状態を維持し、頻繁な再ログインを避けるのに役立つ
             String refreshedToken = jwtTokenUtil.updateExpiresAuthToken(token);
             
-            // 將刷新後的令牌設定回Cookie
-            // 參數說明：令牌值、路徑、域名、最大存活時間
+            // 更新されたトークンをCookieに設定
+            // パラメータ説明：トークン値、パス、ドメイン、最大生存時間
             response.addCookie(Message.Cookie.AUTH, refreshedToken, "/", null, -1);
-            logger.debug("認證令牌已成功刷新並設定到回應Cookie中。");
+            logger.debug("認証トークンが正常に更新され、レスポンスCookieに設定されました。");
 
-            // 認證成功，記錄成功訊息
-            logger.info("使用者資料庫認證成功：{}。", userInfo.get("sub"));
+            // 認証成功、成功メッセージを記録
+            logger.info("ユーザーデータベース認証成功：{}。", userInfo.get("sub"));
 
         } catch (ExpiredJwtException e) {
-            // 捕捉JWT過期異常
-            // 這是正常的業務流程，當令牌過期時需要重新登入
-            logger.info("認證令牌已過期（捕捉異常）。重定向到登入頁面。");
+            // JWT期限切れ例外をキャッチ
+            // これは正常なビジネスフローであり、トークンが期限切れの場合は再ログインが必要
+            logger.info("認証トークンが期限切れです（例外キャッチ）。ログインページにリダイレクトします。");
             response.redirect("http://localhost:8080/login.html");
             return;
         } catch (Exception e) {
-            // 捕捉其他可能的異常（如令牌格式錯誤、簽名無效等）
-            // 記錄錯誤並重定向到登入頁面
-            logger.error("資料庫令牌驗證過程中發生錯誤。重定向到登入頁面。", e);
+            // その他の可能な例外をキャッチ（トークン形式エラー、署名無効など）
+            // エラーを記録してログインページにリダイレクト
+            logger.error("データベーストークン検証プロセス中にエラーが発生しました。ログインページにリダイレクトします。", e);
             response.redirect("http://localhost:8080/login.html");
             return;
         }

@@ -82,7 +82,7 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
     }
 
     // =================================================================================
-    // 以下すべてのメソッドは、設計された JwtValidationTemplate からそのまま移行された内部実装の詳細です
+    // 
     // =================================================================================
 
     private void registerDefaultStrategies() {

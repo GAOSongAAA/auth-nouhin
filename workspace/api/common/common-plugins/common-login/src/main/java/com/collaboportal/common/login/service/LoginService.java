@@ -2,18 +2,20 @@ package com.collaboportal.common.login.service;
 
 import com.collaboportal.common.login.model.LoginRequest;
 
+
 /**
- * 登录服务的接口定义
- * 封装了核心的登录认证逻辑。
+ * ログインサービスのインターフェース定義
+ * 核心のログイン認証ロジックを封装します。
  */
 public interface LoginService {
 
     /**
-     * 用户登录认证
+     * ユーザーログイン認証
      *
-     * @param loginRequest 包含用户凭证（如邮箱和密码）的登录请求对象
-     * @return 包含认证令牌的登录响应对象
+     * @param loginRequest ユーザー認証情報（メールアドレスとパスワードなど）を含むログインリクエストオブジェクト
+     * @return 認証トークンを含むログインレスポンスオブジェクト
      */
     void login(LoginRequest loginRequest);
+
 
 }

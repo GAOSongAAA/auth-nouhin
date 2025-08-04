@@ -2,15 +2,12 @@ package com.collaboportal.common.spring.oauth2;
 
 import com.collaboportal.common.oauth2.registry.JwtTokenStrategyRegistry;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
-import com.collaboportal.common.oauth2.template.ext.CallbackLoginTemplate;
-import com.collaboportal.common.oauth2.processor.AuthProcessor;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -56,24 +53,5 @@ public class OAuth2StrategyAutoConfiguration {
         return new JwtTokenStrategyRegistry();
     }
 
-    // OAuth2LoginTemplate 是基礎模板類，不需要直接註冊為 Bean
-    // 由具體的子類實現來使用，如 CallbackLoginTemplate, JwtValidationTemplate 等
 
-    /**
-     * 回調登錄模板 Bean
-     * 處理 OAuth2 回調的登錄模板
-     * 
-     * @param authProcessor 認證處理器
-     * @return CallbackLoginTemplate 實例
-     */
-    @Bean
-    @ConditionalOnMissingBean(CallbackLoginTemplate.class)
-    @ConditionalOnBean(AuthProcessor.class)
-    public CallbackLoginTemplate callbackLoginTemplate(
-            @Autowired AuthProcessor authProcessor,
-            @Autowired LoginStrategyRegistry strategyRegistry,
-            @Autowired com.collaboportal.common.jwt.utils.JwtTokenUtil jwtTokenUtil) {
-        logger.debug("註冊 CallbackLoginTemplate Bean");
-        return new CallbackLoginTemplate(authProcessor, strategyRegistry, jwtTokenUtil);
-    }
 }

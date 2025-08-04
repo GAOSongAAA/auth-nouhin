@@ -12,7 +12,5 @@ import lombok.NoArgsConstructor;
 public class UserMaster {
     // **本部フラグ */
     private String userType;
-
     private String userMail;
-    private String password;
 }

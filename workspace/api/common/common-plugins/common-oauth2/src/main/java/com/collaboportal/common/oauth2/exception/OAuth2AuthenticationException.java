@@ -1,9 +1,9 @@
 package com.collaboportal.common.oauth2.exception;
 
 /**
- * OAuth2 認証例外
+ * OAuth2認証例外
  * 
- * OAuth2 認証プロセス中にエラーが発生した場合にスローされる
+ * OAuth2認証プロセス中にエラーが発生した場合にスローされる
  */
 public class OAuth2AuthenticationException extends OAuth2Exception {
 
@@ -46,4 +46,4 @@ public class OAuth2AuthenticationException extends OAuth2Exception {
     public OAuth2AuthenticationException(String message, Object errorDetails, Throwable cause) {
         super("OAUTH2_AUTHENTICATION_ERROR", message, errorDetails, cause);
     }
-} 
+}

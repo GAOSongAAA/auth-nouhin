@@ -77,21 +77,6 @@ public class JwtValidationChain {
     }
 
     /**
-     * チェーン内のハンドラー数を取得
-     * 
-     * @return ハンドラー数
-     */
-    public int size() {
-        int count = 0;
-        HandlerNode current = head;
-        while (current != null) {
-            count++;
-            current = current.next;
-        }
-        return count;
-    }
-
-    /**
      * チェーンが空かどうかを確認
      * 
      * @return チェーンにハンドラーがない場合はtrue
