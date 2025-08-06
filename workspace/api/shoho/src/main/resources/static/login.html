@@ -185,29 +185,11 @@
             // エラーメッセージを隠す
             errorMessage.style.display = 'none';
             
-            // リクエストボディにusernameとpasswordを含めて/auth/loginに送信
-            fetch('/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    // ログイン成功時の処理
-                    window.location.href = '/dashboard'; // ダッシュボードにリダイレクト
-                } else {
-                    // ログイン失敗時の処理
-                    errorMessage.style.display = 'block';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                errorMessage.style.display = 'block';
+            const apiBase = `${window.location.protocol}//${window.location.hostname}:415`;
+            fetch(`${apiBase}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
             });
         });
     </script>

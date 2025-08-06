@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-
 /**
  * テンプレートメソッドパターン - OAuth2ログインフロー抽象テンプレート
  * 責務：OAuth2ログインの標準フローを定義し、変化点を抽象化してサブクラスで実装
@@ -27,6 +26,7 @@ public abstract class OAuth2LoginTemplate {
     public OAuth2LoginTemplate(OAuth2ClientRegistrationFactory clientRegistrationFactory) {
         this.clientRegistrationFactory = clientRegistrationFactory;
     }
+
     public OAuth2LoginTemplate() {
         this.clientRegistrationFactory = null;
     }
@@ -81,7 +81,7 @@ public abstract class OAuth2LoginTemplate {
      */
     protected void performRedirect(OAuth2ProviderContext context, String authorizationUrl) throws IOException {
         BaseResponse response = context.getResponse();
-        response.redirect(authorizationUrl);
+        response.redirectWithoutFlush(authorizationUrl);
     }
 
     /**
@@ -90,13 +90,13 @@ public abstract class OAuth2LoginTemplate {
     protected void handleLoginError(OAuth2ProviderContext context, String errorMessage) {
         try {
             BaseResponse response = context.getResponse();
-            response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
+            response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/")
+                    .setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None")
+                    .setSecure(ConfigManager.getConfig().isCookieSecure()));
         } catch (Exception e) {
             logger.error("ログインエラーの処理中に例外が発生しました", e);
         }
     }
-
-   
 
     /**
      * コールバックエラーの処理 - サブクラスでオーバーライド可能
@@ -104,7 +104,9 @@ public abstract class OAuth2LoginTemplate {
     protected void handleCallbackError(OAuth2ProviderContext context, String errorMessage) {
         try {
             BaseResponse response = context.getResponse();
-            response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
+            response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/")
+                    .setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None")
+                    .setSecure(ConfigManager.getConfig().isCookieSecure()));
         } catch (Exception e) {
             logger.error("コールバックエラーの処理中に例外が発生しました", e);
         }

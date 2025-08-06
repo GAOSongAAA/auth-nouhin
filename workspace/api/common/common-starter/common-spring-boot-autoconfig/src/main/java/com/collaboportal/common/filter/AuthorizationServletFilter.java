@@ -3,9 +3,6 @@ package com.collaboportal.common.filter;
 
 import jakarta.servlet.*;
 
-import org.springframework.core.annotation.Order;
-import org.springframework.security.access.AuthorizationServiceException;
-
 import com.collaboportal.common.Router.CommonRouter;
 import com.collaboportal.common.context.CommonHolder;
 
@@ -19,8 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Order(1)
-public class AuthorizationServletFilter implements AuthFilter, Filter {
+public class AuthorizationServletFilter implements Filter, AuthFilter {
 
     // ------------------------ 设置此过滤器 拦截 & 放行 的路由
 
@@ -61,15 +57,11 @@ public class AuthorizationServletFilter implements AuthFilter, Filter {
     public AuthorizationStrategy auth = (req, resp) -> {
     };
 
+    // 修改你的 AuthorizationServletFilter.error 策略
     public AuthorizationErrorStrategy error = e -> {
-        throw new AuthorizationServiceException("システムエラー");
-
+        return e;
     };
 
-    /**
-     * 前置函数：在每次[认证函数]之前执行
-     * <b>注意点：前置认证函数将不受 includeList 与 excludeList 的限制，所有路由的请求都会进入 beforeAuth</b>
-     */
     public AuthorizationStrategy beforeAuth = (req, resp) -> {
     };
 
@@ -91,12 +83,9 @@ public class AuthorizationServletFilter implements AuthFilter, Filter {
         return this;
     }
 
-    // ------------------------ doFilter
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-
         try {
             // 执行全局过滤器
             beforeAuth.authenticate(CommonHolder.getRequest(), CommonHolder.getResponse());
@@ -105,7 +94,7 @@ public class AuthorizationServletFilter implements AuthFilter, Filter {
             });
 
         } catch (StopMatchException e) {
-            // StopMatchException 异常代表：停止匹配，进入Controller
+            throw new RuntimeException("Match 失败");
 
         } catch (Throwable e) {
             // 1. 获取异常处理策略结果
@@ -122,12 +111,6 @@ public class AuthorizationServletFilter implements AuthFilter, Filter {
         chain.doFilter(request, response);
     }
 
-    @Override
-    public void init(FilterConfig filterConfig) {
-    }
-
-    @Override
-    public void destroy() {
-    }
+    // ------------------------ doFilter
 
 }

@@ -74,6 +74,7 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
      */
     @Override
     public void authenticate(BaseRequest request, BaseResponse response) throws AuthenticationException {
+        logger.debug("请求头：{}", request.getHeader("Authorization-Type"));
         logger.debug("データベース認証戦略の実行を開始します...");
 
         // Cookieから認証トークンを取得
@@ -83,7 +84,7 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
         // トークンが存在するかを確認
         // トークンが存在しないか空文字列の場合、ユーザーがまだログインしていないか、ログイン状態が失効していることを表す
         if (token == null || token.isEmpty()) {
-            response.redirect("/login.html");
+            response.redirectWithFlush("/login.html");
             return;
         }
 
@@ -91,7 +92,7 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
             // トークンが期限切れかを検証
             // JWTトークンは期限切れ時間情報を含み、ここで現在時間がトークンの有効期限を超えているかを確認
             if (!jwtService.validateToken(token, JwtConstants.VALIDATE_TYPE_EXPIRED)) {
-                response.redirect("/login.html");
+                response.redirectWithFlush("/login.html");
                 return;
             }
 
@@ -102,7 +103,7 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
             // ユーザー情報が空かを確認
             // トークンが有効でも、ユーザー情報が含まれていない場合は認証失敗と見なす
             if ("".equals(email) || email == null) {
-                response.redirect("/login.html");
+                response.redirectWithFlush("/login.html");
                 return;
             }
             UserMasterEPL userInfo = loginUserMasterService.loadByEmail(email);
@@ -122,13 +123,13 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
             // JWT期限切れ例外をキャッチ
             // これは正常なビジネスフローであり、トークンが期限切れの場合は再ログインが必要
             logger.info("認証トークンが期限切れです（例外キャッチ）。ログインページにリダイレクトします。");
-            response.redirect("/login.html");
+            response.redirectWithFlush("/login.html");
             return;
         } catch (Exception e) {
             // その他の可能な例外をキャッチ（トークン形式エラー、署名無効など）
             // エラーを記録してログインページにリダイレクト
             logger.error("データベーストークン検証プロセス中にエラーが発生しました。ログインページにリダイレクトします。", e);
-            response.redirect("/login.html");
+            response.redirectWithFlush("/login.html");
             return;
         }
     }

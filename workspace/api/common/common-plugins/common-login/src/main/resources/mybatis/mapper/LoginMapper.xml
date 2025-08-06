@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.collaboportal.common.login.mapper.LoginMapper">
 
-    <select id="findUserByUsername" resultType="com.collaboportal.common.login.model.DTO.UserMasterEPL">
+    <select id="findUserByEmail" resultType="com.collaboportal.common.login.model.DTO.UserMasterEPL">
         SELECT							
             I_USER_TYPE as userType,
             I_USER_MAIL as userMail,

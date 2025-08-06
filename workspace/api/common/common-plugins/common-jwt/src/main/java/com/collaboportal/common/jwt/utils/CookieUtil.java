@@ -7,8 +7,6 @@ import com.collaboportal.common.ConfigManager;
 import com.collaboportal.common.context.web.BaseCookie;
 import com.collaboportal.common.context.web.BaseResponse;
 
-
-
 public class CookieUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(CookieUtil.class);
@@ -22,12 +20,15 @@ public class CookieUtil {
      */
     public static void setNoneSameSiteCookie(BaseResponse response, String name, String value) {
         logger.debug("Cookieを設定します。{}={}", name, value);
-        response.addCookie(new BaseCookie(name, value).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
+        response.addCookie(new BaseCookie(name, value).setPath("/")
+                .setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(true));
     }
 
     public static void setSameSiteCookie(BaseResponse response, String name, String value) {
         logger.debug("Cookieを設定します。{}={}", name, value);
-        response.addCookie(new BaseCookie(name, value).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("Strict").setSecure(ConfigManager.getConfig().isCookieSecure()));
+        response.addCookie(
+                new BaseCookie(name, value).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration())
+                        .setSameSite("Strict").setSecure(ConfigManager.getConfig().isCookieSecure()));
     }
 
 }

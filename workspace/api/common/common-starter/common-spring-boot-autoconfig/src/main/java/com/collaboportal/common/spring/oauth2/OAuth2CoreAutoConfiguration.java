@@ -4,6 +4,9 @@ import com.collaboportal.common.jwt.service.JwtService;
 import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
 import com.collaboportal.common.oauth2.processor.AuthProcessor;
 import com.collaboportal.common.oauth2.processor.impl.AuthProcessorImpl;
+import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
+import com.collaboportal.common.oauth2.service.Oauth2UserMasterService;
+import com.collaboportal.common.oauth2.template.ext.CallbackLoginTemplate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,5 +72,15 @@ public class OAuth2CoreAutoConfiguration {
     public OAuth2ConfigurationProperties oAuth2ConfigurationProperties() {
         logger.debug("OAuth2ConfigurationProperties Bean を登録します");
         return new OAuth2ConfigurationProperties();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(CallbackLoginTemplate.class)
+    public CallbackLoginTemplate callbackLoginTemplate(AuthProcessor authProcessor,
+            Oauth2UserMasterService oauth2UserMasterService,
+            LoginStrategyRegistry strategyRegistry,
+            JwtService jwtService) {
+        logger.debug("CallbackLoginTemplate登录");
+        return new CallbackLoginTemplate(authProcessor, oauth2UserMasterService, strategyRegistry, jwtService);
     }
 }

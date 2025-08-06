@@ -7,9 +7,10 @@ import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.context.web.BaseStorage;
 
 public class CommonHolder {
-	
+
 	/**
 	 * 現在のリクエストのCommonContext（共通コンテキスト）オブジェクトを取得します。
+	 * 
 	 * @see CommonContext
 	 * 
 	 * @return CommonContextインスタンス
@@ -20,6 +21,7 @@ public class CommonHolder {
 
 	/**
 	 * 現在のリクエストのRequestラッパーオブジェクトを取得します。
+	 * 
 	 * @see BaseRequest
 	 * 
 	 * @return BaseRequestインスタンス
@@ -30,6 +32,7 @@ public class CommonHolder {
 
 	/**
 	 * 現在のリクエストのResponseラッパーオブジェクトを取得します。
+	 * 
 	 * @see BaseResponse
 	 * 
 	 * @return BaseResponseインスタンス
@@ -40,6 +43,7 @@ public class CommonHolder {
 
 	/**
 	 * 現在のリクエストのStorageラッパーオブジェクトを取得します。
+	 * 
 	 * @see BaseStorage
 	 *
 	 * @return BaseStorageインスタンス

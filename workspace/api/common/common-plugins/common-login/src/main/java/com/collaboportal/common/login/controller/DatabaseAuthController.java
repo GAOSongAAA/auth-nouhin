@@ -38,7 +38,7 @@ public class DatabaseAuthController {
         if (result.success()) {
             UserInfo ui = new UserInfo(result.userId(), result.username());
             BaseResponse response = CommonHolder.getResponse();
-            response.redirect("/index.html");
+            response.redirectWithFlush("/index.html");
             return ResponseEntity.ok(LoginResponseBody.ok(ui));
         }
         return ResponseEntity

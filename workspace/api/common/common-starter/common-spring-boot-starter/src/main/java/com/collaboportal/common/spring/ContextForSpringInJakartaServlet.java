@@ -20,7 +20,6 @@ public class ContextForSpringInJakartaServlet implements CommonContext {
 	 */
 	@Override
 	public BaseRequest getRequest() {
-		logger.info("リクエストラッパーオブジェクトを取得します");
 		return new RequestForServlet(SpringMVCUtil.getRequest());
 	}
 
@@ -29,7 +28,6 @@ public class ContextForSpringInJakartaServlet implements CommonContext {
 	 */
 	@Override
 	public BaseResponse getResponse() {
-		logger.info("レスポンスラッパーオブジェクトを取得します");
 		return new ResponseForServlet(SpringMVCUtil.getResponse());
 	}
 
@@ -38,16 +36,14 @@ public class ContextForSpringInJakartaServlet implements CommonContext {
 	 */
 	@Override
 	public BaseStorage getStorage() {
-		logger.info("ストレージラッパーオブジェクトを取得します");
 		return new StorageForServlet(SpringMVCUtil.getRequest());
 	}
-	
+
 	/**
 	 * 指定したルーティングパターンが指定したパスにマッチするかどうかを判定します
 	 */
 	@Override
 	public boolean matchPath(String pattern, String path) {
-		logger.info("ルーティングパターン「{}」とパス「{}」のマッチ判定を行います", pattern, path);
 		return PathPatternParserUtil.match(pattern, path);
 	}
 
@@ -56,7 +52,6 @@ public class ContextForSpringInJakartaServlet implements CommonContext {
 	 */
 	@Override
 	public boolean isValid() {
-		logger.info("このコンテキストが有効かどうかを判定します");
 		return SpringMVCUtil.isWeb();
 	}
 

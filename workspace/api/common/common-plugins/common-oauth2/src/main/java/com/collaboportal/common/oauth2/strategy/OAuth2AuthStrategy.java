@@ -49,6 +49,7 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
      */
     @Override
     public void authenticate(BaseRequest request, BaseResponse response) throws AuthenticationException {
+        logger.debug("请求头：{}", request.getHeader("Authorization-Type"));
         logger.debug("OAuth2認証戦略の実行を開始します...");
         OAuth2ProviderContext context = OAuth2ProviderContext.builder().request(request).response(response).build();
         // 2. 責任チェーンを構築し実行します
@@ -67,8 +68,10 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
                 throw new OAuth2ConfigurationException("OAuth2認証は失敗し、リダイレクトアドレスを特定できません。");
             }
             logger.info("OAuth2認証にはリダイレクトが必要です。ターゲットアドレス: {}", redirectUrl);
-            response.redirect(redirectUrl);
+            response.redirectWithFlush(redirectUrl);
+
         }
+        return;
     }
 
     private void registerDefaultStrategies() {
@@ -175,8 +178,8 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
     }
 
     private void storeStateInformation(ContextSerializableDto contextSerializableDto, BaseResponse response) {
-        String stateParameter = jwtService.generateToken(contextSerializableDto, JwtConstants.GENERATE_STATE_MAP);
-        CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.AUTH_STATE, stateParameter);
+        String stateParameter = jwtService.generateToken(contextSerializableDto, JwtConstants.GENERATE_OBJECT_TOKEN);
+        CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH_STATE, stateParameter);
     }
 
     private String getRedirectUrlByEnv(OAuth2ProviderContext context) {

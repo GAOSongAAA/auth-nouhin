@@ -6,7 +6,7 @@ import com.collaboportal.common.exception.CommonException;
 
 import jakarta.servlet.http.HttpServletResponse;
 
-public class ResponseForServlet implements BaseResponse{
+public class ResponseForServlet implements BaseResponse {
 
     protected HttpServletResponse response;
 
@@ -19,11 +19,11 @@ public class ResponseForServlet implements BaseResponse{
         return response;
     }
 
-	@Override
-	public BaseResponse setStatus(int sc) {
-		response.setStatus(sc);
-		return this;
-	}
+    @Override
+    public BaseResponse setStatus(int sc) {
+        response.setStatus(sc);
+        return this;
+    }
 
     @Override
     public BaseResponse setHeader(String name, String value) {
@@ -37,14 +37,25 @@ public class ResponseForServlet implements BaseResponse{
         return this;
     }
 
-	@Override
-	public Object redirect(String url) {
-		try {
-			response.sendRedirect(url);
-		} catch (Exception e) {
-			throw new CommonException(InternalErrorCode.SYSTEM_ERROR);
-		}
-		return null;
-	}
+    @Override
+    public Object redirectWithoutFlush(String url) {
+        try {
+            response.setStatus(302);
+            response.setHeader("Location", url);
+        } catch (Exception e) {
+            throw new CommonException(InternalErrorCode.SYSTEM_ERROR);
+        }
+        return null;
+    }
+
+    @Override
+    public Object redirectWithFlush(String url) {
+        try {
+            response.sendRedirect(url);
+        } catch (Exception e) {
+            throw new CommonException(InternalErrorCode.SYSTEM_ERROR);
+        }
+        return null;
+    }
 
 }

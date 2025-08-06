@@ -13,7 +13,7 @@ public class JwtConstants {
     public static final String GENERATE_STATE_MAP = "state-map-generator";
     public static final String GENERATE_INTERNAL_TOKEN = "internal-token-generator";
     public static final String GENERATE_DATABASE_TOKEN = "database-token-generator";
-
+    public static final String GENERATE_OBJECT_TOKEN = "object_token_generator";
     public static final String RESOLVER_TYPE_UID = "uid";
     public static final String RESOLVER_TYPE_EMAIL = "email";
     public static final String RESOLVER_TYPE_ROLE = "role";

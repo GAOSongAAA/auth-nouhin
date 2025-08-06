@@ -64,24 +64,28 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
 
             // ユーザー情報を取得
             UserMasterCollabo user = oauth2UserMasterService.loadByEmail(email);
-            logger.debug("ユーザー情報の取得に成功しました。メールアドレス: {}", email);
+            if (user == null || user.getUserMail() == null) {
+                throw new OAuth2AuthorizationException("No such user");
 
+            }
+            logger.debug("ユーザー情報の取得に成功しました。メールアドレス: {}", user.getUserMail());
             // JWTトークンを生成
             String token = jwtService.generateToken(user, JwtConstants.GENERATE_INTERNAL_TOKEN);
-            logger.debug("JWTトークンの生成に成功しました");
+            logger.debug("JWTトークンの生成に成功しました{}", token);
 
             // 認証情報をCookieに設定
-            CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.AUTH, token);
-            CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.HONBU_FLAG, user.getUserType());
+            CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH, token);
+
             logger.debug("認証用Cookieの設定に成功しました");
 
             // リダイレクト処理
-            redirect(response, ConfigManager.getConfig().getIndexPage());
+            response.redirectWithoutFlush("/index.html");
             logger.info("テスト環境ログインに成功しました。インデックスページにリダイレクトします");
+            return;
         } catch (Exception e) {
             logger.error("テスト環境ログインに失敗しました", e);
-            CookieUtil.setNoneSameSiteCookie(response, "MoveURL", "/#/error");
-            response.redirect(ConfigManager.getConfig().getIndexPage());
+            CookieUtil.setSameSiteCookie(response, "MoveURL", "/#/error");
+            response.redirectWithoutFlush("/index.html");
             logger.error("テスト環境ログインに失敗しました。エラーページにリダイレクトします");
         }
     }
@@ -130,8 +134,9 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
             CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH, token);
             logger.debug("認証用Cookieの設定に成功しました");
 
-            redirect(response, context.getHomePage());
+            response.redirectWithoutFlush(ConfigManager.getConfig().getIndexPage());
             logger.info("本番環境ログインに成功しました。インデックスページにリダイレクトします");
+            return;
         } catch (OAuth2AuthorizationException | OAuth2UserException e) {
             logger.warn("本番環境ログイン OAuth2 例外: {}", e.getMessage());
             CookieUtil.setSameSiteCookie(response, "MoveURL", "/#/error");
@@ -142,18 +147,6 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
             CookieUtil.setSameSiteCookie(response, "MoveURL", "/#/error");
             throw new OAuth2AuthenticationException(errorMessage, e);
         }
-    }
-
-    /**
-     * リダイレクト処理
-     * 
-     * @param response HTTPレスポンス
-     * @param url      リダイレクト先URL
-     */
-    private void redirect(BaseResponse response, String url) {
-        logger.debug("リダイレクトを実行します。URL: {}", url);
-        response.setHeader("Location", url);
-        response.setStatus(302);
     }
 
 }

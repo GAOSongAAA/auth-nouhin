@@ -14,6 +14,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -83,6 +86,52 @@ public class CustomJwtStrategies implements CommandLineRunner {
                                 .signWith(secretKey())
                                 .compact();
                 registry.registerTokenGenerator(JwtConstants.GENERATE_INTERNAL_TOKEN, oauth2Generator);
+
+                // 2-x Object → JWT（通用）
+                JwtTokenGenerator<Object> objectGenerator = obj -> {
+
+                        Map<String, Object> claimMap = new LinkedHashMap<>();
+
+                        Class<?> clazz = obj.getClass();
+                        while (clazz != null && clazz != Object.class) {
+                                for (Field f : clazz.getDeclaredFields()) {
+
+                                        int mod = f.getModifiers();
+                                        if (Modifier.isStatic(mod) || Modifier.isTransient(mod)) {
+                                                continue; // 跳过 static / transient
+                                        }
+
+                                        try {
+                                                f.setAccessible(true);
+                                                Object v = f.get(obj);
+                                                if (v != null) {
+                                                        claimMap.put(f.getName(), v);
+                                                }
+                                        } catch (IllegalAccessException e) {
+                                                // 转成 unchecked；也可以直接 log & continue
+                                                throw new RuntimeException(
+                                                                "Cannot access field: " + f.getName(), e);
+                                        }
+                                }
+                                clazz = clazz.getSuperclass(); // 递归到父类
+                        }
+
+                        Date now = new Date();
+                        Date exp = new Date(now.getTime()
+                                        + ConfigManager.getConfig().getCookieExpiration() * 1000L);
+
+                        return Jwts.builder()
+                                        .addClaims(claimMap)
+                                        .setIssuedAt(now)
+                                        .setExpiration(exp)
+                                        .claim("token_type", JwtConstants.TOKEN_TYPE_INTERNAL)
+                                        .signWith(secretKey())
+                                        .compact();
+                };
+
+                // 注册
+                registry.registerTokenGenerator(
+                                JwtConstants.GENERATE_OBJECT_TOKEN, objectGenerator);
 
                 // 2-4 User -> AccessToken（長期有効）データベース認証用、内部使用
                 JwtTokenGenerator<UserMaster> databaseTokenGenerator = user -> Jwts.builder()

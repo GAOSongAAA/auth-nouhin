@@ -23,7 +23,7 @@ public class Oauth2UserMasterService extends AbstractMasterLoader<UserMasterColl
 
         return Optional.ofNullable(oauth2Mapper.findUserMasterByEmail(email))
                 .orElseGet(() -> UserMasterCollabo.builder()
-                        .userMail(email)
+
                         .userType("0")
                         .userId("0")
                         .build());

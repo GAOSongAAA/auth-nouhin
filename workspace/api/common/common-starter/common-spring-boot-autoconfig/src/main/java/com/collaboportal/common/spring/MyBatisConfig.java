@@ -15,9 +15,9 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  */
 @AutoConfiguration
 @MapperScan(basePackages = {
-    "com.collaboportal.common.jwt.repository",  // JWT関連のリポジトリパッケージ
-    "com.collaboportal.shoho.repository",       // 処方元情報関連のリポジトリパッケージ
-    "com.collaboportal.common.login.mapper"     // ログイン関連のMapperパッケージ
+        "com.collaboportal.common",
+        "com.collaboportal.shoho"
+// ログイン関連のMapperパッケージ
 })
 public class MyBatisConfig {
 
@@ -37,8 +37,7 @@ public class MyBatisConfig {
 
             // Mapper XMLファイルの場所を汎用的に設定
             bean.setMapperLocations(
-                new PathMatchingResourcePatternResolver().getResources("classpath*:mybatis/mapper/**/*.xml")
-            );
+                    new PathMatchingResourcePatternResolver().getResources("classpath*:mybatis/mapper/**/*.xml"));
             // エイリアスのパッケージを設定
             bean.setTypeAliasesPackage("com.collaboportal.common.jwt.entity,com.collaboportal.common.login.model.DTO");
 

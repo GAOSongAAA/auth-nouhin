@@ -14,7 +14,6 @@ import com.collaboportal.common.config.LogMaskConfig;
 import com.collaboportal.common.context.CommonContext;
 import com.collaboportal.common.filter.LogTraceIdFilter;
 
-
 /**
  * 設定管理クラス
  * アプリケーション全体の設定とフィルターを管理する
@@ -138,21 +137,28 @@ public class ConfigManager {
         logbookFilterBean = filter;
     }
 
-    private volatile static CommonContext commonContext;
+    private static final ThreadLocal<CommonContext> CTX_LOCAL = new ThreadLocal<>();
 
-    public static void setCommonContext(CommonContext commonContext) {
-        ConfigManager.commonContext = commonContext;
+    /** 在过滤器入口写入 */
+    public static void setCommonContext(CommonContext ctx) {
+        CTX_LOCAL.set(ctx);
     }
 
+    /** 在 finally 清理 */
+    public static void clearContext() {
+        CTX_LOCAL.remove();
+    }
+
+    /** 业务代码取用 */
     public static CommonContext getCommonContext() {
-        if (commonContext != null && commonContext.isValid()) {
-            return commonContext;
-        } else {
+        CommonContext ctx = CTX_LOCAL.get();
+        if (ctx == null || !ctx.isValid()) {
             throw new RuntimeException("コンテキスト無効です。");
         }
+        return ctx;
     }
 
-    
-
+    private ConfigManager() {
+    } // 禁止实例化
 
 }
