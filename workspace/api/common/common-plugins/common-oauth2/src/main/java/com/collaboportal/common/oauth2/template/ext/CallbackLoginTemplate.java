@@ -4,39 +4,43 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.context.CallbackContext;
-import com.collaboportal.common.context.web.BaseCookie;
+import com.collaboportal.common.context.oauth2.CallbackContext;
+
 import com.collaboportal.common.context.web.BaseResponse;
+import com.collaboportal.common.jwt.constants.JwtConstants;
+
+import com.collaboportal.common.jwt.service.JwtService;
 import com.collaboportal.common.jwt.utils.CookieUtil;
-import com.collaboportal.common.jwt.utils.JwtTokenUtil;
-import com.collaboportal.common.oauth2.entity.DTO.IUserInfoDto;
-import com.collaboportal.common.oauth2.entity.DTO.UserInfo;
+
+import com.collaboportal.common.oauth2.entity.DTO.UserMasterCollabo;
 import com.collaboportal.common.oauth2.exception.OAuth2AuthenticationException;
 import com.collaboportal.common.oauth2.exception.OAuth2AuthorizationException;
 import com.collaboportal.common.oauth2.exception.OAuth2UserException;
-import com.collaboportal.common.oauth2.factory.UserInfoServiceFactory;
+
 import com.collaboportal.common.oauth2.model.OauthTokenResult;
 import com.collaboportal.common.oauth2.processor.AuthProcessor;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
+import com.collaboportal.common.oauth2.service.Oauth2UserMasterService;
 import com.collaboportal.common.oauth2.template.OAuth2LoginTemplate;
 import com.collaboportal.common.utils.Message;
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletResponse;
 
 public class CallbackLoginTemplate extends OAuth2LoginTemplate {
 
     private static final Logger logger = LoggerFactory.getLogger(CallbackLoginTemplate.class);
     private final AuthProcessor authProcessor;
     private final LoginStrategyRegistry strategyRegistry;
+    private final Oauth2UserMasterService oauth2UserMasterService;
+    private final JwtService jwtService;
 
-    private final JwtTokenUtil jwtTokenUtil;
-
-    public CallbackLoginTemplate(AuthProcessor authProcessor, LoginStrategyRegistry strategyRegistry, JwtTokenUtil jwtTokenUtil) {
+    public CallbackLoginTemplate(AuthProcessor authProcessor, Oauth2UserMasterService oauth2UserMasterService,
+            LoginStrategyRegistry strategyRegistry,
+            JwtService jwtService) {
         this.strategyRegistry = strategyRegistry;
+        this.oauth2UserMasterService = oauth2UserMasterService;
         this.authProcessor = authProcessor;
-        this.jwtTokenUtil = jwtTokenUtil;
+        this.jwtService = jwtService;
     }
 
     @PostConstruct
@@ -56,44 +60,29 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
         BaseResponse response = context.getResponse();
         try {
             String email = context.getEmailFromForm();
-            if (email == null || email.isEmpty()) {
-                throw new OAuth2AuthenticationException("テスト環境ログイン失敗：メールアドレスが空です");
-            }
-
             logger.info("テスト環境ログインプロセスを開始します。メールアドレス: {}", email);
 
-            UserInfo user = new UserInfo();
-            user.setEmail(email);
-            user.setUserId("123123123");
-
-            if (user == null) {
-                String errorMessage = String.format("ユーザー情報が見つかりません：%s", email);
-                throw new OAuth2UserException(errorMessage, email);
-            }
-
+            // ユーザー情報を取得
+            UserMasterCollabo user = oauth2UserMasterService.loadByEmail(email);
             logger.debug("ユーザー情報の取得に成功しました。メールアドレス: {}", email);
-            String token = jwtTokenUtil.generateTokenFromObject(user);
+
+            // JWTトークンを生成
+            String token = jwtService.generateToken(user, JwtConstants.GENERATE_INTERNAL_TOKEN);
             logger.debug("JWTトークンの生成に成功しました");
 
-            // CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH, token);
-            response.addCookie(new BaseCookie(Message.Cookie.AUTH, token).setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
+            // 認証情報をCookieに設定
+            CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.AUTH, token);
+            CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.HONBU_FLAG, user.getUserType());
             logger.debug("認証用Cookieの設定に成功しました");
 
-            redirect(response, context.getHomePage());
+            // リダイレクト処理
+            redirect(response, ConfigManager.getConfig().getIndexPage());
             logger.info("テスト環境ログインに成功しました。インデックスページにリダイレクトします");
-        } catch (OAuth2AuthenticationException | OAuth2UserException e) {
-            logger.warn("テスト環境ログイン OAuth2 例外: {}", e.getMessage());
-            //CookieUtil.setSameSiteCookie(response, "MoveURL", "/#/error");
-            response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
-            redirect(response, context.getHomePage());
-            throw e;
         } catch (Exception e) {
-            String errorMessage = String.format("テスト環境ログイン処理中に予期しないエラーが発生しました: %s", e.getMessage());
             logger.error("テスト環境ログインに失敗しました", e);
-            //CookieUtil.setSameSiteCookie(response, "MoveURL", "/#/error");
-            response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/").setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None").setSecure(ConfigManager.getConfig().isCookieSecure()));
-            redirect(response, context.getHomePage());
-            throw new OAuth2AuthenticationException(errorMessage, e);
+            CookieUtil.setNoneSameSiteCookie(response, "MoveURL", "/#/error");
+            response.redirect(ConfigManager.getConfig().getIndexPage());
+            logger.error("テスト環境ログインに失敗しました。エラーページにリダイレクトします");
         }
     }
 
@@ -127,7 +116,7 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
                 throw new OAuth2AuthorizationException("OAuth レスポンスにユーザーメールアドレスがありません", tokenResult);
             }
 
-            IUserInfoDto user = UserInfoServiceFactory.loadUserByEmail(context.getSelectedProviderId(), email);
+            UserMasterCollabo user = oauth2UserMasterService.loadByEmail(email);
             if (user == null) {
                 String errorMessage = String.format("ユーザー情報が見つかりません：%s", email);
                 throw new OAuth2UserException(errorMessage, email);
@@ -135,7 +124,7 @@ public class CallbackLoginTemplate extends OAuth2LoginTemplate {
 
             logger.debug("ユーザー情報の取得に成功しました。メールアドレス: {}", email);
 
-            String token = jwtTokenUtil.generateTokenFromObject(user);
+            String token = jwtService.generateToken(user, JwtConstants.GENERATE_INTERNAL_TOKEN);
             logger.debug("JWTトークンの生成に成功しました");
 
             CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH, token);

@@ -44,6 +44,7 @@ public class Message {
 	 */
 	public static class Cookie {
 
+		public static final String HONBU_FLAG = "honbu_flag";
 		public static final String AUTH_STATE = "auth_state";
 
 		/** 認証トークン */

@@ -1,5 +1,6 @@
 package com.collaboportal.common.spring.oauth2;
 
+import com.collaboportal.common.jwt.service.JwtService;
 import com.collaboportal.common.oauth2.controller.AuthorizationController;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
 
@@ -39,8 +40,9 @@ public class OAuth2ControllerAutoConfiguration {
     @ConditionalOnMissingBean(AuthorizationController.class)
     @ConditionalOnBean(LoginStrategyRegistry.class)
     public AuthorizationController authorizationController(
-            @Autowired LoginStrategyRegistry loginStrategyRegistry) {
+            @Autowired LoginStrategyRegistry loginStrategyRegistry,
+            @Autowired JwtService jwtService) {
         logger.debug("AuthorizationController Bean を登録します");
-        return new AuthorizationController(loginStrategyRegistry);
+        return new AuthorizationController(loginStrategyRegistry, jwtService);
     }
 }

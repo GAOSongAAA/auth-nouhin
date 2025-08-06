@@ -40,19 +40,11 @@ public class AuthInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 		try {
-
-			// Auth 校验
 			auth.run(handler);
 
 		} catch (StopMatchException e) {
-			// StopMatchException 异常代表：停止匹配，进入Controller
 
 		} catch (BackResultException e) {
-			// BackResultException 异常代表：停止匹配，向前端输出结果
-			// 请注意此处默认 Content-Type 为 text/plain，如果需要返回 JSON 信息，需要在 back 前自行设置 Content-Type
-			// 为 application/json
-			// 例如：SaHolder.getResponse().setHeader("Content-Type",
-			// "application/json;charset=UTF-8");
 			if (response.getContentType() == null) {
 				response.setContentType("text/plain; charset=utf-8");
 			}
@@ -60,7 +52,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 			return false;
 		}
 
-		// 通过验证
 		return true;
 	}
 }

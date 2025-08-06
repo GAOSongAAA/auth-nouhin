@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.context.CallbackContext;
+
 import com.collaboportal.common.context.CommonHolder;
+import com.collaboportal.common.context.oauth2.CallbackContext;
 import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.context.web.BaseResponse;
-import com.collaboportal.common.jwt.utils.JwtTokenUtil;
+import com.collaboportal.common.jwt.service.JwtService;
 import com.collaboportal.common.oauth2.registry.LoginStrategyRegistry;
 import com.collaboportal.common.utils.Message;
-
-
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,10 +27,13 @@ public class AuthorizationController {
 
     private final LoginStrategyRegistry loginStrategyRegistry;
 
+    private final JwtService jwtService;
+
     Logger logger = LoggerFactory.getLogger(AuthorizationController.class);
 
-    public AuthorizationController(LoginStrategyRegistry loginStrategyRegistry) {
+    public AuthorizationController(LoginStrategyRegistry loginStrategyRegistry, JwtService jwtService) {
         this.loginStrategyRegistry = loginStrategyRegistry;
+        this.jwtService = jwtService;
         logger.debug("AuthorizationControllerの初期化が完了し、リクエストの監視を開始しました");
     }
 
@@ -55,7 +57,7 @@ public class AuthorizationController {
                 .request(request)
                 .response(response)
                 .build();
-        Map<String, String> items = JwtTokenUtil.getItemsJwtToken(authStateToken);
+        Map<String, String> items = jwtService.extractClaim(authStateToken, "all");
 
         logger.debug("[認証コールバック] 認証状態: {}", items);
         context.setClientId(items.get(Message.ContextInfo.CLIENT_ID));
@@ -76,4 +78,3 @@ public class AuthorizationController {
     }
 
 }
- 

@@ -3,8 +3,6 @@ package com.collaboportal.common.oauth2.processor;
 import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.oauth2.model.OauthTokenResult;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 public interface AuthProcessor {
 
         /**

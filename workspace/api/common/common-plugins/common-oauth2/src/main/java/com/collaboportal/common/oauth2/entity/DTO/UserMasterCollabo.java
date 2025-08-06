@@ -1,6 +1,6 @@
 package com.collaboportal.common.oauth2.entity.DTO;
 
-import java.io.Serializable;
+import com.collaboportal.common.jwt.entity.UserMaster;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ContextSerializableDto implements Serializable {
+public class UserMasterCollabo implements UserMaster {
 
-    String providerId;
-    String issuer;
-    String clientId;
-    String audience;
+    private String userId;
+    private String userMail;
+    private String userType;
 
 }

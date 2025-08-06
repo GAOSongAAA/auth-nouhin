@@ -1,12 +1,13 @@
 package com.collaboportal.common.spring.oauth2;
 
+import com.collaboportal.common.jwt.service.JwtService;
 import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
 import com.collaboportal.common.oauth2.processor.AuthProcessor;
 import com.collaboportal.common.oauth2.processor.impl.AuthProcessorImpl;
-import com.collaboportal.common.oauth2.factory.UserInfoServiceFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -47,29 +48,14 @@ public class OAuth2CoreAutoConfiguration {
     /**
      * 認証プロセッサ Bean
      * OAuth2 認証フローを処理する
-     *  
+     * 
      * @return AuthProcessor インスタンス
      */
     @Bean
     @ConditionalOnMissingBean(AuthProcessor.class)
-    public AuthProcessor authProcessor() {
+    public AuthProcessor authProcessor(@Autowired JwtService jwtService) {
         logger.debug("AuthProcessor Bean を登録します");
-        return new AuthProcessorImpl();
-    }
-
-
-
-    /**
-     * ユーザー情報サービスファクトリ Bean
-     * 注意：UserInfoServiceFactory は静的ファクトリクラスです。ここでは主に初期化を確実にするためです
-     * 
-     * @return UserInfoServiceFactory インスタンス
-     */
-    @Bean
-    @ConditionalOnMissingBean(UserInfoServiceFactory.class)
-    public UserInfoServiceFactory userInfoServiceFactory() {
-        logger.debug("UserInfoServiceFactory を初期化します");
-        return new UserInfoServiceFactory();
+        return new AuthProcessorImpl(jwtService);
     }
 
     /**

@@ -16,7 +16,7 @@ ENV SECRET_KEY=fe41b467fa94ac3db1445c637175bcd59b678156a12f60d725f315f4fee748b9
 # 0:認證を行わない
 # 1:認證を行う
 ENV NO_AUTHORIZATION=0
-ENV SPRING_DATASOURCE_URL=jdbc:sqlserver://mssql2019:1433;databaseName=nouki_dev_sqldb;socketTimeout=3000;encrypt=false;trustServerCertificate=true
+ENV SPRING_DATASOURCE_URL=jdbc:sqlserver://mssql2019:1433;databaseName=shohomoto_info;socketTimeout=3000;encrypt=false;trustServerCertificate=true
 ENV SPRING_DATASOURCE_USERNAME=sa
 ENV SPRING_DATASOURCE_PASSWORD=Password1111
 
@@ -30,7 +30,7 @@ RUN apt-get clean && apt-get update --fix-missing && apt-get upgrade -y && apt-g
     gnupg \
     libpq-dev \
     sudo \
-#    shadow \
+    #    shadow \
     unzip \
     dialog \
     apt-utils \

@@ -1,8 +1,9 @@
 package com.collaboportal.common.login.mapper;
 
-import com.collaboportal.common.login.model.DTO.UserEPL;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.collaboportal.common.login.model.DTO.UserMasterEPL;
 
 /**
  * ログイン関連のMyBatis Mapperインターフェース
@@ -17,6 +18,6 @@ public interface LoginMapper {
      * @param username ユーザー名
      * @return 一致するユーザー情報。存在しない場合はnullを返します。
      */
-    UserEPL findUserByUsername(@Param("username") String username);
+    UserMasterEPL findUserByEmail(@Param("email") String email);
 
 }

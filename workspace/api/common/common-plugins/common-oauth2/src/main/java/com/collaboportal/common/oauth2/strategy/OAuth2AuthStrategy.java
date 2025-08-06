@@ -1,20 +1,16 @@
-// ファイルパス: com/collaboportal/common/oauth2/strategy/OAuth2AuthStrategy.java
-// (このファイルは、古い OAuth2AuthStrategy と JwtValidationTemplate を置き換えます)
-
 package com.collaboportal.common.oauth2.strategy;
 
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.context.CommonHolder;
 import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.exception.AuthenticationException;
+import com.collaboportal.common.jwt.constants.JwtConstants;
+import com.collaboportal.common.jwt.service.JwtService;
 import com.collaboportal.common.jwt.utils.CookieUtil;
-import com.collaboportal.common.jwt.utils.JwtTokenUtil;
 import com.collaboportal.common.oauth2.chain.JwtValidationChain;
 import com.collaboportal.common.oauth2.context.OAuth2ProviderContext;
 import com.collaboportal.common.oauth2.entity.DTO.ContextSerializableDto;
 import com.collaboportal.common.oauth2.exception.OAuth2ConfigurationException;
-import com.collaboportal.common.oauth2.exception.OAuth2TokenException;
 import com.collaboportal.common.oauth2.factory.OAuth2ClientRegistrationFactory;
 import com.collaboportal.common.oauth2.model.OAuth2ClientRegistration;
 import com.collaboportal.common.oauth2.registry.JwtTokenStrategyRegistry;
@@ -25,16 +21,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-/**
- * 最終的かつ正しいOAuth2認証戦略の実装。
- * これは、設計されたJwtValidationTemplateのフロー制御ロジックを完全にカプセル化します。
- */
 @Component("oauth2AuthStrategy")
 public class OAuth2AuthStrategy implements AuthorizationStrategy {
 
     private static final Logger logger = LoggerFactory.getLogger(OAuth2AuthStrategy.class);
 
-    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtService jwtService;
     private final OAuth2ClientRegistrationFactory clientRegistrationFactory;
     private final JwtTokenStrategyRegistry jwtTokenStrategyRegistry;
 
@@ -43,14 +35,14 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
     /**
      * コンストラクタ。依存性注入により必要なすべてのコンポーネントを受け取ります。
      */
-    public OAuth2AuthStrategy(JwtTokenUtil jwtTokenUtil, OAuth2ClientRegistrationFactory clientRegistrationFactory) {
-        this.jwtTokenUtil = jwtTokenUtil;
+    public OAuth2AuthStrategy(JwtService jwtService, OAuth2ClientRegistrationFactory clientRegistrationFactory) {
+        this.jwtService = jwtService;
         this.clientRegistrationFactory = clientRegistrationFactory;
         this.jwtTokenStrategyRegistry = new JwtTokenStrategyRegistry();
         registerDefaultStrategies();
         logger.debug("OAuth2AuthStrategy の初期化が完了しました。");
     }
-    
+
     /**
      * 認証戦略のコア実装。
      * 複雑なOAuth2認証とリダイレクトロジックを処理するために、検証チェーンを構築し実行します。
@@ -67,8 +59,6 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
         if (success) {
             // チェーンが正常に実行された場合（トークンが有効または更新されたことを意味する）、認証は成功です
             logger.info("OAuth2認証が成功し、トークンは有効です。");
-            // ユーザー情報をコンテキストに保存し、後続のビジネスロジックで使用できるようにします
-            CommonHolder.getStorage().set("USER_INFO", JwtTokenUtil.getItemsJwtToken(context.getToken()));
         } else {
             // チェーンの実行が中断された場合（リダイレクトが必要であることを意味する）、RedirectExceptionをスローします
             String redirectUrl = context.getAuthProviderUrl();
@@ -80,10 +70,6 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
             response.redirect(redirectUrl);
         }
     }
-
-    // =================================================================================
-    // 
-    // =================================================================================
 
     private void registerDefaultStrategies() {
         jwtTokenStrategyRegistry.register("header", JwtValidationUtils::extractTokenFromHeader);
@@ -114,7 +100,8 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
     private boolean oauthContextHandler(OAuth2ProviderContext context) {
         OAuth2ClientRegistration clientRegistration = getClientRegistration(context);
         if (clientRegistration == null) {
-            throw new OAuth2ConfigurationException("OAuth2クライアント設定が見つかりません: " + context.getSelectedProviderId(), context.getSelectedProviderId());
+            throw new OAuth2ConfigurationException("OAuth2クライアント設定が見つかりません: " + context.getSelectedProviderId(),
+                    context.getSelectedProviderId());
         }
         context.setIssuer(clientRegistration.getIssuer());
         context.setClientId(clientRegistration.getClientId());
@@ -129,14 +116,19 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
 
         if (cookieValue == null || cookieValue.isEmpty()) {
             logger.debug("CookieにStateパラメータが存在しません。新しいStateを生成しています。");
-            ContextSerializableDto dto = new ContextSerializableDto(context.getIssuer(), context.getClientId(), context.getAudience());
+            ContextSerializableDto dto = new ContextSerializableDto(
+                    context.getSelectedProviderId(),
+                    context.getIssuer(),
+                    context.getClientId(),
+                    context.getAudience());
             storeStateInformation(dto, resp);
         }
         return true;
     }
 
     private boolean cookieCheckHandler(OAuth2ProviderContext context) {
-        if (context.getRequest().getCookieValue(Message.Cookie.AUTH) == null) {
+        if (context.getRequest().getCookieValue(Message.Cookie.AUTH) == null
+                || context.getRequest().getCookieValue(Message.Cookie.AUTH).isEmpty()) {
             logger.debug("認証Cookieが検出されませんでした。");
             if (!JwtValidationUtils.isUseCookieAuthorization(context.getRequest())) {
                 logger.warn("現在のパスではCookieモードの使用が許可されていません。認証は拒否されました。");
@@ -163,18 +155,18 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
         context.setToken(token); // 見つかったトークンをコンテキストに保存します
 
         try {
-            if (jwtTokenUtil.isTokenExpired(token)) {
+            if (jwtService.validateToken(token, JwtConstants.VALIDATE_TYPE_EXPIRED)) {
                 logger.debug("トークンは期限切れです。");
-                throw new OAuth2TokenException("JWTトークンは期限切れです", token);
+                context.setAuthProviderUrl(getRedirectUrlByEnv(context));
             }
-            String updatedToken = jwtTokenUtil.updateExpiresAuthToken(token);
+            String updatedToken = jwtService.generateToken(token, JwtConstants.GENERATE_REFRESH_FROM_OLD);
             logger.debug("トークンの検証に成功し、更新されました。");
             JwtValidationUtils.setCookie(context.getResponse(), Message.Cookie.AUTH, updatedToken);
             return true;
         } catch (Exception e) {
             logger.warn("トークン検証エラー: {}", e.getMessage(), e);
             context.setAuthProviderUrl(getRedirectUrlByEnv(context));
-            throw e; // 例外を上位にスローし、外部で処理させます
+            return false;
         }
     }
 
@@ -183,7 +175,7 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
     }
 
     private void storeStateInformation(ContextSerializableDto contextSerializableDto, BaseResponse response) {
-        String stateParameter = jwtTokenUtil.generateTokenFromObject(contextSerializableDto);
+        String stateParameter = jwtService.generateToken(contextSerializableDto, JwtConstants.GENERATE_STATE_MAP);
         CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.AUTH_STATE, stateParameter);
     }
 

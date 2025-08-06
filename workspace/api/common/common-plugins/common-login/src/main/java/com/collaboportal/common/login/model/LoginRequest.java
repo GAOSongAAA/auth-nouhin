@@ -17,7 +17,7 @@ public class LoginRequest {
      * ユーザーのメールアドレス
      * ログインの一意の識別子として使用されます。
      */
-    private String username;
+    private String email;
 
     /**
      * ユーザーのパスワード

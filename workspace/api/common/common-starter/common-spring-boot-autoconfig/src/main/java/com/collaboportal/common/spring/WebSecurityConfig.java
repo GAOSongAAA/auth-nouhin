@@ -1,10 +1,11 @@
 package com.collaboportal.common.spring;
-import com.collaboportal.common.strategy.SecurityConfigStrategy;
+
 import com.collaboportal.common.ConfigManager;
-import com.collaboportal.common.strategy.FirewallStrategy;
-import com.collaboportal.common.strategy.CsrfStrategy;
-import com.collaboportal.common.strategy.ExceptionHandlingStrategy;
-import com.collaboportal.common.strategy.StatelessSessionStrategy;
+import com.collaboportal.common.strategy.security.CsrfStrategy;
+import com.collaboportal.common.strategy.security.ExceptionHandlingStrategy;
+import com.collaboportal.common.strategy.security.FirewallStrategy;
+import com.collaboportal.common.strategy.security.SecurityConfigStrategy;
+import com.collaboportal.common.strategy.security.StatelessSessionStrategy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class WebSecurityConfig {
      * コンストラクタ
      * 初期化時にログを出力します
      */
-    public WebSecurityConfig(){
+    public WebSecurityConfig() {
         logger.debug("セキュリティ設定の初期化を完了しました");
     }
 
@@ -46,6 +47,7 @@ public class WebSecurityConfig {
 
     /**
      * セキュリティフィルターチェーンを設定します
+     * 
      * @param http HttpSecurityオブジェクト
      * @return SecurityFilterChain セキュリティフィルターチェーン
      * @throws Exception 設定中にエラーが発生した場合
@@ -53,7 +55,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         logger.debug("セキュリティフィルターチェーンの設定を開始します");
-        
+
         // セキュリティストラテジーのリストを作成
         List<SecurityConfigStrategy> strategies = List.of(
                 new CsrfStrategy(), // CSRF対策
@@ -74,6 +76,7 @@ public class WebSecurityConfig {
 
     /**
      * 認証マネージャーを取得します
+     * 
      * @param config AuthenticationConfigurationオブジェクト
      * @return AuthenticationManager 認証マネージャー
      * @throws Exception 取得中にエラーが発生した場合
@@ -86,6 +89,7 @@ public class WebSecurityConfig {
 
     /**
      * パスワードエンコーダーを取得します
+     * 
      * @return PasswordEncoder パスワードエンコーダー
      */
     @Bean

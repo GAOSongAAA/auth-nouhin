@@ -1,16 +1,12 @@
 package com.collaboportal.common.jwt.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+/**
+ * ユーザー共通情報の最小インタフェース
+ */
+public interface UserMaster {
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class UserMaster {
-    // **本部フラグ */
-    private String userType;
-    private String userMail;
+    /** メールアドレス */
+    String getUserMail();
+
+    String getUserId();
 }

@@ -1,7 +1,7 @@
 package com.collaboportal.common.login.service;
 
 import com.collaboportal.common.login.model.LoginRequest;
-
+import com.collaboportal.common.login.model.LoginResult;
 
 /**
  * ログインサービスのインターフェース定義
@@ -15,7 +15,6 @@ public interface LoginService {
      * @param loginRequest ユーザー認証情報（メールアドレスとパスワードなど）を含むログインリクエストオブジェクト
      * @return 認証トークンを含むログインレスポンスオブジェクト
      */
-    void login(LoginRequest loginRequest);
-
+    LoginResult login(LoginRequest loginRequest);
 
 }

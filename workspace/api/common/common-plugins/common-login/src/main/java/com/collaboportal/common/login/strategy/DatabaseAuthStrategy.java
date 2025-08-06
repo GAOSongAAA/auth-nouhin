@@ -1,18 +1,20 @@
 package com.collaboportal.common.login.strategy;
 
-import com.collaboportal.common.context.CommonHolder;
 import com.collaboportal.common.context.web.BaseRequest;
 import com.collaboportal.common.context.web.BaseResponse;
 import com.collaboportal.common.exception.AuthenticationException;
-import com.collaboportal.common.jwt.utils.JwtTokenUtil;
+import com.collaboportal.common.jwt.constants.JwtConstants;
+
+import com.collaboportal.common.jwt.service.JwtService;
+import com.collaboportal.common.jwt.utils.CookieUtil;
+import com.collaboportal.common.login.model.DTO.UserMasterEPL;
+import com.collaboportal.common.login.service.LoginUserMasterService;
 import com.collaboportal.common.strategy.authorization.AuthorizationStrategy;
 import com.collaboportal.common.utils.Message;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * データベース認証戦略実装クラス
@@ -36,11 +38,13 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
      * ログレコーダー、認証プロセス中の各種状態とエラー情報を記録するために使用
      */
     private static final Logger logger = LoggerFactory.getLogger(DatabaseAuthStrategy.class);
-    
+
     /**
      * JWTトークンユーティリティクラス、トークンの生成、検証、操作に使用
      */
-    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtService jwtService;
+
+    private final LoginUserMasterService loginUserMasterService;
 
     /**
      * コンストラクタ
@@ -48,8 +52,10 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
      * 
      * @param jwtTokenUtil JWTトークンユーティリティクラス、トークン関連操作の処理に使用
      */
-    public DatabaseAuthStrategy(JwtTokenUtil jwtTokenUtil) {
-        this.jwtTokenUtil = jwtTokenUtil;
+    public DatabaseAuthStrategy(JwtService jwtService, LoginUserMasterService loginUserMasterService) {
+        this.jwtService = jwtService;
+        this.loginUserMasterService = loginUserMasterService;
+        logger.info("DatabaseAuthStrategyの初期化が完了しました");
     }
 
     /**
@@ -77,57 +83,52 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
         // トークンが存在するかを確認
         // トークンが存在しないか空文字列の場合、ユーザーがまだログインしていないか、ログイン状態が失効していることを表す
         if (token == null || token.isEmpty()) {
-            response.redirect("http://localhost:8080/login.html");
+            response.redirect("/login.html");
             return;
         }
 
         try {
             // トークンが期限切れかを検証
             // JWTトークンは期限切れ時間情報を含み、ここで現在時間がトークンの有効期限を超えているかを確認
-            if (jwtTokenUtil.isTokenExpired(token)) {
-                response.redirect("http://localhost:8080/login.html");
+            if (!jwtService.validateToken(token, JwtConstants.VALIDATE_TYPE_EXPIRED)) {
+                response.redirect("/login.html");
                 return;
             }
 
             // JWTトークンからユーザー情報を抽出
             // JWTトークンのpayloadにはユーザーID、ロールなどのユーザー関連情報が含まれている
-            Map<String, String> userInfo = JwtTokenUtil.getItemsJwtToken(token);
-            
+            String email = jwtService.extractClaim(token, JwtConstants.RESOLVER_TYPE_EMAIL);
+
             // ユーザー情報が空かを確認
             // トークンが有効でも、ユーザー情報が含まれていない場合は認証失敗と見なす
-            if (userInfo.isEmpty()) {
-                response.redirect("http://localhost:8080/login.html");
+            if ("".equals(email) || email == null) {
+                response.redirect("/login.html");
                 return;
             }
-            
-            // ユーザー情報をリクエストコンテキストに保存
-            // これにより、後続の処理ロジックが現在認証されているユーザーの情報にアクセスできる
-            CommonHolder.getStorage().set("USER_INFO", userInfo);
-            logger.debug("ユーザー情報が解析され、リクエストコンテキストに保存されました：{}", userInfo.get("sub"));
-
+            UserMasterEPL userInfo = loginUserMasterService.loadByEmail(email);
             // トークンの期限切れ時間を更新
             // これはユーザーのログイン状態を維持し、頻繁な再ログインを避けるのに役立つ
-            String refreshedToken = jwtTokenUtil.updateExpiresAuthToken(token);
-            
+            String refreshedToken = jwtService.generateToken(email, JwtConstants.GENERATE_DATABASE_TOKEN);
+
             // 更新されたトークンをCookieに設定
             // パラメータ説明：トークン値、パス、ドメイン、最大生存時間
-            response.addCookie(Message.Cookie.AUTH, refreshedToken, "/", null, -1);
+            CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH, refreshedToken);
             logger.debug("認証トークンが正常に更新され、レスポンスCookieに設定されました。");
 
             // 認証成功、成功メッセージを記録
-            logger.info("ユーザーデータベース認証成功：{}。", userInfo.get("sub"));
+            logger.info("ユーザーデータベース認証成功：{}。", userInfo.getUserMail());
 
         } catch (ExpiredJwtException e) {
             // JWT期限切れ例外をキャッチ
             // これは正常なビジネスフローであり、トークンが期限切れの場合は再ログインが必要
             logger.info("認証トークンが期限切れです（例外キャッチ）。ログインページにリダイレクトします。");
-            response.redirect("http://localhost:8080/login.html");
+            response.redirect("/login.html");
             return;
         } catch (Exception e) {
             // その他の可能な例外をキャッチ（トークン形式エラー、署名無効など）
             // エラーを記録してログインページにリダイレクト
             logger.error("データベーストークン検証プロセス中にエラーが発生しました。ログインページにリダイレクトします。", e);
-            response.redirect("http://localhost:8080/login.html");
+            response.redirect("/login.html");
             return;
         }
     }
