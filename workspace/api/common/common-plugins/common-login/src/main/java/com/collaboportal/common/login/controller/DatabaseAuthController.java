@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 認證控制器
- * /auth/login 僅處理資料庫認證。
- * 包含CORS對應和安全Cookie設定
+ * 認証コントローラー
+ * /auth/login はデータベース認証のみを処理する。
+ * CORS対応と安全なCookie設定を含む
  */
 @RestController
 @RequestMapping("/auth")
@@ -32,67 +32,67 @@ public class DatabaseAuthController {
 
     public DatabaseAuthController(LoginService loginService) {
         this.loginService = loginService;
-        logger.info("資料庫認證控制器已初始化");
+        logger.info("データベース認証コントローラーが初期化されました");
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseBody> login(@RequestBody LoginRequest loginRequest) {
     
-        logger.info("接收到登入請求。使用者: {}", loginRequest.getEmail());
+        logger.info("ログインリクエストを受信しました。ユーザー: {}", loginRequest.getEmail());
         BaseResponse response = CommonHolder.getResponse();
     
         if (loginRequest.getEmail() == null || loginRequest.getEmail().trim().isEmpty()) {
-            logger.warn("無效的登入請求: 電子郵件地址為空");
+            logger.warn("無効なログインリクエスト: メールアドレスが空です");
             return ResponseEntity
                     .badRequest()
-                    .body(LoginResponseBody.fail("400", "電子郵件地址為必填項"));
+                    .body(LoginResponseBody.fail("400", "メールアドレスは必須項目です"));
         }
     
         if (loginRequest.getPassword() == null || loginRequest.getPassword().trim().isEmpty()) {
-            logger.warn("無效的登入請求: 密碼為空");
+            logger.warn("無効なログインリクエスト: パスワードが空です");
             return ResponseEntity
                     .badRequest()
-                    .body(LoginResponseBody.fail("400", "密碼為必填項"));
+                    .body(LoginResponseBody.fail("400", "パスワードは必須項目です"));
         }
     
         try {
             LoginResult result = loginService.login(loginRequest);
     
             if (result.success()) {
-                logger.info("登入成功。使用者ID: {}, 電子郵件地址: {}",
+                logger.info("ログインが成功しました。ユーザーID: {}, メールアドレス: {}",
                         result.userId(), loginRequest.getEmail());
     
                 if (result.token() != null && !result.token().isEmpty()) {
                     CookieUtil.setNoneSameSiteCookie(response, Message.Cookie.AUTH, result.token());
-                    logger.info("已設定認證Cookie。使用者ID: {}", result.userId());
+                    logger.info("認証Cookieが設定されました。ユーザーID: {}", result.userId());
                 } else {
-                    logger.warn("JWT token未生成。使用者ID: {}", result.userId());
+                    logger.warn("JWTトークンが生成されませんでした。ユーザーID: {}", result.userId());
                 }
                 
-                // 返回JSON響應而非重定向，讓前端處理跳轉
+                // リダイレクトではなくJSONレスポンスを返し、フロントエンドで遷移を処理させる
                 return ResponseEntity
                         .ok()
                         .header("Content-Type", "application/json")
                         .body(LoginResponseBody.ok("/index.html"));
     
             } else {
-                logger.warn("登入失敗。使用者: {}, 原因: {}",
+                logger.warn("ログインが失敗しました。ユーザー: {}, 理由: {}",
                         loginRequest.getEmail(),
-                        result.message() != null ? result.message() : "未知原因");
+                        result.message() != null ? result.message() : "不明な理由");
                 return ResponseEntity
                         .status(401)
                         .header("Content-Type", "application/json")
-                        .body(LoginResponseBody.fail("401", "使用者名稱或密碼錯誤"));
+                        .body(LoginResponseBody.fail("401", "ユーザー名またはパスワードが間違っています"));
             }
     
         } catch (Exception e) {
-            logger.error("登入處理過程中發生錯誤。使用者: {}, 錯誤: {}",
+            logger.error("ログイン処理中にエラーが発生しました。ユーザー: {}, エラー: {}",
                     loginRequest.getEmail(), e.getMessage(), e);
     
             return ResponseEntity
                     .status(500)
                     .header("Content-Type", "application/json")
-                    .body(LoginResponseBody.fail("500", "內部伺服器錯誤"));
+                    .body(LoginResponseBody.fail("500", "内部サーバーエラー"));
         }
     }
     

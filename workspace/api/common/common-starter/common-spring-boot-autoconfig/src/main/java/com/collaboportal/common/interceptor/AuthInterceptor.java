@@ -2,9 +2,13 @@ package com.collaboportal.common.interceptor;
 
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.collaboportal.common.error.InternalErrorCode;
 import com.collaboportal.common.exception.BackResultException;
+import com.collaboportal.common.exception.CommonException;
 import com.collaboportal.common.exception.StopMatchException;
 import com.collaboportal.common.funcs.ParamFunction;
 
@@ -12,6 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class AuthInterceptor implements HandlerInterceptor {
+
+	private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
 
 	public ParamFunction<Object> auth = handler -> {
 	};
@@ -43,13 +49,11 @@ public class AuthInterceptor implements HandlerInterceptor {
 			auth.run(handler);
 
 		} catch (StopMatchException e) {
-
+			logger.warn("認証に失敗しました", e);
+			throw new CommonException(InternalErrorCode.AUTHORIZATION_ERROR);
 		} catch (BackResultException e) {
-			if (response.getContentType() == null) {
-				response.setContentType("text/plain; charset=utf-8");
-			}
-			response.getWriter().print(e.getMessage());
-			return false;
+			logger.warn("認証に失敗しました", e);
+			throw new CommonException(InternalErrorCode.AUTHORIZATION_ERROR);
 		}
 
 		return true;

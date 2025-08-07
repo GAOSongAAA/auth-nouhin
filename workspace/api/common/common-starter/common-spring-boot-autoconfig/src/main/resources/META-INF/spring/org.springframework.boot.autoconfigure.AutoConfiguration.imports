@@ -10,3 +10,4 @@ com.collaboportal.common.spring.ContextRegister
 com.collaboportal.common.spring.common.context.CommonBeanInjection
 com.collaboportal.common.spring.common.context.CommonBeanRegister
 com.collaboportal.common.spring.common.CommonAuthConfiguration
+com.collaboportal.common.interceptor.impl.InterceptorConfig

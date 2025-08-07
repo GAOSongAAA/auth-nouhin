@@ -9,6 +9,8 @@ import com.collaboportal.common.jwt.service.JwtService;
 import com.collaboportal.common.login.model.DTO.UserMasterEPL;
 import com.collaboportal.common.login.service.LoginUserMasterService;
 import com.collaboportal.common.strategy.authorization.AuthorizationStrategy;
+import com.collaboportal.common.utils.Message;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +79,7 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
 
         // Cookieから認証トークンを取得
         // Controller層で設定されたCookie名 "AuthToken" を使用
-        String token = request.getCookieValue("AuthToken");
+        String token = request.getCookieValue(Message.Cookie.AUTH);
         logger.debug("認証トークン: {}", token);
 
         // トークンが存在するかを確認
@@ -111,7 +113,7 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
             }
             UserMasterEPL userInfo = loginUserMasterService.loadByEmail(email);
             
-            // 注意：認証戦略では認証の確認のみを行う
+            // 認証戦略では認証の確認のみを行う
             // トークンの更新やCookie設定は、必要に応じて上位層（Controller/Interceptor）で処理される
             // これにより、責任の分離と重複するCookie設定の回避を実現
             

@@ -19,7 +19,7 @@
 		<module>common-plugins</module>
 	</modules>
 	
-	<!-- 一些属性 -->
+	<!-- いくつかのプロパティ -->
 	<properties>
         <revision>SNAPSHOT-1.0.0</revision>
         <java.version>17</java.version>
@@ -28,7 +28,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
-		<!-- Maven插件版本 -->
+		<!-- Mavenプラグインバージョン -->
 		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 		<maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
@@ -51,11 +51,11 @@
 		</dependencies>
 	</dependencyManagement>
 	
-	<!-- 项目构建 -->
+	<!-- プロジェクトビルド -->
 	<build>
 		<pluginManagement>
 			<plugins>
-				<!-- 編譯插件 -->
+				<!-- コンパイルプラグイン -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -67,7 +67,7 @@
 					</configuration>
 				</plugin>
 				
-				<!-- 源碼插件 -->
+				<!-- ソースコードプラグイン -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
@@ -82,7 +82,7 @@
 					</executions>
 				</plugin>
 				
-				<!-- Javadoc插件 -->
+				<!-- Javadocプラグイン -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
@@ -106,21 +106,21 @@
 					</executions>
 				</plugin>
 				
-				<!-- Surefire測試插件 -->
+				<!-- Surefireテストプラグイン -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${maven-surefire-plugin.version}</version>
 				</plugin>
 				
-				<!-- 部署插件 -->
+				<!-- デプロイプラグイン -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>${maven-deploy-plugin.version}</version>
 				</plugin>
 				
-				<!-- GPG簽名插件 -->
+				<!-- GPG署名プラグイン -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-gpg-plugin</artifactId>
@@ -136,7 +136,7 @@
 					</executions>
 				</plugin>
 				
-				<!-- Nexus Staging插件 -->
+				<!-- Nexus Stagingプラグイン -->
 				<plugin>
 					<groupId>org.sonatype.plugins</groupId>
 					<artifactId>nexus-staging-maven-plugin</artifactId>
@@ -149,7 +149,7 @@
 					</configuration>
 				</plugin>
 				
-				<!-- 版本扁平化插件 -->
+				<!-- バージョンフラット化プラグイン -->
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>flatten-maven-plugin</artifactId>
@@ -176,7 +176,7 @@
 					</executions>
 				</plugin>
 				
-				<!-- Eclipse m2e插件 -->
+				<!-- Eclipse m2eプラグイン -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -205,13 +205,13 @@
 		</pluginManagement>
 		
 		<plugins>
-			<!-- 編譯插件 -->
+			<!-- コンパイルプラグイン -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
 			
-			<!-- 版本扁平化插件 -->
+			<!-- バージョンフラット化プラグイン -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>flatten-maven-plugin</artifactId>
@@ -220,7 +220,7 @@
 	</build>
 	
 	<profiles>
-		<!-- 發布配置 -->
+		<!-- リリース設定 -->
 		<profile>
 			<id>release</id>
 			<build>

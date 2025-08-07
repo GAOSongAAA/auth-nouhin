@@ -30,7 +30,7 @@ public class CommonAuthConfiguration implements WebMvcConfigurer {
                         "/.well-known/**",
                         "/auth/callback",
                         "/manifest.webmanifest",
-                        "/login.html", "/login", "/error", "/static/**", "/favicon.ico",
+                        "/login.html", "/auth/login", "/error", "/static/**", "/favicon.ico",
                         "/testEnv",
                         "/testEnv.html")
                 .setAuth((res, resp) -> {

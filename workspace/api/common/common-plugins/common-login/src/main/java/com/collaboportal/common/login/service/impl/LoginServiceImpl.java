@@ -84,7 +84,7 @@ public class LoginServiceImpl implements LoginService {
             
             // JWT生成開始
             logger.debug("JWTトークン生成を開始 - ユーザーID: {}", user.getUserId());
-            String token = jwtService.generateToken(user, JwtConstants.GENERATE_INTERNAL_TOKEN);
+            String token = jwtService.generateToken(user, JwtConstants.GENERATE_DATABASE_TOKEN);
             logger.debug("JWTトークン生成完了 - ユーザーID: {}, トークン長: {}", user.getUserId(), token != null ? token.length() : 0);
             
             String email = user.getUserMail();

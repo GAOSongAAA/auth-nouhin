@@ -159,83 +159,44 @@
       const errorMessage = document.getElementById('errorMessage');
       const loginBtn = document.getElementById('loginBtn');
   
-      // 清除之前的错误信息
       errorMessage.style.display = 'none';
-      
-      // 添加加载状态
       loginBtn.textContent = 'ログイン中...';
       loginBtn.classList.add('loading');
   
       try {
-        console.log('发送登录请求...');
-        
+        // 后端不再发送302重定向，因此不再需要 redirect: 'manual'
         const response = await fetch('/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ email, password }),
-          credentials: 'include',
-          redirect: 'manual' // 🔥 关键修改：手动处理重定向
+          credentials: 'include' // 这个对于接收后端设置的Cookie至关重要
         });
   
-        console.log('响应状态:', response.status);
-        console.log('响应类型:', response.type);
-        console.log('是否重定向:', response.redirected);
+        // 直接解析JSON，因为你的后端总是返回JSON（无论成功或失败）
+        const result = await response.json();
         
-        // 处理重定向响应 (302, 301等)
-        if (response.status === 302 || response.status === 301) {
-          const location = response.headers.get('location');
-          console.log('重定向到:', location);
-          if (location) {
-            window.location.href = location;
-            return;
-          }
-        }
-        
-        // 处理已经发生的重定向
-        if (response.redirected) {
-          console.log('检测到重定向，跳转到:', response.url);
-          window.location.href = response.url;
-          return;
-        }
-
-        // 检查响应内容类型
-        const contentType = response.headers.get('content-type');
-        console.log('响应内容类型:', contentType);
-        
-        if (contentType && contentType.includes('application/json')) {
-          // 只有在确认是JSON响应时才解析
-          const result = await response.json();
-          console.log('JSON响应:', result);
-          
-          if (response.ok && result.success) {
-            if (result.redirectUrl) {
-              console.log('从JSON获取重定向URL:', result.redirectUrl);
-              window.location.href = result.redirectUrl;
-            } else {
-              window.location.href = '/index.html';
-            }
+        // 主要逻辑：检查响应是否成功 (status 200-299) 并且JSON内容表示成功
+        if (response.ok && result.success) {
+          // 从JSON中获取重定向URL
+          if (result.redirectUrl) {
+            console.log('从JSON获取重定向URL:', result.redirectUrl);
+            window.location.href = result.redirectUrl;
           } else {
-            throw new Error(result.message || 'ログインに失敗しました');
-          }
-        } else if (contentType && contentType.includes('text/html')) {
-          // 如果收到HTML响应，说明可能已经重定向到目标页面
-          console.log('收到HTML响应，可能已经重定向');
-          window.location.href = '/index.html';
-        } else {
-          // 处理成功但没有明确响应体的情况
-          if (response.ok) {
-            console.log('登录成功，跳转到首页');
+            // 如果成功但没有跳转链接，可以跳转到默认主页
             window.location.href = '/index.html';
-          } else {
-            throw new Error('ログインに失敗しました');
           }
+        } else {
+          // 如果响应不成功 (4xx, 5xx)，从JSON中提取错误信息并抛出
+          // 这样可以让下面的catch块统一处理
+          throw new Error(result.message || 'ログインに失敗しました');
         }
         
       } catch (error) {
         console.error('登录错误:', error);
-        errorMessage.textContent = error.message || 'ログインに失敗しました。メールアドレスとパスワードを確認してください。';
+        // 将捕获到的错误信息显示给用户
+        errorMessage.textContent = error.message;
         errorMessage.style.display = 'block';
       } finally {
         // 恢复按钮状态

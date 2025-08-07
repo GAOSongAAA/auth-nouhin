@@ -43,7 +43,6 @@ public class LoginResponseBody {
         return new LoginResponseBody(false, code, message);
     }
 
-    // 🔥 添加ok()方法，为了向后兼容
     public static LoginResponseBody ok(String redirectUrl) {
         return new LoginResponseBody(true, "200", "操作成功", redirectUrl);
     }
