@@ -28,6 +28,7 @@ public class CommonAuthConfiguration implements WebMvcConfigurer {
                 .addExclude("/static/**",
                         "/favicon.ico",
                         "/.well-known/**",
+                        "/auth/callback",
                         "/manifest.webmanifest",
                         "/login.html", "/login", "/error", "/static/**", "/favicon.ico",
                         "/testEnv",

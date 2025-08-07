@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * テンプレートメソッドパターン - OAuth2ログインフロー抽象テンプレート
- * 責務：OAuth2ログインの標準フローを定義し、変化点を抽象化してサブクラスで実装
+ * 責務：OAuth2ログインの標準フローを定義し、変化点を抽象化してサブクラスで実現
  * 利点：統一されたフロー制御、コード重複の削減、保守・拡張の容易性
  */
 public abstract class OAuth2LoginTemplate {
@@ -32,19 +32,19 @@ public abstract class OAuth2LoginTemplate {
     }
 
     /**
-     * mainロジック処理 - 非抽象方法，提供默認實現
+     * メインロジック処理 - 非抽象メソッド、デフォルト実装を提供
      */
     public void executeLogin(OAuth2ProviderContext context) {
-        // 提供默認實現，子類可以重寫
-        logger.debug("執行默認登錄邏輯");
+        // デフォルト実装を提供、サブクラスでオーバーライド可能
+        logger.debug("デフォルトログイン処理を実行");
     }
 
     /**
-     * コールバックロジック処理 - 非抽象方法，提供默認實現
+     * コールバックロジック処理 - 非抽象メソッド、デフォルト実装を提供
      */
     public void executeCallback(OAuth2ProviderContext context, String code, String state) {
-        // 提供默認實現，子類可以重寫
-        logger.debug("執行默認回調邏輯");
+        // デフォルト実装を提供、サブクラスでオーバーライド可能
+        logger.debug("デフォルトコールバック処理を実行");
     }
 
     // ========== 具象メソッド - サブクラスでオーバーライド可能だがデフォルト実装あり ==========
@@ -78,10 +78,25 @@ public abstract class OAuth2LoginTemplate {
 
     /**
      * リダイレクトの実行
+     * 注意：ここでのリダイレクトが正常に動作しない可能性がある理由：
+     * 1. redirect実行後にflush()を呼び出してレスポンスの送信を確実にしていない
+     * 2. redirect後に他のコードが継続実行され、レスポンスが上書きされる可能性
+     * 3. レスポンスステータスコードが302または303に正しく設定されていない可能性
      */
     protected void performRedirect(OAuth2ProviderContext context, String authorizationUrl) throws IOException {
         BaseResponse response = context.getResponse();
-        response.redirectWithoutFlush(authorizationUrl);
+        try {
+            // 適切なステータスコードを設定
+            response.setStatus(302);
+            // リダイレクトを実行
+            response.redirect(authorizationUrl);
+            // レスポンスが即座に送信されることを確保
+            response.flush();
+            logger.debug("リダイレクトを正常に実行しました: {}", authorizationUrl);
+        } catch (Exception e) {
+            logger.error("リダイレクトに失敗しました、対象URL: {}", authorizationUrl, e);
+            throw new IOException("リダイレクトに失敗しました", e);
+        }
     }
 
     /**
@@ -93,6 +108,8 @@ public abstract class OAuth2LoginTemplate {
             response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/")
                     .setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None")
                     .setSecure(ConfigManager.getConfig().isCookieSecure()));
+            // エラー処理後もflushを実行することを確保
+            response.flush();
         } catch (Exception e) {
             logger.error("ログインエラーの処理中に例外が発生しました", e);
         }
@@ -107,65 +124,67 @@ public abstract class OAuth2LoginTemplate {
             response.addCookie(new BaseCookie("MoveURL", "/#/error").setPath("/")
                     .setMaxAge(ConfigManager.getConfig().getCookieExpiration()).setSameSite("None")
                     .setSecure(ConfigManager.getConfig().isCookieSecure()));
+            // エラー処理後もflushを実行することを確保
+            response.flush();
         } catch (Exception e) {
             logger.error("コールバックエラーの処理中に例外が発生しました", e);
         }
     }
 
-    // ========== 抽象メソッド改為具象メソッド，提供默認實現 ==========
+    // ========== 抽象メソッドを具象メソッドに変更、デフォルト実装を提供 ==========
 
     /**
-     * 状態情報の保存 - 提供默認實現，子類可以重寫
+     * 状態情報の保存 - デフォルト実装を提供、サブクラスでオーバーライド可能
      */
     protected void storeStateInformation(OAuth2ProviderContext context, OAuth2ClientRegistration registration) {
-        // 提供默認實現
-        logger.debug("存儲狀態信息");
+        // デフォルト実装を提供
+        logger.debug("状態情報を保存");
     }
 
     /**
-     * 状態情報の保存（重載方法） - 為了支援JwtValidationTemplate
+     * 状態情報の保存（オーバーロードメソッド） - JwtValidationTemplateをサポートするため
      */
     protected void storeStateInformation(OAuth2ProviderContext context) {
-        // 提供默認實現
-        logger.debug("存儲狀態信息（無registration參數）");
+        // デフォルト実装を提供
+        logger.debug("状態情報を保存（registrationパラメータなし）");
     }
 
     /**
-     * 認可コードとアクセストークンの交換 - 提供默認實現，子類可以重寫
+     * 認可コードとアクセストークンの交換 - デフォルト実装を提供、サブクラスでオーバーライド可能
      */
     protected String exchangeCodeForToken(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
             String code) {
-        // 提供默認實現
-        logger.debug("交換授權碼為訪問令牌");
+        // デフォルト実装を提供
+        logger.debug("認可コードをアクセストークンに交換");
         return null;
     }
 
     /**
-     * ユーザー情報の取得 - 提供默認實現，子類可以重寫
+     * ユーザー情報の取得 - デフォルト実装を提供、サブクラスでオーバーライド可能
      */
     protected Object fetchUserInfo(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
             String accessToken) {
-        // 提供默認實現
-        logger.debug("獲取用戶信息");
+        // デフォルト実装を提供
+        logger.debug("ユーザー情報を取得");
         return null;
     }
 
     /**
-     * JWTトークンの生成 - 提供默認實現，子類可以重寫
+     * JWTトークンの生成 - デフォルト実装を提供、サブクラスでオーバーライド可能
      */
     protected String generateJwtToken(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
             Object userInfo) {
-        // 提供默認實現
-        logger.debug("生成JWT令牌");
+        // デフォルト実装を提供
+        logger.debug("JWTトークンを生成");
         return null;
     }
 
     /**
-     * ログインの完了 - 提供默認實現，子類可以重寫
+     * ログインの完了 - デフォルト実装を提供、サブクラスでオーバーライド可能
      */
     protected void completeLogin(OAuth2ProviderContext context, OAuth2ClientRegistration registration,
             String jwtToken, Object userInfo) {
-        // 提供默認實現
-        logger.debug("完成登錄");
+        // デフォルト実装を提供
+        logger.debug("ログインを完了");
     }
 }

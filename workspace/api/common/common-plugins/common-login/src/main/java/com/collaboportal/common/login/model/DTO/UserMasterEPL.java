@@ -15,7 +15,6 @@ public class UserMasterEPL implements UserMaster {
     private String userType;
     private String userMail;
 
-    /* ここに EPL 固有の追加フィールドがあれば記述 */
     private String password;
 
     private String userId;

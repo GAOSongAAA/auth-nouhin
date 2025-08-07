@@ -40,6 +40,7 @@ public class ApplicaitonContextPathLoadding implements ApplicationRunner {
             routePrefix += servletPath;
         }
 
+
         if (!StringUtils.isEmpty(routePrefix) && !routePrefix.equals("/")) {
             ApplicationInfo.routePrefix = routePrefix;
         }

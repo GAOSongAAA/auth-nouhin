@@ -7,36 +7,38 @@ import java.util.HashMap;
 import java.util.function.Function;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * 敏感信息掩碼工具類
- * 用於在日誌輸出中對敏感信息進行掩碼處理，保護用戶隱私和滿足合規要求
+ * 機密情報マスキングユーティリティクラス
+ * ログ出力において機密情報をマスキング処理し、ユーザープライバシーを保護し、コンプライアンス要件を満たす
+ * 
+ * 注意：このクラスは現在、処理機能が一時的に無効化されています
  */
 public class SensitiveDataMaskUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(SensitiveDataMaskUtil.class);
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    // 掩碼字符
+    // マスキング文字
     private static final String REPLACEMENT_PATTERN = "****";
 
+    // 機能スイッチ - 処理を一時的に無効化
+    private static final boolean MASKING_ENABLED = false;
+
     /**
-     * 敏感信息模式枚舉
+     * 機密情報パターン列挙型
      */
     public enum SensitiveDataPattern {
-        // 密碼相關
+        // パスワード関連
         PASSWORD("(?i)(password|pwd|pass|secret|token|key)\\s*[:=]\\s*[\"']?([^\\s\"',}]+)",
-                "密碼信息", SensitiveDataMaskUtil::maskPassword),
+                "パスワード情報", SensitiveDataMaskUtil::maskPassword),
 
-        // 郵箱地址
+        // メールアドレス
         EMAIL("([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})",
-                "郵箱地址", SensitiveDataMaskUtil::maskEmail),
+                "メールアドレス", SensitiveDataMaskUtil::maskEmail),
 
         // JWT Token
         JWT_TOKEN("\\b[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]*\\b",
-                "JWT令牌", SensitiveDataMaskUtil::maskJwtToken);
+                "JWTトークン", SensitiveDataMaskUtil::maskJwtToken);
 
         private final Pattern pattern;
         private final String description;
@@ -62,12 +64,17 @@ public class SensitiveDataMaskUtil {
     }
 
     /**
-     * 對文本進行全面的敏感信息掩碼處理
+     * テキストに対して包括的な機密情報マスキング処理を行う
      * 
-     * @param text 原始文本
-     * @return 掩碼後的文本
+     * @param text 元のテキスト
+     * @return マスキング後のテキスト（現在は元のテキストを直接返す、機能が無効化されているため）
      */
     public static String maskSensitiveData(String text) {
+        // 機能が無効化されているため、元のテキストを直接返す
+        if (!MASKING_ENABLED) {
+            return text;
+        }
+
         if (text == null || text.trim().isEmpty()) {
             return text;
         }
@@ -75,19 +82,18 @@ public class SensitiveDataMaskUtil {
         String maskedText = text;
 
         try {
-            // 依次應用所有掩碼模式
+            // 全てのマスキングパターンを順次適用
             for (SensitiveDataPattern pattern : SensitiveDataPattern.values()) {
                 maskedText = applyMaskPattern(maskedText, pattern);
             }
 
-            // 特殊處理JSON格式
+            // JSON形式の特別処理
             if (isJsonFormat(text)) {
                 maskedText = maskJsonSensitiveData(maskedText);
             }
 
         } catch (Exception e) {
-            logger.warn("敏感信息掩碼處理失敗: {}", e.getMessage());
-            // 如果掩碼失敗，返回原文本
+            // マスキングが失敗した場合、元のテキストを返す
             return text;
         }
 
@@ -95,23 +101,23 @@ public class SensitiveDataMaskUtil {
     }
 
     /**
-     * 應用特定的掩碼模式
+     * 特定のマスキングパターンを適用
      */
     private static String applyMaskPattern(String text, SensitiveDataPattern sensitivePattern) {
+        if (!MASKING_ENABLED) {
+            return text;
+        }
+
         try {
             Matcher matcher = sensitivePattern.getPattern().matcher(text);
-            if (matcher.find()) {
-                logger.debug("檢測到敏感信息類型: {}", sensitivePattern.getDescription());
-            }
             return matcher.replaceAll(match -> sensitivePattern.getMaskFunction().apply(match.group()));
         } catch (Exception e) {
-            logger.warn("應用掩碼模式失敗 [{}]: {}", sensitivePattern.getDescription(), e.getMessage());
             return text;
         }
     }
 
     /**
-     * 檢查是否為JSON格式
+     * JSON形式かどうかを確認
      */
     private static boolean isJsonFormat(String text) {
         text = text.trim();
@@ -120,14 +126,18 @@ public class SensitiveDataMaskUtil {
     }
 
     /**
-     * 對JSON格式的敏感數據進行掩碼
+     * JSON形式の機密データをマスキング
      */
     private static String maskJsonSensitiveData(String jsonText) {
+        if (!MASKING_ENABLED) {
+            return jsonText;
+        }
+
         try {
             JsonNode jsonNode = objectMapper.readTree(jsonText);
             String maskedJson = jsonNode.toString();
 
-            // 對JSON中的敏感字段進行掩碼
+            // JSON内の機密フィールドをマスキング
             Map<String, String> sensitiveFields = new HashMap<>();
             sensitiveFields.put("password", "****");
             sensitiveFields.put("pwd", "****");
@@ -143,18 +153,21 @@ public class SensitiveDataMaskUtil {
 
             return maskedJson;
         } catch (Exception e) {
-            logger.debug("JSON掩碼處理失敗，使用原始文本: {}", e.getMessage());
             return jsonText;
         }
     }
 
-    // ==================== 具體的掩碼方法 ====================
+    // ==================== 具体的なマスキングメソッド ====================
 
     /**
-     * 密碼掩碼處理
+     * パスワードマスキング処理
      */
     private static String maskPassword(String match) {
-        // 保留字段名，完全隱藏值
+        if (!MASKING_ENABLED) {
+            return match;
+        }
+
+        // フィールド名を保持し、値を完全に隠す
         if (match.contains(":") || match.contains("=")) {
             int separatorIndex = Math.max(match.indexOf(":"), match.indexOf("="));
             return match.substring(0, separatorIndex + 1) + " \"****\"";
@@ -163,9 +176,13 @@ public class SensitiveDataMaskUtil {
     }
 
     /**
-     * 郵箱掩碼處理 - 保留前2位和域名
+     * メールマスキング処理 - 先頭2文字とドメイン名を保持
      */
     private static String maskEmail(String email) {
+        if (!MASKING_ENABLED) {
+            return email;
+        }
+
         int atIndex = email.indexOf("@");
         if (atIndex > 2) {
             String prefix = email.substring(0, 2);
@@ -176,9 +193,13 @@ public class SensitiveDataMaskUtil {
     }
 
     /**
-     * JWT Token掩碼處理 - 保留前後各8位
+     * JWT Tokenマスキング処理 - 前後8文字ずつを保持
      */
     private static String maskJwtToken(String token) {
+        if (!MASKING_ENABLED) {
+            return token;
+        }
+
         if (token.length() > 16) {
             String prefix = token.substring(0, 8);
             String suffix = token.substring(token.length() - 8);
@@ -188,14 +209,19 @@ public class SensitiveDataMaskUtil {
     }
 
     /**
-     * 自定義掩碼處理
+     * カスタムマスキング処理
      * 
-     * @param text        原始文本
-     * @param regex       正則表達式
-     * @param replacement 替換字符串
-     * @return 掩碼後的文本
+     * @param text        元のテキスト
+     * @param regex       正規表現
+     * @param replacement 置換文字列
+     * @return マスキング後のテキスト（現在は元のテキストを直接返す、機能が無効化されているため）
      */
     public static String maskCustomPattern(String text, String regex, String replacement) {
+        // 機能が無効化されているため、元のテキストを直接返す
+        if (!MASKING_ENABLED) {
+            return text;
+        }
+
         if (text == null || regex == null || replacement == null) {
             return text;
         }
@@ -203,25 +229,28 @@ public class SensitiveDataMaskUtil {
         try {
             return text.replaceAll(regex, replacement);
         } catch (Exception e) {
-            logger.warn("自定義掩碼處理失敗: {}", e.getMessage());
             return text;
         }
     }
 
     /**
-     * 檢查文本是否包含敏感信息
+     * テキストに機密情報が含まれているかを確認
      * 
-     * @param text 待檢查的文本
-     * @return 是否包含敏感信息
+     * @param text 確認対象のテキスト
+     * @return 機密情報が含まれているかどうか（現在は常にfalseを返す、機能が無効化されているため）
      */
     public static boolean containsSensitiveData(String text) {
+        // 機能が無効化されているため、常にfalseを返す
+        if (!MASKING_ENABLED) {
+            return false;
+        }
+
         if (text == null || text.trim().isEmpty()) {
             return false;
         }
 
         for (SensitiveDataPattern pattern : SensitiveDataPattern.values()) {
             if (pattern.getPattern().matcher(text).find()) {
-                logger.debug("檢測到敏感信息: {}", pattern.getDescription());
                 return true;
             }
         }
@@ -230,13 +259,18 @@ public class SensitiveDataMaskUtil {
     }
 
     /**
-     * 獲取文本中包含的敏感信息類型
+     * テキストに含まれる機密情報の種類を取得
      * 
-     * @param text 待檢查的文本
-     * @return 敏感信息類型列表
+     * @param text 確認対象のテキスト
+     * @return 機密情報の種類リスト（現在は空の結果を返す、機能が無効化されているため）
      */
     public static Map<String, Boolean> getSensitiveDataTypes(String text) {
         Map<String, Boolean> result = new HashMap<>();
+
+        // 機能が無効化されているため、空の結果を返す
+        if (!MASKING_ENABLED) {
+            return result;
+        }
 
         if (text == null || text.trim().isEmpty()) {
             return result;
@@ -245,9 +279,6 @@ public class SensitiveDataMaskUtil {
         for (SensitiveDataPattern pattern : SensitiveDataPattern.values()) {
             boolean found = pattern.getPattern().matcher(text).find();
             result.put(pattern.getDescription(), found);
-            if (found) {
-                logger.debug("發現敏感信息類型: {}", pattern.getDescription());
-            }
         }
 
         return result;

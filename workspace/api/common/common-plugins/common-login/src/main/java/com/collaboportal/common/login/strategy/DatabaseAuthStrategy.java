@@ -6,11 +6,9 @@ import com.collaboportal.common.exception.AuthenticationException;
 import com.collaboportal.common.jwt.constants.JwtConstants;
 
 import com.collaboportal.common.jwt.service.JwtService;
-import com.collaboportal.common.jwt.utils.CookieUtil;
 import com.collaboportal.common.login.model.DTO.UserMasterEPL;
 import com.collaboportal.common.login.service.LoginUserMasterService;
 import com.collaboportal.common.strategy.authorization.AuthorizationStrategy;
-import com.collaboportal.common.utils.Message;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,13 +76,15 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
         logger.debug("データベース認証戦略の実行を開始します...");
 
         // Cookieから認証トークンを取得
-        // 事前定義されたCookie名を使用して認証トークンを検索
-        String token = request.getCookieValue(Message.Cookie.AUTH);
+        // Controller層で設定されたCookie名 "AuthToken" を使用
+        String token = request.getCookieValue("AuthToken");
+        logger.debug("認証トークン: {}", token);
 
         // トークンが存在するかを確認
         // トークンが存在しないか空文字列の場合、ユーザーがまだログインしていないか、ログイン状態が失効していることを表す
         if (token == null || token.isEmpty()) {
-            response.redirectWithFlush("/login.html");
+            response.redirect("/login.html");
+            response.flush();
             return;
         }
 
@@ -92,44 +92,46 @@ public class DatabaseAuthStrategy implements AuthorizationStrategy {
             // トークンが期限切れかを検証
             // JWTトークンは期限切れ時間情報を含み、ここで現在時間がトークンの有効期限を超えているかを確認
             if (!jwtService.validateToken(token, JwtConstants.VALIDATE_TYPE_EXPIRED)) {
-                response.redirectWithFlush("/login.html");
+                response.redirect("/login.html");
+                response.flush();
                 return;
             }
 
             // JWTトークンからユーザー情報を抽出
             // JWTトークンのpayloadにはユーザーID、ロールなどのユーザー関連情報が含まれている
             String email = jwtService.extractClaim(token, JwtConstants.RESOLVER_TYPE_EMAIL);
+            logger.debug("ユーザー情報: {}", email);
 
             // ユーザー情報が空かを確認
             // トークンが有効でも、ユーザー情報が含まれていない場合は認証失敗と見なす
             if ("".equals(email) || email == null) {
-                response.redirectWithFlush("/login.html");
+                response.redirect("/login.html");
+                response.flush();
                 return;
             }
             UserMasterEPL userInfo = loginUserMasterService.loadByEmail(email);
-            // トークンの期限切れ時間を更新
-            // これはユーザーのログイン状態を維持し、頻繁な再ログインを避けるのに役立つ
-            String refreshedToken = jwtService.generateToken(email, JwtConstants.GENERATE_DATABASE_TOKEN);
-
-            // 更新されたトークンをCookieに設定
-            // パラメータ説明：トークン値、パス、ドメイン、最大生存時間
-            CookieUtil.setSameSiteCookie(response, Message.Cookie.AUTH, refreshedToken);
-            logger.debug("認証トークンが正常に更新され、レスポンスCookieに設定されました。");
-
+            
+            // 注意：認証戦略では認証の確認のみを行う
+            // トークンの更新やCookie設定は、必要に応じて上位層（Controller/Interceptor）で処理される
+            // これにより、責任の分離と重複するCookie設定の回避を実現
+            
             // 認証成功、成功メッセージを記録
             logger.info("ユーザーデータベース認証成功：{}。", userInfo.getUserMail());
+            logger.debug("トークン検証完了 - 認証戦略での処理を終了します");
 
         } catch (ExpiredJwtException e) {
             // JWT期限切れ例外をキャッチ
             // これは正常なビジネスフローであり、トークンが期限切れの場合は再ログインが必要
             logger.info("認証トークンが期限切れです（例外キャッチ）。ログインページにリダイレクトします。");
-            response.redirectWithFlush("/login.html");
+            response.redirect("/login.html");
+            response.flush();
             return;
         } catch (Exception e) {
             // その他の可能な例外をキャッチ（トークン形式エラー、署名無効など）
             // エラーを記録してログインページにリダイレクト
             logger.error("データベーストークン検証プロセス中にエラーが発生しました。ログインページにリダイレクトします。", e);
-            response.redirectWithFlush("/login.html");
+            response.redirect("/login.html");
+            response.flush();
             return;
         }
     }

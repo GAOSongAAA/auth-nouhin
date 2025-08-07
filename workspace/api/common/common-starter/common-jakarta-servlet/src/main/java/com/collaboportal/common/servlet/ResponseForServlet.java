@@ -38,7 +38,7 @@ public class ResponseForServlet implements BaseResponse {
     }
 
     @Override
-    public Object redirectWithoutFlush(String url) {
+    public Object redirect(String url) {
         try {
             response.setStatus(302);
             response.setHeader("Location", url);
@@ -49,13 +49,12 @@ public class ResponseForServlet implements BaseResponse {
     }
 
     @Override
-    public Object redirectWithFlush(String url) {
+    public void flush() {
         try {
-            response.sendRedirect(url);
+            response.flushBuffer();
         } catch (Exception e) {
             throw new CommonException(InternalErrorCode.SYSTEM_ERROR);
         }
-        return null;
     }
 
 }

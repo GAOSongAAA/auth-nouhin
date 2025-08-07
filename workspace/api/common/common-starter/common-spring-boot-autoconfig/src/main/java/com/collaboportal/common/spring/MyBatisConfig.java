@@ -15,9 +15,10 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  */
 @AutoConfiguration
 @MapperScan(basePackages = {
-        "com.collaboportal.common",
+        "com.collaboportal.common.login.mapper",
+        "com.collaboportal.common.oauth2.repository",
+        "com.collaboportal.common.jwt.repository",
         "com.collaboportal.shoho"
-// ログイン関連のMapperパッケージ
 })
 public class MyBatisConfig {
 

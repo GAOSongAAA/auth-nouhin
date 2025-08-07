@@ -1,25 +1,91 @@
 package com.collaboportal.common.login.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
- * 登录接口统一响应体
+ * ログイン応答ボディ
  */
-public record LoginResponseBody(
-        String code, // 业务码：200=成功，其余=失败
-        String message, // 提示信息
-        UserInfo user // 成功时返回最小用户信息；失败为 null
-) {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class LoginResponseBody {
+    
+    private boolean success;
+    private String code;
+    private String message;
+    private String redirectUrl; // 🔥 重定向URL字段
+    private Object data;
 
-    /* ========= 静态工厂方法 ========= */
+    // 构造函数
+    public LoginResponseBody() {}
 
-    public static LoginResponseBody ok(UserInfo user) {
-        return new LoginResponseBody("200", "ログイン成功", user);
+    public LoginResponseBody(boolean success, String code, String message) {
+        this.success = success;
+        this.code = code;
+        this.message = message;
     }
 
-    public static LoginResponseBody fail(String code, String msg) {
-        return new LoginResponseBody(code, msg, null);
+    public LoginResponseBody(boolean success, String code, String message, String redirectUrl) {
+        this.success = success;
+        this.code = code;
+        this.message = message;
+        this.redirectUrl = redirectUrl;
     }
 
-    /* ========= 内嵌只读用户 DTO ========= */
-    public record UserInfo(String id, String username) {
+    // 静态工厂方法
+    public static LoginResponseBody success(String code, String message) {
+        return new LoginResponseBody(true, code, message);
+    }
+
+    public static LoginResponseBody success(String code, String message, String redirectUrl) {
+        return new LoginResponseBody(true, code, message, redirectUrl);
+    }
+
+    public static LoginResponseBody fail(String code, String message) {
+        return new LoginResponseBody(false, code, message);
+    }
+
+    // 🔥 添加ok()方法，为了向后兼容
+    public static LoginResponseBody ok(String redirectUrl) {
+        return new LoginResponseBody(true, "200", "操作成功", redirectUrl);
+    }
+
+    // Getter and Setter
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getRedirectUrl() {
+        return redirectUrl;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }

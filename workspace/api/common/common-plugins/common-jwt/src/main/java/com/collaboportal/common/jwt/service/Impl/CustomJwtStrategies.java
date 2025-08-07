@@ -10,6 +10,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +31,8 @@ import java.util.Map;
  */
 @Component
 public class CustomJwtStrategies implements CommandLineRunner {
+
+        private static final Logger logger = LoggerFactory.getLogger(CustomJwtStrategies.class);
 
         private final JwtStrategyRegistry registry;
 
@@ -76,15 +81,24 @@ public class CustomJwtStrategies implements CommandLineRunner {
                 registry.registerTokenGenerator(JwtConstants.GENERATE_STATE_MAP, mapGenerator);
 
                 // 2-3 User → RefreshToken（長期有効）AccessTokenの更新用、内部使用
-                JwtTokenGenerator<UserMaster> oauth2Generator = user -> Jwts.builder()
-                                .setSubject(user.getUserMail())
-                                .setIssuer(ConfigManager.getConfig().getCollaboportalIssuer())
-                                .claim("token_type", JwtConstants.TOKEN_TYPE_INTERNAL)
-                                .setIssuedAt(new Date())
-                                .setExpiration(new Date(System.currentTimeMillis()
-                                                + ConfigManager.getConfig().getCookieExpiration() * 1000L))
+                JwtTokenGenerator<UserMaster> oauth2Generator = user -> {
+                        Date now = new Date();
+                        Date exp = new Date(now.getTime() + ConfigManager.getConfig().getCookieExpiration() * 1000L);
+
+                        Claims claims = Jwts.claims();
+                        claims.setSubject(user.getUserMail());
+                        logger.warn(ConfigManager.getConfig().getCollaboportalIssuer());
+                        claims.setIssuer(ConfigManager.getConfig().getCollaboportalIssuer());
+                        claims.put("uid", user.getUserId());
+                        claims.setIssuedAt(now);
+                        claims.setExpiration(exp);
+                        claims.put("token_type", JwtConstants.TOKEN_TYPE_INTERNAL);
+
+                        return Jwts.builder()
+                                .setClaims(claims)
                                 .signWith(secretKey())
                                 .compact();
+                };
                 registry.registerTokenGenerator(JwtConstants.GENERATE_INTERNAL_TOKEN, oauth2Generator);
 
                 // 2-x Object → JWT（通用）
@@ -108,7 +122,7 @@ public class CustomJwtStrategies implements CommandLineRunner {
                                                         claimMap.put(f.getName(), v);
                                                 }
                                         } catch (IllegalAccessException e) {
-                                                // 转成 unchecked；也可以直接 log & continue
+                                               
                                                 throw new RuntimeException(
                                                                 "Cannot access field: " + f.getName(), e);
                                         }
@@ -134,15 +148,24 @@ public class CustomJwtStrategies implements CommandLineRunner {
                                 JwtConstants.GENERATE_OBJECT_TOKEN, objectGenerator);
 
                 // 2-4 User -> AccessToken（長期有効）データベース認証用、内部使用
-                JwtTokenGenerator<UserMaster> databaseTokenGenerator = user -> Jwts.builder()
-                                .setSubject(user.getUserMail())
-                                .setIssuer("database")
-                                .claim("token_type", JwtConstants.TOKEN_TYPE_INTERNAL)
-                                .setIssuedAt(new Date())
-                                .setExpiration(new Date(System.currentTimeMillis()
-                                                + ConfigManager.getConfig().getCookieExpiration() * 1000L))
+                JwtTokenGenerator<UserMaster> databaseTokenGenerator = user -> {
+                        Date now = new Date();
+                        Date exp = new Date(now.getTime() + ConfigManager.getConfig().getCookieExpiration() * 1000L);
+                    
+                        Claims claims = Jwts.claims();
+                        claims.setSubject(user.getUserMail());
+                        claims.setIssuer("database");
+                        claims.setIssuedAt(now);
+                        claims.setExpiration(exp);
+                        claims.put("token_type", JwtConstants.TOKEN_TYPE_INTERNAL);
+                    
+                        return Jwts.builder()
+                                .setClaims(claims)
                                 .signWith(secretKey())
                                 .compact();
+                    };
+                    
+                    
                 registry.registerTokenGenerator(JwtConstants.GENERATE_DATABASE_TOKEN, databaseTokenGenerator);
 
                 /* --------------- ③ トークンバリデーター（Validator） ---------------- */
@@ -192,7 +215,7 @@ public class CustomJwtStrategies implements CommandLineRunner {
 
                         // 3) exp / iat を上書きし再署名
                         return Jwts.builder()
-                                        .setClaims(new LinkedHashMap<>(claims)) // 深コピーして安心
+                                        .setClaims(new LinkedHashMap<>(claims)) 
                                         .setIssuedAt(now)
                                         .setExpiration(exp)
                                         .signWith(secretKey())

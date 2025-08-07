@@ -18,6 +18,6 @@ public interface LoginMapper {
      * @param username ユーザー名
      * @return 一致するユーザー情報。存在しない場合はnullを返します。
      */
-    UserMasterEPL findUserByEmail(@Param("email") String email);
+    UserMasterEPL findUserByEmail(@Param("userMail") String email);
 
 }

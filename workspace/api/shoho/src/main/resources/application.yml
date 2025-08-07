@@ -13,10 +13,8 @@ logging:
     com:
       collaboportal:
         shoho: ${LOG_LEVEL}
-        common:
-          oauth2: ${OAUTH2_LOG_LEVEL:DEBUG}
-          spring:
-            oauth2: '${OAUTH2_SPRING_LOG_LEVEL:DEBUG}'
+        common: DEBUG
+        
 spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL}

@@ -9,17 +9,12 @@ import com.collaboportal.common.funcs.ParamFunction;
 import com.collaboportal.common.funcs.ParamRetFunction;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 共通ルータークラス
  * ルーティングのマッチングや認証処理を提供します。
  */
 public class CommonRouter {
-
-    // ロガーの初期化
-    private static final Logger logger = LoggerFactory.getLogger(CommonRouter.class);
 
     private CommonRouter() {};
 
@@ -30,9 +25,7 @@ public class CommonRouter {
      * @return マッチした場合はtrue
      */
     public static boolean isMatch(String pattern, String path) {
-        logger.debug("isMatch: パターン[{}]、パス[{}] でマッチングを実行します。", pattern, path);
         boolean result = ConfigManager.getCommonContext().matchPath(pattern, path);
-        logger.debug("isMatch: 結果 = {}", result);
         return result;
     }
 
@@ -43,18 +36,14 @@ public class CommonRouter {
      * @return マッチした場合はtrue
      */
     public static boolean isMatch(List<String> patterns, String path) {
-        logger.debug("isMatch(List): パターンリスト[{}]、パス[{}] でマッチングを実行します。", patterns, path);
         if(patterns == null) {
-            logger.warn("isMatch(List): パターンリストがnullです。");
             return false;
         }
         for (String pattern : patterns) {
             if(isMatch(pattern, path)) {
-                logger.debug("isMatch(List): パターン[{}]がマッチしました。", pattern);
                 return true;
             }
         }
-        logger.debug("isMatch(List): いずれのパターンもマッチしませんでした。");
         return false;
     }
 
@@ -65,18 +54,14 @@ public class CommonRouter {
      * @return マッチした場合はtrue
      */
     public static boolean isMatch(String[] patterns, String path) {
-        logger.debug("isMatch(Array): パターン配列[{}]、パス[{}] でマッチングを実行します。", (patterns == null ? "null" : patterns.length), path);
         if(patterns == null) {
-            logger.warn("isMatch(Array): パターン配列がnullです。");
             return false;
         }
         for (String pattern : patterns) {
             if(isMatch(pattern, path)) {
-                logger.debug("isMatch(Array): パターン[{}]がマッチしました。", pattern);
                 return true;
             }
         }
-        logger.debug("isMatch(Array): いずれのパターンもマッチしませんでした。");
         return false;
     }
 
@@ -87,7 +72,6 @@ public class CommonRouter {
      */
     public static boolean isMatchCurrURI(String pattern) {
         String currPath = CommonHolder.getRequest().getRequestPath();
-        logger.debug("isMatchCurrURI: 現在のURI[{}]、パターン[{}] でマッチングを実行します。", currPath, pattern);
         return isMatch(pattern, currPath);
     }  
 
@@ -98,7 +82,6 @@ public class CommonRouter {
      */
     public static boolean isMatchCurrURI(List<String> patterns) {
         String currPath = CommonHolder.getRequest().getRequestPath();
-        logger.debug("isMatchCurrURI(List): 現在のURI[{}]、パターンリスト[{}] でマッチングを実行します。", currPath, patterns);
         return isMatch(patterns, currPath);
     }
 
@@ -109,7 +92,6 @@ public class CommonRouter {
      */
     public static boolean isMatchCurrURI(String[] patterns) {
         String currPath = CommonHolder.getRequest().getRequestPath();
-        logger.debug("isMatchCurrURI(Array): 現在のURI[{}]、パターン配列[{}] でマッチングを実行します。", currPath, (patterns == null ? "null" : patterns.length));
         return isMatch(patterns, currPath);
     }
 
@@ -118,7 +100,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff newMatch() {
-        logger.debug("newMatch: 新しいCommonRouterStaffを生成します。");
         return new CommonRouterStaff();
     }
 
@@ -128,7 +109,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff match(String... patterns) {
-        logger.debug("match(String...): パターン配列でマッチングスタッフを生成します。");
         return new CommonRouterStaff().match(patterns);
     }
 
@@ -138,7 +118,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff notMatch(String... patterns) {
-        logger.debug("notMatch(String...): パターン配列でnotMatchスタッフを生成します。");
         return new CommonRouterStaff().notMatch(patterns);
     }
 
@@ -148,7 +127,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff match(List<String> patterns) {
-        logger.debug("match(List): パターンリストでマッチングスタッフを生成します。");
         return new CommonRouterStaff().match(patterns);
     }
 
@@ -158,7 +136,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff notMatch(List<String> patterns) {
-        logger.debug("notMatch(List): パターンリストでnotMatchスタッフを生成します。");
         return new CommonRouterStaff().notMatch(patterns);
     }
 
@@ -168,7 +145,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff match(boolean flag) {
-        logger.debug("match(boolean): フラグ[{}]でマッチングスタッフを生成します。", flag);
         return new CommonRouterStaff().match(flag);
     }
 
@@ -178,7 +154,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff notMatch(boolean flag) {
-        logger.debug("notMatch(boolean): フラグ[{}]でnotMatchスタッフを生成します。", flag);
         return new CommonRouterStaff().notMatch(flag);
     }
 
@@ -188,7 +163,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff match(ParamRetFunction<Object, Boolean> fun) {
-        logger.debug("match(ParamRetFunction): 関数でマッチングスタッフを生成します。");
         return new CommonRouterStaff().match(fun);
     }
 
@@ -198,7 +172,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff notMatch(ParamRetFunction<Object, Boolean> fun) {
-        logger.debug("notMatch(ParamRetFunction): 関数でnotMatchスタッフを生成します。");
         return new CommonRouterStaff().notMatch(fun);
     }
 
@@ -209,7 +182,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff match(String pattern, Function fun) {
-        logger.debug("match(String, Function): パターン[{}]で関数付きマッチングスタッフを生成します。", pattern);
         return new CommonRouterStaff().match(pattern, fun);
     }
 
@@ -220,7 +192,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff match(String pattern, ParamFunction<CommonRouterStaff> fun) {
-        logger.debug("match(String, ParamFunction): パターン[{}]で関数付きマッチングスタッフを生成します。", pattern);
         return new CommonRouterStaff().match(pattern, fun);
     }
 
@@ -232,7 +203,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff match(String pattern, String excludePattern, Function fun) {
-        logger.debug("match(String, String, Function): パターン[{}]、除外パターン[{}]で関数付きマッチングスタッフを生成します。", pattern, excludePattern);
         return new CommonRouterStaff().match(pattern, excludePattern, fun);
     }
 
@@ -244,7 +214,6 @@ public class CommonRouter {
      * @return CommonRouterStaffインスタンス
      */
     public static CommonRouterStaff match(String pattern, String excludePattern, ParamFunction<CommonRouterStaff> fun) {
-        logger.debug("match(String, String, ParamFunction): パターン[{}]、除外パターン[{}]で関数付きマッチングスタッフを生成します。", pattern, excludePattern);
         return new CommonRouterStaff().match(pattern, excludePattern, fun);
     }
 
@@ -253,7 +222,6 @@ public class CommonRouter {
      * @return なし
      */
     public static CommonRouterStaff stop() {
-        logger.warn("stop: マッチングを停止します。StopMatchExceptionをスローします。");
         throw new StopMatchException();
     }
 
@@ -262,7 +230,6 @@ public class CommonRouter {
      * @return なし
      */
     public static CommonRouterStaff back() {
-        logger.warn("back: マッチングを停止し、空の結果を返します。BackResultExceptionをスローします。");
         throw new BackResultException("");
     }
 
@@ -272,7 +239,6 @@ public class CommonRouter {
      * @return なし
      */
     public static CommonRouterStaff back(Object result) {
-        logger.warn("back(Object): マッチングを停止し、結果[{}]を返します。BackResultExceptionをスローします。", result);
         throw new BackResultException(result);
     }
 

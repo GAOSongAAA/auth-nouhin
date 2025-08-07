@@ -1,195 +1,53 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CollaborPortal - 主頁</title>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{
-            font-family:'Microsoft JhengHei','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-            min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-        .container{
-            background:rgba(255,255,255,.95);padding:40px;border-radius:15px;
-            box-shadow:0 15px 35px rgba(0,0,0,.1);width:100%;max-width:600px;backdrop-filter:blur(10px);text-align:center}
-        .header{margin-bottom:30px}
-        .header h1{color:#333;font-size:32px;margin-bottom:10px}
-        .header p{color:#666;font-size:16px}
-        .status-section{margin:30px 0;padding:20px;background:rgba(102,126,234,.1);
-            border-radius:10px;border-left:4px solid #667eea}
-        .status-section h2{color:#333;font-size:20px;margin-bottom:15px}
-        .status-item{display:flex;justify-content:space-between;align-items:center;margin:10px 0;padding:10px;
-            background:#fff;border-radius:5px;box-shadow:0 2px 5px rgba(0,0,0,.05)}
-        .status-item span:first-child{color:#333;font-weight:500}
-        .status-indicator{padding:5px 15px;border-radius:20px;color:#fff;font-size:14px;font-weight:600}
-        .status-ok{background-color:#27ae60}.status-warning{background-color:#f39c12}.status-error{background-color:#e74c3c}
-        .navigation-section{margin:30px 0}
-        .nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px}
-        .nav-item{padding:20px;background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.08);
-            transition:transform .3s,box-shadow .3s;text-decoration:none;color:#333}
-        .nav-item:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
-        .nav-item h3{margin-bottom:10px;color:#667eea}
-        .nav-item p{color:#666;font-size:14px}
-        .footer{margin-top:30px;padding-top:20px;border-top:1px solid #e1e1e1;color:#666;font-size:14px}
-        .api-test-section{margin:30px 0;padding:20px;background:rgba(39,174,96,.1);
-            border-radius:10px;border-left:4px solid #27ae60}
-        .test-button{padding:10px 20px;margin:5px;background:#667eea;color:#fff;border:none;border-radius:5px;
-            cursor:pointer;transition:background-color .3s}
-        .test-button:hover{background:#5a6fd8}
-        .test-results{margin-top:15px;padding:15px;background:#fff;border-radius:5px;border:1px solid #e1e1e1;
-            text-align:left;font-family:'Courier New',monospace;font-size:12px;max-height:200px;overflow-y:auto}
-    </style>
+    <title>CollaborPortal JWT検証テスト</title>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>CollaborPortal</h1>
-        <p>歡迎來到協作平台 - 系統驗證頁面</p>
-    </div>
+    <button onclick="testJwtValidation('/api/v1/normality-check')">Normality Check 1</button>
+    <button onclick="testJwtValidation('/api/v1/normality-check-2')">Normality Check 2</button>
+    <button onclick="testJwtValidation('/api/v1/login')">Login Check</button>
 
-    <div class="status-section">
-        <h2>系統狀態</h2>
-        <div class="status-item"><span>應用程式狀態</span><span class="status-indicator status-ok" id="appStatus">正常運行</span></div>
-        <div class="status-item"><span>資料庫連接</span><span class="status-indicator status-ok" id="dbStatus">已連接</span></div>
-        <div class="status-item"><span>登入服務</span><span class="status-indicator status-ok" id="loginStatus">可用</span></div>
-        <div class="status-item"><span>JWT 服務</span><span class="status-indicator status-ok" id="jwtStatus">可用</span></div>
-    </div>
+    <div id="result"></div>
 
-    <div class="api-test-section">
-        <h2>API 測試</h2>
-        <p>點擊按鈕測試各項功能</p>
-        <div style="margin:15px 0;">
-            <button class="test-button" onclick="testHealthCheck()">健康檢查</button>
-            <button class="test-button" onclick="testLoginEndpoint()">登入端點測試</button>
-            <button class="test-button" onclick="testJwtValidation()">JWT 驗證測試</button>
-            <button class="test-button" onclick="clearResults()">清除結果</button>
-        </div>
-        <div class="test-results" id="testResults">測試結果將顯示在這裡...</div>
-    </div>
-
-    <div class="navigation-section">
-        <h2>快速導航</h2>
-        <div class="nav-grid">
-            <a href="/login.html" class="nav-item"><h3>使用者登入</h3><p>訪問登入頁面進行身份驗證</p></a>
-            <a href="/auth/login" class="nav-item"><h3>登入 API</h3><p>直接訪問登入 API 端點</p></a>
-            <a href="/health_check" class="nav-item"><h3>健康檢查</h3><p>查看應用程式健康狀態</p></a>
-            <a href="/api-docs" class="nav-item"><h3>API 文件</h3><p>查看 Swagger API 文檔</p></a>
-        </div>
-    </div>
-
-    <div class="footer">
-        <p>&copy; 2024 CollaborPortal. 版本: 1.0.0</p>
-        <p>構建時間: <span id="buildTime"></span></p>
-    </div>
-</div>
-
-<script>
-/* ---------- 共用：從 Cookie 讀取 Auth_Token ---------- */
-function getAuthToken(){
-    const m=document.cookie.match(/(?:^|;\s*)Auth_Token=([^;]+)/);
-    return m?decodeURIComponent(m[1]):null;
-}
-
-/* ---------- 日誌函數 ---------- */
-function addTestResult(message,type='info'){
-    const results=document.getElementById('testResults');
-    const ts=new Date().toLocaleTimeString('zh-TW');
-    const color=type==='error'?'red':type==='success'?'green':'blue';
-    results.innerHTML+=`<div style="color:${color}">[${ts}] ${message}</div>`;
-    results.scrollTop=results.scrollHeight;
-}
-
-/* ---------- 狀態更新 ---------- */
-function updateStatus(id,text,status){
-    const el=document.getElementById(id);
-    el.textContent=text;
-    el.className=`status-indicator status-${status}`;
-}
-
-/* ---------- 健康檢查 ---------- */
-function testHealthCheck(){
-    addTestResult('開始健康檢查測試…');
-    fetch('/health_check',{
-        headers: getAuthToken()?{'Authorization':`Bearer ${getAuthToken()}`}:{}
-    })
-    .then(r=>{if(r.ok)return r.json();throw new Error(`HTTP ${r.status}`);})
-    .then(d=>{
-        addTestResult(`健康檢查成功: ${JSON.stringify(d)}`,'success');
-        updateStatus('appStatus','正常運行','ok');
-    })
-    .catch(err=>{
-        addTestResult(`健康檢查失敗: ${err.message}`,'error');
-        updateStatus('appStatus','異常','error');
-    });
-}
-
-/* ---------- 登入端點測試 ---------- */
-function testLoginEndpoint(){
-    addTestResult('開始登入端點測試…');
-    const body={username:'test@example.com',password:'testpassword'};
-    fetch('/auth/login',{
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json',
-            ...(getAuthToken()?{'Authorization':`Bearer ${getAuthToken()}`}:{})
-        },
-        body:JSON.stringify(body)
-    })
-    .then(r=>{
-        if(r.ok)return r.json();
-        if(r.status===401){
-            addTestResult('登入端點正常運行 (憑證無效為預期)','success');
-            updateStatus('loginStatus','可用','ok');
-            return null;
+    <script>
+        function getAuthToken() {
+            const match = document.cookie.match(/(?:^|;\s*)AuthToken=([^;]+)/);
+            return match ? decodeURIComponent(match[1]) : null;
         }
-        throw new Error(`HTTP ${r.status}`);
-    })
-    .then(d=>{
-        if(d){
-            addTestResult(`登入成功: ${JSON.stringify(d)}`,'success');
-            updateStatus('loginStatus','可用','ok');
-        }
-    })
-    .catch(err=>{
-        if(err.message.includes('401')){
-            addTestResult('登入端點正常運行 (憑證無效為預期)','success');
-            updateStatus('loginStatus','可用','ok');
-        }else{
-            addTestResult(`登入端點測試失敗: ${err.message}`,'error');
-            updateStatus('loginStatus','不可用','error');
-        }
-    });
-}
 
-/* ---------- JWT 驗證測試 ---------- */
-function testJwtValidation(){
-    addTestResult('開始 JWT 驗證測試…');
-    fetch('/api/protected',{
-        headers: getAuthToken()?{'Authorization':`Bearer ${getAuthToken()}`}:{}
-    })
-    .then(r=>{
-        if(r.status===401){
-            addTestResult('JWT 驗證服務正常運行 (拒絕無效 token)','success');
-            updateStatus('jwtStatus','可用','ok');
-        }else{
-            addTestResult(`JWT 驗證測試回應: HTTP ${r.status}`,'info');
+        function testJwtValidation(endpoint) {
+            const result = document.getElementById("result");
+            result.textContent = `🔎 ${endpoint} に対して検証を開始...`;
+
+            const token = getAuthToken();
+            const headers = {};
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            } else {
+                result.textContent = `⚠️ CookieからAuth_Tokenが取得できません。`;
+                return;
+            }
+
+            fetch(endpoint, {
+                method: 'GET',
+                headers
+            })
+                .then(res => res.text().then(text => ({ status: res.status, text })))
+                .then(({ status, text }) => {
+                    if (status === 200) {
+                        result.textContent = `✅ 成功 (${status}): ${text}`;
+                    } else if (status === 401) {
+                        result.textContent = `⚠️ 認証失敗 (${status}) - トークンが無効か期限切れです`;
+                    } else {
+                        result.textContent = `ℹ️ 応答 (${status}): ${text}`;
+                    }
+                })
+                .catch(err => {
+                    result.textContent = `❌ エラー: ${err.message}`;
+                });
         }
-    })
-    .catch(err=>{
-        addTestResult(`JWT 驗證測試失敗: ${err.message}`,'error');
-        updateStatus('jwtStatus','不可用','error');
-    });
-}
-
-/* ---------- 清除結果 ---------- */
-function clearResults(){
-    document.getElementById('testResults').innerHTML='測試結果將顯示在這裡...';
-}
-
-/* ---------- 初始動作 ---------- */
-document.getElementById('buildTime').textContent=new Date().toLocaleString('zh-TW');
-window.addEventListener('load',()=>{addTestResult('頁面載入完成，開始初始化檢查…');setTimeout(testHealthCheck,1000);});
-</script>
+    </script>
 </body>
 </html>

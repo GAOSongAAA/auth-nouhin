@@ -1,197 +1,248 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン - CollaborPortal</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ログイン - CollaborPortal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            backdrop-filter: blur(10px);
-        }
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      backdrop-filter: blur(10px);
+    }
 
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        .login-header h1 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
+    .login-header h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
 
-        .login-header p {
-            color: #666;
-            font-size: 14px;
-        }
+    .login-header p {
+      color: #666;
+      font-size: 14px;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .form-group {
+      margin-bottom: 20px;
+    }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-        }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 500;
+    }
 
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e1e1e1;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
 
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
 
-        .login-btn:hover {
-            transform: translateY(-2px);
-        }
+    .login-btn:hover {
+      transform: translateY(-2px);
+    }
 
-        .login-btn:active {
-            transform: translateY(0);
-        }
+    .login-btn:active {
+      transform: translateY(0);
+    }
 
-        .forgot-password {
-            text-align: center;
-            margin-top: 20px;
-        }
+    .forgot-password {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        .forgot-password a {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 14px;
-        }
+    .forgot-password a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 14px;
+    }
 
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
 
-        .error-message {
-            color: #e74c3c;
-            font-size: 14px;
-            margin-top: 10px;
-            text-align: center;
-            display: none;
-        }
-    </style>
+    .error-message {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+
+    .loading {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <h1>ログイン</h1>
-            <p>アカウントにログインしてください</p>
-        </div>
-
-        <!-- 
-        ログインフォーム
-        バックエンドでの抽出方法：
-        
-        Spring Boot Controller で以下のように受け取ることができます：
-        
-        @PostMapping("/auth/login")
-        public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-            String username = loginRequest.getUsername(); // メールアドレス
-            String password = loginRequest.getPassword(); // パスワード
-            
-            // 認証処理...
-        }
-        
-        または @RequestParam を使用：
-        @PostMapping("/auth/login")
-        public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
-            // 認証処理...
-        }
-        
-        LoginRequest クラスの例：
-        public class LoginRequest {
-            private String username;
-            private String password;
-            
-            // getters and setters
-        }
-        -->
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">メールアドレス</label>
-                <input type="email" id="username" name="username" required placeholder="your@email.com">
-            </div>
-
-            <div class="form-group">
-                <label for="password">パスワード</label>
-                <input type="password" id="password" name="password" required placeholder="パスワードを入力してください">
-            </div>
-
-            <button type="submit" class="login-btn">ログイン</button>
-            
-            <div class="error-message" id="errorMessage">
-                ログインに失敗しました。メールアドレスとパスワードを確認してください。
-            </div>
-        </form>
-
-        <div class="forgot-password">
-            <a href="/forgot-password">パスワードを忘れた方はこちら</a>
-        </div>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>ログイン</h1>
+      <p>アカウントにログインしてください</p>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('errorMessage');
-            
-            // エラーメッセージを隠す
-            errorMessage.style.display = 'none';
-            
-            const apiBase = `${window.location.protocol}//${window.location.hostname}:415`;
-            fetch(`${apiBase}/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-            });
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">メールアドレス</label>
+        <input type="email" id="email" name="email" required placeholder="your@email.com">
+      </div>
+
+      <div class="form-group">
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" required placeholder="パスワードを入力してください">
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">ログイン</button>
+      <div class="error-message" id="errorMessage">
+        ログインに失敗しました。メールアドレスとパスワードを確認してください。
+      </div>
+    </form>
+
+    <div class="forgot-password">
+      <a href="/forgot-password">パスワードを忘れた方はこちら</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+  
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+      const loginBtn = document.getElementById('loginBtn');
+  
+      // 清除之前的错误信息
+      errorMessage.style.display = 'none';
+      
+      // 添加加载状态
+      loginBtn.textContent = 'ログイン中...';
+      loginBtn.classList.add('loading');
+  
+      try {
+        console.log('发送登录请求...');
+        
+        const response = await fetch('/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password }),
+          credentials: 'include',
+          redirect: 'manual' // 🔥 关键修改：手动处理重定向
         });
-    </script>
+  
+        console.log('响应状态:', response.status);
+        console.log('响应类型:', response.type);
+        console.log('是否重定向:', response.redirected);
+        
+        // 处理重定向响应 (302, 301等)
+        if (response.status === 302 || response.status === 301) {
+          const location = response.headers.get('location');
+          console.log('重定向到:', location);
+          if (location) {
+            window.location.href = location;
+            return;
+          }
+        }
+        
+        // 处理已经发生的重定向
+        if (response.redirected) {
+          console.log('检测到重定向，跳转到:', response.url);
+          window.location.href = response.url;
+          return;
+        }
+
+        // 检查响应内容类型
+        const contentType = response.headers.get('content-type');
+        console.log('响应内容类型:', contentType);
+        
+        if (contentType && contentType.includes('application/json')) {
+          // 只有在确认是JSON响应时才解析
+          const result = await response.json();
+          console.log('JSON响应:', result);
+          
+          if (response.ok && result.success) {
+            if (result.redirectUrl) {
+              console.log('从JSON获取重定向URL:', result.redirectUrl);
+              window.location.href = result.redirectUrl;
+            } else {
+              window.location.href = '/index.html';
+            }
+          } else {
+            throw new Error(result.message || 'ログインに失敗しました');
+          }
+        } else if (contentType && contentType.includes('text/html')) {
+          // 如果收到HTML响应，说明可能已经重定向到目标页面
+          console.log('收到HTML响应，可能已经重定向');
+          window.location.href = '/index.html';
+        } else {
+          // 处理成功但没有明确响应体的情况
+          if (response.ok) {
+            console.log('登录成功，跳转到首页');
+            window.location.href = '/index.html';
+          } else {
+            throw new Error('ログインに失敗しました');
+          }
+        }
+        
+      } catch (error) {
+        console.error('登录错误:', error);
+        errorMessage.textContent = error.message || 'ログインに失敗しました。メールアドレスとパスワードを確認してください。';
+        errorMessage.style.display = 'block';
+      } finally {
+        // 恢复按钮状态
+        loginBtn.textContent = 'ログイン';
+        loginBtn.classList.remove('loading');
+      }
+    });
+  </script>
 </body>
 </html>

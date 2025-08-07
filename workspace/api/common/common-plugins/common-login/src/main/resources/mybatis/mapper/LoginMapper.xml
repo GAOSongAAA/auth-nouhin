@@ -6,7 +6,7 @@
         SELECT							
             I_USER_TYPE as userType,
             I_USER_MAIL as userMail,
-            I_PASSWORD as password，
+            I_PASSWORD as password,
             I_USER_ID as userId
         FROM
             shohomoto_info.RIYOUSHA_MASTER

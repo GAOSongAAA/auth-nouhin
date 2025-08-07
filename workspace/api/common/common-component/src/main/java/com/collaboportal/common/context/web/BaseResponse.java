@@ -103,8 +103,14 @@ public interface BaseResponse {
      * @param url リダイレクト先URL
      * @return 任意値
      */
-    Object redirectWithFlush(String url);
+    Object redirect(String url);
 
-    Object redirectWithoutFlush(String url);
+    /**
+     * リダイレクト処理
+     * 
+     * @param url リダイレクト先URL
+     * @return 任意値
+     */
+    void flush();
 
 }

@@ -68,8 +68,8 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
                 throw new OAuth2ConfigurationException("OAuth2認証は失敗し、リダイレクトアドレスを特定できません。");
             }
             logger.info("OAuth2認証にはリダイレクトが必要です。ターゲットアドレス: {}", redirectUrl);
-            response.redirectWithFlush(redirectUrl);
-
+            response.redirect(redirectUrl);
+            response.flush();
         }
         return;
     }
@@ -158,9 +158,10 @@ public class OAuth2AuthStrategy implements AuthorizationStrategy {
         context.setToken(token); // 見つかったトークンをコンテキストに保存します
 
         try {
-            if (jwtService.validateToken(token, JwtConstants.VALIDATE_TYPE_EXPIRED)) {
+            if (!jwtService.validateToken(token, JwtConstants.VALIDATE_TYPE_EXPIRED)) {
                 logger.debug("トークンは期限切れです。");
                 context.setAuthProviderUrl(getRedirectUrlByEnv(context));
+                return false;
             }
             String updatedToken = jwtService.generateToken(token, JwtConstants.GENERATE_REFRESH_FROM_OLD);
             logger.debug("トークンの検証に成功し、更新されました。");
