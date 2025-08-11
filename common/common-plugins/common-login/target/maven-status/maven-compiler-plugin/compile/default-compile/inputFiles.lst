@@ -1,0 +1,10 @@
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/model/DTO/UserMasterEPL.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/controller/DatabaseAuthController.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/service/LoginService.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/model/LoginResult.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/service/impl/LoginServiceImpl.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/strategy/DatabaseAuthStrategy.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/model/LoginResponseBody.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/model/LoginRequest.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/mapper/LoginMapper.java
+/home/workspace/api/common/common-plugins/common-login/src/main/java/com/collaboportal/common/login/service/LoginUserMasterService.java
